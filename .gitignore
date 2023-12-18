@@ -25,7 +25,8 @@ gen/
 # Gradle
 .gradle/
 build/
-가
+.gradle-wrapper.jar
+
 # Eclipse
 .classpath
 .project
