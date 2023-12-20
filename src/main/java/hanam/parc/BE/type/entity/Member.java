@@ -1,17 +1,20 @@
 package hanam.parc.BE.type.entity;
 
+import hanam.parc.BE.type.etc.Role;
+import hanam.parc.BE.type.etc.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -40,10 +43,20 @@ public class Member {
     @Column(length = 45)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Column
+    private LocalDateTime birth;
+
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name="last_login_time", nullable = false)
     private LocalDateTime lastLoginTime;
 
