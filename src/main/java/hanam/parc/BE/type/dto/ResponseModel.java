@@ -1,11 +1,13 @@
 package hanam.parc.BE.type.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.net.http.HttpHeaders;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class ResponseModel<T> {
 

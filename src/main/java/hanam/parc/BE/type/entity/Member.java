@@ -1,6 +1,5 @@
 package hanam.parc.BE.type.entity;
 
-import hanam.parc.BE.type.dto.MemberDto;
 import hanam.parc.BE.type.etc.Role;
 import hanam.parc.BE.type.etc.Status;
 import jakarta.persistence.Column;
@@ -11,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,9 +26,9 @@ import java.time.LocalDateTime;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id", nullable = false)
-    private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false, unique = true)
+    private String id;
 
     @Column(nullable = false, length = 45)
     private String password;
@@ -60,16 +58,6 @@ public class Member {
     @UpdateTimestamp
     @Column(name="last_login_time", nullable = false)
     private LocalDateTime lastLoginTime;
-
-    @Builder
-    public Member(MemberDto memberDto) {
-        this.name = memberDto.getName();
-        this.email = memberDto.getEmail();
-        this.role = memberDto.getRole();
-        this.status = memberDto.getStatus();
-        this.birth = memberDto.getBirth();
-        this.lastLoginTime = memberDto.getLastLoginTime();
-    }
 
 
 }

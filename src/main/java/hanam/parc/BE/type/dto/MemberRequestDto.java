@@ -11,9 +11,15 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class MemberDto {
+public class MemberRequestDto {
+
+    private String id;
+
+    private String password;
 
     private String name;
+
+    private String phone;
 
     private String email;
 
@@ -25,13 +31,4 @@ public class MemberDto {
 
     private LocalDateTime lastLoginTime;
 
-    @Builder
-    public MemberDto(Member member) {
-        this.name = member.getName();
-        this.email = member.getEmail();
-        this.role = member.getRole();
-        this.status = member.getStatus();
-        this.birth = member.getBirth();
-        this.lastLoginTime = member.getLastLoginTime();
-    }
 }
