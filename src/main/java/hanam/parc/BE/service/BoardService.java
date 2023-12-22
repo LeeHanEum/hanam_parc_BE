@@ -37,7 +37,7 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow();
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
-        board.setContent(boardDto.getContent());
+        board.setCategory(boardDto.getCategory());
         boardRepository.save(board);
     }
 
