@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -35,13 +37,13 @@ public class MemberController {
         return ResponseModel.success(true);
     }
 
-//    @GetMapping("/list")
-//    @Operation(summary = "[A] 회원 리스팅", description = "회원 리스팅")
-//    public ResponseModel<?> getMemberList(
-//    ) {
-//        List<MemberResponseDto> memberList = memberService.getMemberList();
-//        return ResponseModel.success(memberList);
-//    }
+    @GetMapping("/list")
+    @Operation(summary = "[A] 회원 리스팅", description = "회원 리스팅")
+    public ResponseModel<?> getMemberList(
+    ) {
+        List<MemberResponseDto> memberList = memberService.getMemberList();
+        return ResponseModel.success(memberList);
+    }
 
     @GetMapping("")
     @Operation(summary = "[A] 회원 조회", description = "회원 조회")

@@ -8,6 +8,9 @@ import hanam.parc.BE.type.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -23,6 +26,13 @@ public class MemberService {
     public MemberResponseDto getMember(String id) {
         Member member = memberRepository.findById(id).orElseThrow();
         return MemberMapper.INSTANCE.MemberToMemberResponseDto(member);
+    }
+
+    public List<MemberResponseDto> getMemberList() {
+        List<Member> memberList = memberRepository.findAll();
+        return memberList.stream()
+                .map(MemberMapper.INSTANCE::MemberToMemberResponseDto)
+                .collect(Collectors.toList());
     }
 
     public void updateMember(String id, MemberRequestDto memberRequestDto) {

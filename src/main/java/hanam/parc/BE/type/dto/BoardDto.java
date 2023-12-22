@@ -13,6 +13,8 @@ public class BoardDto {
 
     private String title;
 
+    private String content;
+
     private Member member;
 
     private Category category;
