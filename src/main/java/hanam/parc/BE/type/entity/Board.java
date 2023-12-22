@@ -1,7 +1,6 @@
 package hanam.parc.BE.type.entity;
 
-import hanam.parc.BE.type.etc.Role;
-import hanam.parc.BE.type.etc.Status;
+import hanam.parc.BE.type.etc.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,11 +8,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -22,42 +24,29 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "member")
-public class Member {
+public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false, unique = true)
-    private String id;
+    private Long id;
 
     @Column(nullable = false, length = 45)
-    private String password;
+    private String title;
 
-    @Column(nullable = false, length = 15)
-    private String name;
-
-    @Column(length = 20)
-    private String phone;
-
-    @Column(length = 45)
-    private String email;
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @Column
-    private LocalDateTime birth;
+    private Category category;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name="last_login_time", nullable = false)
-    private LocalDateTime lastLoginTime;
-
+    @Column(name="updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
 }
