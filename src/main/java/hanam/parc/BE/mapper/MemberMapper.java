@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
@@ -47,4 +48,11 @@ public interface MemberMapper {
             @Mapping(target = "lastLoginTime", source = "member.lastLoginTime")
     })
     MemberResponseDto MemberToMemberResponseDto(Member member);
+
+    @Mappings({
+            @Mapping(target = "id", source = "member.id"),
+            @Mapping(target = "password", source = "member.password"),
+            @Mapping(target = "role", source = "member.role")
+    })
+    UserDetails MemberToUserDetails(Member member);
 }

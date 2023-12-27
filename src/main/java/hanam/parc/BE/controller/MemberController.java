@@ -28,6 +28,15 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @PostMapping("/signup")
+    @Operation(summary = "[U] 회원 가입", description = "회원 가입")
+    public ResponseModel<?> signup(
+            @RequestBody MemberRequestDto memberRequestDto
+    ) {
+        memberService.signup(memberRequestDto);
+        return ResponseModel.success(true);
+    }
+
     @PostMapping("")
     @Operation(summary = "[U] 회원 생성", description = "회원 생성")
     public ResponseModel<?> createMember(

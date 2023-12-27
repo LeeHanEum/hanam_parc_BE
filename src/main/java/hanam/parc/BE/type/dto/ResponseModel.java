@@ -3,8 +3,8 @@ package hanam.parc.BE.type.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.http.HttpHeaders;
 
-import java.net.http.HttpHeaders;
 
 @Getter
 @Builder
@@ -21,7 +21,7 @@ public class ResponseModel<T> {
         return new ResponseModel<>(true, data, null);
     }
 
-    public static <T> ResponseModel<T> successHeader(T data, HttpHeaders headers) {
+    public static <T> ResponseModel<T> successHeader(T data, HttpHeaders httpHeaders) {
         return new ResponseModel<>(true, data, null);
     }
 

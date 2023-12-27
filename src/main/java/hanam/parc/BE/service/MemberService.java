@@ -17,6 +17,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    public void signup(MemberRequestDto memberRequestDto) {
+        if(memberRepository.findById(memberRequestDto.getId()).isPresent()) {
+            throw new IllegalArgumentException("이미 존재하는 ID 입니다.");
+        }
+        Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
+        memberRepository.save(member);
+    }
+
     public void createMember(MemberRequestDto memberRequestDto) {
         Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
         memberRepository.save(member);
