@@ -24,7 +24,7 @@ public class MemberService {
 
 
     public MemberResponseDto getMember(String id) {
-        Member member = memberRepository.findById(id).orElseThrow();
+        Member member = getMemberById(id);
         return MemberMapper.INSTANCE.MemberToMemberResponseDto(member);
     }
 
@@ -49,6 +49,10 @@ public class MemberService {
 
     public void deleteMember(String id) {
         memberRepository.deleteById(id);
+    }
+
+    public Member getMemberById(String id) {
+        return memberRepository.findById(id).orElseThrow();
     }
 
 }
