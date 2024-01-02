@@ -1,14 +1,17 @@
 package hanam.parc.BE.auth.jwt.provider;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,10 +40,10 @@ public class JwtTokenProvider implements InitializingBean {
 
     public JwtTokenProvider(
             @Value("${jwt.sceret}") String secret,
-            @Value("${jwt.expiration-time}") long tokenValidityInMilliseconds
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds
     ) {
         this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInMilliseconds * 1000;
+        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class JwtTokenProvider implements InitializingBean {
 
     public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
-                .map(authority -> authority.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
@@ -85,8 +88,14 @@ public class JwtTokenProvider implements InitializingBean {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        } catch (Exception e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
+        } catch (MalformedJwtException e) {
+            logger.info("잘못된 형식의 토큰입니다.");
+        } catch (ExpiredJwtException e) {
+            logger.info("만료된 토큰입니다.");
+        } catch (UnsupportedJwtException e) {
+            logger.info("지원하지 않는 토큰입니다.");
+        } catch (IllegalArgumentException e) {
+            logger.info("토큰이 잘못되었습니다.");
         }
         return false;
     }

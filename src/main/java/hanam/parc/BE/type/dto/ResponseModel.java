@@ -25,8 +25,8 @@ public class ResponseModel<T> {
         return new ResponseModel<>(true, data, null);
     }
 
-    public static <T> ResponseModel<T> fail(Error error) {
-        return new ResponseModel<>(false, null, error);
+    public static <T> ResponseModel<T> fail(String code, String message) {
+        return new ResponseModel<>(false, null, new Error(code, message));
     }
 
     @Getter

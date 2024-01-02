@@ -21,7 +21,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (member == null) {
             throw new UsernameNotFoundException("No user found with username: " + memberId);
         }
-        return MemberMapper.INSTANCE.MemberToUserDetails(member);
+        return Member.builder()
+                .id(member.getUsername())
+                .password(member.getPassword())
+                .role(member.getRole())
+                .build();
     }
 
 }

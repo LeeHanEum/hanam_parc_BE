@@ -1,14 +1,17 @@
 package hanam.parc.BE.service;
 
+import hanam.parc.BE.auth.jwt.util.SecurityUtil;
 import hanam.parc.BE.mapper.MemberMapper;
 import hanam.parc.BE.repository.MemberRepository;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
+import hanam.parc.BE.type.entity.Authenticator;
 import hanam.parc.BE.type.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,11 +20,15 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+    private final AuthenticatorService authenticatorService;
+
+
     public void signup(MemberRequestDto memberRequestDto) {
         if(memberRepository.findById(memberRequestDto.getId()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 ID 입니다.");
         }
         Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
+        authenticatorService.generateSecretKey(member.getId());
         memberRepository.save(member);
     }
 
@@ -57,6 +64,10 @@ public class MemberService {
 
     public void deleteMember(String id) {
         memberRepository.deleteById(id);
+    }
+
+    public String getCurrentMemberId() {
+        return SecurityUtil.getAuthenticationInfoMemberId();
     }
 
 }

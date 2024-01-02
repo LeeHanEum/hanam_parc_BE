@@ -49,10 +49,4 @@ public interface MemberMapper {
     })
     MemberResponseDto MemberToMemberResponseDto(Member member);
 
-    @Mappings({
-            @Mapping(target = "id", source = "member.id"),
-            @Mapping(target = "password", source = "member.password"),
-            @Mapping(target = "role", source = "member.role")
-    })
-    UserDetails MemberToUserDetails(Member member);
 }

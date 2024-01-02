@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
@@ -14,18 +15,16 @@ public class SecurityUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
 
-    public static Optional<String> getCurrentMemberId() {
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            logger.debug("Security Context 에 인증 정보가 없습니다.");
-            return Optional.empty();
+    public static User getAuthenticationInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getName() == null) {
+            throw new RuntimeException("No authentication information.");
         }
-        String memberId = null;
-        if (authentication.getPrincipal() instanceof UserDetails springSecurityUser) {
-            memberId = springSecurityUser.getUsername();
-        } else if (authentication.getPrincipal() instanceof String) {
-            memberId = (String) authentication.getPrincipal();
-        }
-        return Optional.ofNullable(memberId);
+        return (User) authentication.getPrincipal();
     }
+
+    public static String getAuthenticationInfoMemberId() {
+        return getAuthenticationInfo().getUsername();
+    }
+
 }
