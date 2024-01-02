@@ -6,9 +6,11 @@ import hanam.parc.BE.repository.MemberRepository;
 import hanam.parc.BE.service.AuthenticatorService;
 import hanam.parc.BE.service.MemberService;
 import hanam.parc.BE.type.dto.LoginDto;
+import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.dto.TokenDto;
 import hanam.parc.BE.type.entity.Member;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,30 +36,21 @@ import java.util.Objects;
 @Tag(name = "Auth", description = "인증 관리")
 public class AuthController {
 
-    private final JwtTokenProvider jwtTokenProvider;
-
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
     private final MemberRepository memberRepository;
 
     private final AuthenticatorService authenticatorService;
 
-//    @PostMapping("/login")
-//    public ResponseModel<TokenDto> authorize(
-//            @RequestBody LoginDto loginDto
-//    ) {
-//        UsernamePasswordAuthenticationToken authenticationToken =
-//                new UsernamePasswordAuthenticationToken(loginDto.getId(), loginDto.getPassword());
-//        System.out.println("cc");
-//        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        System.out.println("aa");
-//        String jwt = jwtTokenProvider.createToken(authentication);
-//        System.out.println("bb");
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-//        return ResponseModel.successHeader(new TokenDto(jwt), httpHeaders);
-//    }
+    private final MemberService memberService;
+
+    @PostMapping("/signup")
+    @Operation(summary = "회원가입", description = "회원가입")
+    public ResponseModel<?> signup(
+            @RequestBody MemberRequestDto memberRequestDto
+    ) {
+        memberService.createMember(memberRequestDto);
+        authenticatorService.generateSecretKey(memberRequestDto.getId());
+        return ResponseModel.success(true);
+    }
 
     @PostMapping("/login")
     public ResponseModel<TokenDto> authorize(

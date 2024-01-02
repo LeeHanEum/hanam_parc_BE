@@ -74,7 +74,7 @@ public class SecurityConfig {
                         authorizeHttpRequests
 //                                .requestMatchers("/", "/**").permitAll()
 //                                .requestMatchers("/auth/login").permitAll()
-//                                .requestMatchers("/member/signup").permitAll()
+//                                .requestMatchers("/auth/signup").permitAll()
 //                                .requestMatchers(SWAGGER_PATTERNS).permitAll()
                                 .anyRequest().permitAll()
                 )
