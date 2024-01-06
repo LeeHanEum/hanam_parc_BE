@@ -15,16 +15,24 @@ public class SecurityUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
 
-    public static User getAuthenticationInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication.getName() == null) {
-            throw new RuntimeException("No authentication information.");
-        }
-        return (User) authentication.getPrincipal();
-    }
+    public static Optional<String> getCurrentUsername() {
 
-    public static String getAuthenticationInfoMemberId() {
-        return getAuthenticationInfo().getUsername();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null) {
+            logger.debug("Security Context에 인증 정보가 없습니다.");
+            System.out.println("Security Context에 인증 정보가 없습니다.");
+            return Optional.empty();
+        }
+
+        String username = null;
+        if (authentication.getPrincipal() instanceof UserDetails springSecurityUser) {
+            username = springSecurityUser.getUsername();
+        } else if (authentication.getPrincipal() instanceof String) {
+            username = (String) authentication.getPrincipal();
+        }
+
+        return Optional.ofNullable(username);
     }
 
 }

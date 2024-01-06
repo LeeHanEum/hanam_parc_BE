@@ -1,2 +1,2 @@
 INSERT INTO member (member_id, password, name, phone, email, role, status, birth, created_at, last_login_time)
-    VALUES ('superuser', '1234', 'superuser', '010-1234-5678', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
+    VALUES ('superuser', '1111', 'superuser', '010-1234-5678', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');

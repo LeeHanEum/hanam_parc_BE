@@ -2,6 +2,7 @@ package hanam.parc.BE.controller;
 
 import hanam.parc.BE.auth.jwt.filter.JwtFilter;
 import hanam.parc.BE.auth.jwt.provider.JwtTokenProvider;
+import hanam.parc.BE.auth.jwt.service.CustomUserDetailsService;
 import hanam.parc.BE.repository.MemberRepository;
 import hanam.parc.BE.service.AuthenticatorService;
 import hanam.parc.BE.service.MemberService;
@@ -22,6 +23,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +38,17 @@ import java.util.Objects;
 @Tag(name = "Auth", description = "인증 관리")
 public class AuthController {
 
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    private final CustomUserDetailsService customUserDetailsService;
+
     private final MemberRepository memberRepository;
 
     private final AuthenticatorService authenticatorService;
 
     private final MemberService memberService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "회원가입")
@@ -59,9 +67,17 @@ public class AuthController {
         String id = loginDto.getId();
         String password = loginDto.getPassword();
         Member member = memberRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
-        if (!Objects.equals(member.getPassword(), password)) {
+        if (!passwordEncoder.matches(password, member.getPassword())) {
             return ResponseModel.fail("Password is not correct", "비밀번호가 일치하지 않습니다.");
         }
+        memberService.setLastLoginTime(id);
+
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(id, password);
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
         TokenDto tokenDto = new TokenDto();
         if(authenticatorService.isAuthenticatorExist(id)) {
             String jwt = authenticatorService.getSecretKey(id);

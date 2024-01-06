@@ -4,6 +4,7 @@ import hanam.parc.BE.service.MemberService;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
+import hanam.parc.BE.type.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -68,8 +69,7 @@ public class MemberController {
     @Operation(summary = "[U] 현재 회원 조회", description = "현재 회원 조회")
     public ResponseModel<?> getCurrentMember(
     ) {
-        String id = memberService.getCurrentMemberId();
-        MemberResponseDto member = memberService.getMember(id);
+        Member member = memberService.getCurrentMember().orElseThrow(() -> new IllegalArgumentException("현재 회원이 존재하지 않습니다."));
         return ResponseModel.success(member);
     }
 
