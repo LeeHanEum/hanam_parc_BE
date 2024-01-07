@@ -5,6 +5,7 @@ import hanam.parc.BE.repository.BoardRepository;
 import hanam.parc.BE.type.dto.BoardDto;
 import hanam.parc.BE.type.entity.Board;
 import hanam.parc.BE.type.entity.Member;
+import hanam.parc.BE.type.etc.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,13 @@ public class BoardService {
 
     public List<BoardDto> getBoardList() {
         List<Board> boardList = boardRepository.findAll();
+        return boardList.stream()
+                .map(BoardMapper.INSTANCE::BoardToBoardDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<BoardDto> getBoardListByCategory(Category category) {
+        List<Board> boardList = boardRepository.findAllByCategory(category);
         return boardList.stream()
                 .map(BoardMapper.INSTANCE::BoardToBoardDto)
                 .collect(Collectors.toList());

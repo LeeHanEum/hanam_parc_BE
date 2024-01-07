@@ -3,6 +3,7 @@ package hanam.parc.BE.controller;
 import hanam.parc.BE.service.BoardService;
 import hanam.parc.BE.type.dto.BoardDto;
 import hanam.parc.BE.type.dto.ResponseModel;
+import hanam.parc.BE.type.etc.Category;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,15 @@ public class BoardController {
     public ResponseModel<?> getBoardList(
     ) {
         List<BoardDto> boardList = boardService.getBoardList();
+        return ResponseModel.success(boardList);
+    }
+
+    @GetMapping("/{category}")
+    @Operation(summary = "[U] 게시판 카테고리별 리스트 조회", description = "게시판 카테고리별 리스트 조회")
+    public ResponseModel<?> getBoardListByCategory(
+            @RequestParam Category category
+    ) {
+        List<BoardDto> boardList = boardService.getBoardListByCategory(category);
         return ResponseModel.success(boardList);
     }
 

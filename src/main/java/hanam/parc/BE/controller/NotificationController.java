@@ -48,13 +48,18 @@ public class NotificationController {
     }
 
     // 내 알림 조회
+    @GetMapping("/my")
+    @Operation(summary = "[U] 내 알림 조회", description = "내 알림 조회")
+    public ResponseModel<?> getMyNotification() {
+        List<NotificationResponseDto> notificationList = notificationService.getMyNotification();
+        return ResponseModel.success(notificationList);
+    }
 
     @PatchMapping("")
     @Operation(summary = "[A] 알림 읽음 처리", description = "알림 읽음 처리")
     public ResponseModel<?> readNotification(
             @RequestParam Long notificationId
     ) {
-        // 로그인된 사용자 정보 받아서 넘겨야함
         notificationService.readNotification(notificationId);
         return ResponseModel.success(true);
     }

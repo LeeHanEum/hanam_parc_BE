@@ -37,7 +37,16 @@ public class NotificationService {
                 .collect(Collectors.toList());
     }
 
+    public List<NotificationResponseDto> getMyNotification(){
+        Member member = memberService.getMemberById("leehaneum");
+        List<Notification> notificationList = notificationRepository.findAllByMember(member);
+        return notificationList.stream()
+                .map(NotificationMapper.INSTANCE::NotificationToNotificationResponseDto)
+                .collect(Collectors.toList());
+    }
+
     public void readNotification(Long notificationId) {
+        Member member = memberService.getMemberById("leehaneum");
         Notification notification = notificationRepository.findById(notificationId).orElseThrow();
         notification.setIsRead(true);
         notificationRepository.save(notification);
