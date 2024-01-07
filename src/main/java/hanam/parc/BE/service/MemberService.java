@@ -7,6 +7,8 @@ import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.entity.Authenticator;
 import hanam.parc.BE.type.entity.Member;
+import hanam.parc.BE.type.etc.Role;
+import hanam.parc.BE.type.etc.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +33,8 @@ public class MemberService {
         }
         Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
         member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
+        member.setRole(Role.GUEST);
+        member.setStatus(Status.ACTIVE);
         memberRepository.save(member);
     }
 
@@ -52,9 +56,14 @@ public class MemberService {
         member.setName(memberRequestDto.getName());
         member.setPhone(memberRequestDto.getPhone());
         member.setEmail(memberRequestDto.getEmail());
-        member.setRole(memberRequestDto.getRole());
-        member.setStatus(memberRequestDto.getStatus());
         member.setBirth(memberRequestDto.getBirth());
+        memberRepository.save(member);
+    }
+
+    public void updateMemberRoleAndStatus(String id, Role role, Status status) {
+        Member member = getMemberById(id);
+        member.setRole(role);
+        member.setStatus(status);
         memberRepository.save(member);
     }
 
@@ -77,7 +86,7 @@ public class MemberService {
     }
 
     public Member getMemberById(String memberId) {
-        return memberRepository.findById(memberId).orElseThrow();
+        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
 
 }

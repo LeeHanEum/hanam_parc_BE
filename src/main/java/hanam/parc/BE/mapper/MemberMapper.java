@@ -20,21 +20,17 @@ public interface MemberMapper {
             @Mapping(target = "name", source = "memberRequestDto.name"),
             @Mapping(target = "phone", source = "memberRequestDto.phone"),
             @Mapping(target = "email", source = "memberRequestDto.email"),
-            @Mapping(target = "role", source = "memberRequestDto.role"),
-            @Mapping(target = "status", source = "memberRequestDto.status"),
             @Mapping(target = "birth", source = "memberRequestDto.birth"),
-            @Mapping(target = "lastLoginTime", source = "memberRequestDto.lastLoginTime")
     })
     Member MemberRequestDtoToMember(MemberRequestDto memberRequestDto);
 
     @Mappings({
+            @Mapping(target = "id", source = "member.id"),
+            @Mapping(target = "password", source = "member.password"),
             @Mapping(target = "name", source = "member.name"),
             @Mapping(target = "phone", source = "member.phone"),
             @Mapping(target = "email", source = "member.email"),
-            @Mapping(target = "role", source = "member.role"),
-            @Mapping(target = "status", source = "member.status"),
             @Mapping(target = "birth", source = "member.birth"),
-            @Mapping(target = "lastLoginTime", source = "member.lastLoginTime")
     })
     MemberRequestDto MemberToMemberRequestDto(Member member);
 

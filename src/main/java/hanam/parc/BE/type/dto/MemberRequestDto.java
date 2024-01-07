@@ -23,12 +23,6 @@ public class MemberRequestDto {
 
     private String email;
 
-    private Role role;
-
-    private Status status;
-
     private LocalDateTime birth;
-
-    private LocalDateTime lastLoginTime;
 
 }

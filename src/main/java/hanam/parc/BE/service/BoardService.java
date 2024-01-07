@@ -20,8 +20,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public void createBoard(BoardDto boardDto) {
-        Member member = memberService.getCurrentMember().orElseThrow();
-        System.out.println(member.getId());
+        Member member = memberService.getMemberById("leehaneum");
         Board board = BoardMapper.INSTANCE.BoardDtoToBoard(boardDto);
         board.setMember(member);
         boardRepository.save(board);

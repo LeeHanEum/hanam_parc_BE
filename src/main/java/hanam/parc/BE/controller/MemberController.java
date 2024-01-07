@@ -5,6 +5,8 @@ import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.entity.Member;
+import hanam.parc.BE.type.etc.Role;
+import hanam.parc.BE.type.etc.Status;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -56,8 +58,19 @@ public class MemberController {
         return ResponseModel.success(true);
     }
 
+    @PatchMapping("/role")
+    @Operation(summary = "[A] 회원 권한 및 상태 수정", description = "회원 권한 및 상태 수정")
+    public ResponseModel<?> updateMemberRoleAndStatus(
+            @RequestParam String id,
+            @RequestParam Role role,
+            @RequestParam Status status
+    ) {
+        memberService.updateMemberRoleAndStatus(id, role, status);
+        return ResponseModel.success(true);
+    }
+
     @DeleteMapping("")
-    @Operation(summary = "[U] 회원 삭제", description = "회원 삭제")
+    @Operation(summary = "[U] 회원 탈퇴", description = "회원 탈퇴")
     public ResponseModel<?> deleteMember(
             @RequestParam String id
     ) {
