@@ -56,30 +56,31 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return new JwtSecurityConfig(jwtTokenProvider).configureAndReturn(
                 http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors((cors) ->
-                        cors.configurationSource(corsConfigurationSource())
-                )
-                .exceptionHandling((exceptionHandling) ->
-                        exceptionHandling
-                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                                .accessDeniedHandler(jwtAccessDeniedHandler)
-                )
-                .sessionManagement((sessionManagement) ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests
+                        .csrf(AbstractHttpConfigurer::disable)
+                        .cors((cors) ->
+                                cors.configurationSource(corsConfigurationSource())
+                        )
+                        .exceptionHandling((exceptionHandling) ->
+                                exceptionHandling
+                                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                                        .accessDeniedHandler(jwtAccessDeniedHandler)
+                        )
+                        .sessionManagement((sessionManagement) ->
+                                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        )
+                        .formLogin(AbstractHttpConfigurer::disable)
+                        .httpBasic(AbstractHttpConfigurer::disable)
+                        .authorizeHttpRequests((authorizeHttpRequests) ->
+                                        authorizeHttpRequests
 //                                .requestMatchers("/", "/**").permitAll()
 //                                .requestMatchers("/auth/login").permitAll()
 //                                .requestMatchers("/auth/signup").permitAll()
 //                                .requestMatchers(SWAGGER_PATTERNS).permitAll()
-                                .anyRequest().permitAll()
-                )
+                                                .anyRequest().permitAll()
+                        )
         ).build();
     }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

@@ -68,6 +68,10 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public String getCurrentMemberId() {
+        return SecurityUtil.getCurrentUsername().orElseThrow();
+    }
+
     public Optional<Member> getCurrentMember() {
         return SecurityUtil.getCurrentUsername().flatMap(memberRepository::findById);
     }

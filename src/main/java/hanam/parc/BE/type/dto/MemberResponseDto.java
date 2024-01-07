@@ -21,7 +21,7 @@ public class MemberResponseDto {
 
     private Status status;
 
-    private LocalDateTime birth;
+    private String birth;
 
-    private LocalDateTime lastLoginTime;
+    private String lastLoginTime;
 }

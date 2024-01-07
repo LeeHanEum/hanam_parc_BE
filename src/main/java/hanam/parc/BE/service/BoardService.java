@@ -4,6 +4,7 @@ import hanam.parc.BE.mapper.BoardMapper;
 import hanam.parc.BE.repository.BoardRepository;
 import hanam.parc.BE.type.dto.BoardDto;
 import hanam.parc.BE.type.entity.Board;
+import hanam.parc.BE.type.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardService {
 
+    private final MemberService memberService;
+
     private final BoardRepository boardRepository;
 
     public void createBoard(BoardDto boardDto) {
+        Member member = memberService.getCurrentMember().orElseThrow();
+        System.out.println(member.getId());
         Board board = BoardMapper.INSTANCE.BoardDtoToBoard(boardDto);
+        board.setMember(member);
         boardRepository.save(board);
     }
 
