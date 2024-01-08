@@ -58,4 +58,8 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    public Board getBoardById(Long id) {
+        return boardRepository.findById(id).orElseThrow();
+    }
+
 }
