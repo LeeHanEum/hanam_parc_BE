@@ -18,5 +18,5 @@ public class NotificationResponseDto {
 
     private Member member;
 
-    private LocalDateTime createdAt;
+    private String createdAt;
 }

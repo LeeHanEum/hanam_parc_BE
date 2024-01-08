@@ -26,6 +26,7 @@ public class NotificationService {
         Member member = memberService.getMemberById(memberId);
         Notification notification = NotificationMapper.INSTANCE.NotificationRequestDtoToNotification(notificationRequestDto);
         notification.setMember(member);
+        notification.setIsRead(false);
         notificationRepository.save(notification);
     }
 

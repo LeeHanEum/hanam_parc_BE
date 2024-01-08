@@ -89,4 +89,8 @@ public class MemberService {
         return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
     }
 
+    public boolean checkMemberAdminRole(Member member){
+        return member.getRole().equals(Role.ADMIN) || member.getRole().equals(Role.SUPER);
+    }
+
 }
