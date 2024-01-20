@@ -8,9 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,14 +16,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -35,7 +26,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "member")
-public class Member implements UserDetails{
+public class Member {
 
     @Id
     @Column(name="member_id", nullable = false, updatable = false, unique = true)
@@ -71,35 +62,17 @@ public class Member implements UserDetails{
     @Column(name="last_login_time", nullable = false)
     private LocalDateTime lastLoginTime;
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getKey());
-        return Collections.singletonList(authority);
+    public Member(Member member) {
+        this.id = member.getId();
+        this.password = member.getPassword();
+        this.name = member.getName();
+        this.phone = member.getPhone();
+        this.email = member.getEmail();
+        this.role = member.getRole();
+        this.status = member.getStatus();
+        this.birth = member.getBirth();
+        this.createdAt = member.getCreatedAt();
+        this.lastLoginTime = member.getLastLoginTime();
     }
 
-    @Override
-    public String getUsername() {
-        return id;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

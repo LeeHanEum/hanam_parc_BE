@@ -4,7 +4,6 @@ import hanam.parc.BE.service.MemberService;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
-import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.etc.Role;
 import hanam.parc.BE.type.etc.Status;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,14 +74,6 @@ public class MemberController {
     ) {
         memberService.deleteMember(id);
         return ResponseModel.success(true);
-    }
-
-    @GetMapping("/current")
-    @Operation(summary = "[U] 현재 회원 조회", description = "현재 회원 조회")
-    public ResponseModel<?> getCurrentMember(
-    ) {
-        Member member = memberService.getCurrentMember().orElseThrow(() -> new IllegalArgumentException("현재 회원이 존재하지 않습니다."));
-        return ResponseModel.success(member);
     }
 
 }

@@ -2,47 +2,44 @@ package hanam.parc.BE.auth.jwt.service;
 
 import hanam.parc.BE.mapper.MemberMapper;
 import hanam.parc.BE.repository.MemberRepository;
+import hanam.parc.BE.type.dto.MemberResponseDto;
+import hanam.parc.BE.type.dto.SecurityUserDetailsDto;
 import hanam.parc.BE.type.entity.Member;
-import hanam.parc.BE.type.etc.Status;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
+@Slf4j
 @RequiredArgsConstructor
-@Component("userDetailsService")
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
     @Override
-    @Transactional
-    public UserDetails loadUserByUsername(final String memberId) {
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        // 1. memberRepository로부터 loginId로 유저정보를 받아온다.
+        Member byLoginId = memberRepository.findById(id)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException(id)
+                );
 
-        return memberRepository.findById(memberId)
-                .map(member -> createUser(memberId, member))
-                .orElseThrow(() -> new UsernameNotFoundException(memberId + " -> 데이터베이스에서 찾을 수 없습니다."));
+        // 2.user를 dto로 변환시켜준다.
+        MemberResponseDto memberDto = MemberMapper.INSTANCE.MemberToMemberResponseDto(byLoginId);
+
+        // 3. 사용자 정보를 기반으로 SecurityUserDetailsDto 객체를 생성한다.
+        return new SecurityUserDetailsDto(
+                memberDto,
+                Collections.singleton(new SimpleGrantedAuthority(
+                        memberDto.getRole().toString()
+                ))
+        );
     }
 
-    private org.springframework.security.core.userdetails.User createUser(String memberId, Member member) {
-        if (!member.getStatus().equals(Status.ACTIVE)) {
-            throw new RuntimeException(memberId + " -> 활성화되어 있지 않습니다.");
-        }
-
-        List<GrantedAuthority> grantedAuthorities = member.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority()))
-                .collect(Collectors.toList());
-
-        return new org.springframework.security.core.userdetails.User(
-                member.getId(),
-                member.getPassword(),
-                grantedAuthorities);
-    }
 }

@@ -35,6 +35,8 @@ public interface MemberMapper {
     MemberRequestDto MemberToMemberRequestDto(Member member);
 
     @Mappings({
+            @Mapping(target = "id", source = "member.id"),
+            @Mapping(target = "password", source = "member.password"),
             @Mapping(target = "name", source = "member.name"),
             @Mapping(target = "phone", source = "member.phone"),
             @Mapping(target = "email", source = "member.email"),

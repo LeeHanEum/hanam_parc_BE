@@ -1,4 +1,4 @@
--- superuser 1111
+--superuser 1111
 INSERT INTO member (member_id, password, name, phone, email, role, status, birth, created_at, last_login_time)
     VALUES ('superuser', '$2a$12$xsnsy6lcQl1EM2cc9sxEbemIoXPf6jiMHIyE3lZWAr8YCz9QQDJXq', 'superuser', '010-1234-5678', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- leehaneum 0924

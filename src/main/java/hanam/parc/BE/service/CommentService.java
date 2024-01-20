@@ -87,7 +87,6 @@ public class CommentService {
                 commentList.addAll(getChildComment(child.getId()));
             }
         }
-//        commentList.sort((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()));
         return commentList;
     }
 
