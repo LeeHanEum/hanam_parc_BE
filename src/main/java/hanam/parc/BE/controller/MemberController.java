@@ -76,4 +76,12 @@ public class MemberController {
         return ResponseModel.success(true);
     }
 
+    @GetMapping("/current")
+    @Operation(summary = "[A] 현재 로그인한 회원 조회", description = "현재 로그인한 회원 조회")
+    public ResponseModel<?> getCurrentMember(
+    ) {
+        MemberResponseDto member = memberService.getAuthenticatedUser().getMemberDto();
+        return ResponseModel.success(member);
+    }
+
 }

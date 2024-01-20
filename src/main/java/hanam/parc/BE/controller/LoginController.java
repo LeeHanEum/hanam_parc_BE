@@ -1,6 +1,7 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.MemberService;
+import hanam.parc.BE.type.dto.LoginDto;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +32,7 @@ public class LoginController {
     @PostMapping("/login")
     @Operation(summary = "[R] 로그인", description = "로그인")
     public ResponseModel<?> login(
-            @RequestBody MemberRequestDto memberRequestDto
+            @RequestBody LoginDto loginDto
     ) {
         return ResponseModel.success(true);
     }

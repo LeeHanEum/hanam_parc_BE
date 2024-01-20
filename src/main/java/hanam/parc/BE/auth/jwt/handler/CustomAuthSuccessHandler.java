@@ -40,7 +40,7 @@ public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuc
         // 2. 조회한 데이터를 JSONObject 형태로 파싱한다.
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        JSONObject memberDtoObject = new JSONObject(Integer.parseInt(objectMapper.writeValueAsString(memberDto)));
+        JSONObject memberDtoObject = objectMapper.convertValue(memberDto, JSONObject.class);
 
         HashMap<String, Object> responseMap = new HashMap<>();
         JSONObject jsonObject;

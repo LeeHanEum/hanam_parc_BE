@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import hanam.parc.BE.exception.ApplicationException;
 import hanam.parc.BE.exception.ErrorCode;
+import hanam.parc.BE.type.dto.LoginDto;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             objectMapper.registerModule(new JavaTimeModule());
             objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
 
-            MemberResponseDto user = objectMapper.readValue(request.getInputStream(), MemberResponseDto.class);
+            LoginDto user = objectMapper.readValue(request.getInputStream(), LoginDto.class);
             log.debug("1.CustomAuthenticationFilter :: loginId: " + user.getId() + "userPw: " + user.getPassword());
 
             return new UsernamePasswordAuthenticationToken(user.getId(), user.getPassword());

@@ -4,10 +4,14 @@ import hanam.parc.BE.mapper.MemberMapper;
 import hanam.parc.BE.repository.MemberRepository;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
+import hanam.parc.BE.type.dto.SecurityUserDetailsDto;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.etc.Role;
 import hanam.parc.BE.type.etc.Status;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +26,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-//    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public void createMember(MemberRequestDto memberRequestDto) {
         if(memberRepository.findById(memberRequestDto.getId()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 ID 입니다.");
         }
         Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
-//        member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
-        member.setPassword(memberRequestDto.getPassword());
+        member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
         member.setRole(Role.GUEST);
         member.setStatus(Status.ACTIVE);
         memberRepository.save(member);
@@ -50,8 +53,7 @@ public class MemberService {
 
     public void updateMember(String id, MemberRequestDto memberRequestDto) {
         Member member = getMemberById(id);
-//        member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
-        member.setPassword(memberRequestDto.getPassword());
+        member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
         member.setName(memberRequestDto.getName());
         member.setPhone(memberRequestDto.getPhone());
         member.setEmail(memberRequestDto.getEmail());
@@ -82,6 +84,21 @@ public class MemberService {
 
     public boolean checkMemberAdminRole(Member member){
         return member.getRole().equals(Role.ADMIN) || member.getRole().equals(Role.SUPER);
+    }
+
+    public SecurityUserDetailsDto getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new SecurityException("No authentication data provided");
+        }
+
+        Object principal = authentication.getPrincipal();
+        if (!(principal instanceof SecurityUserDetailsDto)) {
+            throw new SecurityException("Principal is not an instance of SecurityUserDetailsDto");
+        }
+
+        // Cast principal to SecurityUserDetailsDto
+        return (SecurityUserDetailsDto) principal;
     }
 
 }
