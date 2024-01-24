@@ -39,7 +39,7 @@ public class NotificationService {
     }
 
     public List<NotificationResponseDto> getMyNotification(){
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         List<Notification> notificationList = notificationRepository.findAllByMember(member);
         return notificationList.stream()
                 .map(NotificationMapper.INSTANCE::NotificationToNotificationResponseDto)
@@ -47,13 +47,18 @@ public class NotificationService {
     }
 
     public void readNotification(Long notificationId) {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         Notification notification = notificationRepository.findById(notificationId).orElseThrow();
         notification.setIsRead(true);
         notificationRepository.save(notification);
     }
 
     public void deleteNotification(Long notificationId) {
+        Member member = memberService.getCurrentMember();
+        Notification notification = notificationRepository.findById(notificationId).orElseThrow();
+        if (!notification.getMember().equals(member) || memberService.checkMemberAdminRole(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
         notificationRepository.deleteById(notificationId);
     }
 }

@@ -21,7 +21,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public void createBoard(BoardDto boardDto) {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         Board board = BoardMapper.INSTANCE.BoardDtoToBoard(boardDto);
         board.setMember(member);
         boardRepository.save(board);
@@ -46,8 +46,20 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    public List<BoardDto> getMyBoardList() {
+        Member member = memberService.getCurrentMember();
+        List<Board> boardList = boardRepository.findAllByMember(member);
+        return boardList.stream()
+                .map(BoardMapper.INSTANCE::BoardToBoardDto)
+                .collect(Collectors.toList());
+    }
+
     public void updateBoard(Long id, BoardDto boardDto) {
+        Member member = memberService.getCurrentMember();
         Board board = boardRepository.findById(id).orElseThrow();
+        if (!board.getMember().equals(member) || memberService.checkMemberAdminRole(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
         board.setCategory(boardDto.getCategory());
@@ -55,6 +67,11 @@ public class BoardService {
     }
 
     public void deleteBoard(Long id) {
+        Member member = memberService.getCurrentMember();
+        Board board = boardRepository.findById(id).orElseThrow();
+        if (!board.getMember().equals(member) || memberService.checkMemberAdminRole(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
         boardRepository.deleteById(id);
     }
 

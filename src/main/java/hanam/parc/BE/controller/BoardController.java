@@ -63,6 +63,14 @@ public class BoardController {
         return ResponseModel.success(boardList);
     }
 
+    @GetMapping("/my")
+    @Operation(summary = "[U] 내 게시판 리스트 조회", description = "내 게시판 리스트 조회")
+    public ResponseModel<?> getMyBoardList(
+    ) {
+        List<BoardDto> boardList = boardService.getMyBoardList();
+        return ResponseModel.success(boardList);
+    }
+
     @PatchMapping("")
     @Operation(summary = "[U] 게시판 정보 수정", description = "게시판 정보 수정")
     public ResponseModel<?> updateBoard(

@@ -24,7 +24,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public void createComment(Long boardId, Long commentId, CommentRequestDto commentRequestDto) {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         Board board = boardService.getBoardById(boardId);
         Comment comment = CommentMapper.INSTANCE.CommentRequestDtoToComment(commentRequestDto);
         comment.setMember(member);
@@ -51,7 +51,7 @@ public class CommentService {
     }
 
     public List<CommentResponseDto> getMyComment() {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         List<Comment> commentList = commentRepository.findAllByMember(member);
         return commentList.stream()
                 .map(CommentMapper.INSTANCE::CommentToCommentResponseDto)
@@ -59,7 +59,7 @@ public class CommentService {
     }
 
     public void updateComment(Long id, CommentRequestDto commentRequestDto) {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         Comment comment = getCommentById(id);
         if (!comment.getMember().equals(member)) {
             throw new RuntimeException("권한이 없습니다.");
@@ -69,7 +69,7 @@ public class CommentService {
     }
 
     public void deleteComment(Long id) {
-        Member member = memberService.getMemberById("superuser");
+        Member member = memberService.getCurrentMember();
         Comment comment = getCommentById(id);
         if (comment.getMember().equals(member) || memberService.checkMemberAdminRole(member)) {
             commentRepository.deleteById(id);

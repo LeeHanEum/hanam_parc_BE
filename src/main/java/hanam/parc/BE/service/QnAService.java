@@ -21,7 +21,7 @@ public class QnAService {
     private final QnARepository qnaRepository;
 
     public void createQnA(QnARequestDto qnaRequestDto) {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         QnA qna = QnAMapper.INSTANCE.QnARequestDtoToQnA(qnaRequestDto);
         qna.setWriter(member);
         qna.setIsAnswered(false);
@@ -41,7 +41,7 @@ public class QnAService {
     }
 
     public List<QnAResponseDto> getMyQnA() {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         List<QnA> qnaList = qnaRepository.findAllByWriter(member);
         return qnaList.stream()
                 .map(QnAMapper.INSTANCE::QnAToQnAResponseDto)
@@ -49,10 +49,10 @@ public class QnAService {
     }
 
     public void updateQnA(Long id, QnARequestDto qnaRequestDto) {
-        String uid = "leehaneum";
+        Member member = memberService.getCurrentMember();
         QnA qna = qnaRepository.findById(id).orElseThrow();
-        if(!qna.getWriter().getId().equals(uid)) {
-            throw new RuntimeException("작성자가 아닙니다.");
+        if (!qna.getWriter().equals(member) || memberService.checkMemberAdminRole(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
         }
         qna.setTitle(qnaRequestDto.getTitle());
         qna.setContent(qnaRequestDto.getContent());
@@ -60,17 +60,16 @@ public class QnAService {
     }
 
     public void deleteQnA(Long id) {
-        Member member = memberService.getMemberById("leehaneum");
+        Member member = memberService.getCurrentMember();
         QnA qna = qnaRepository.findById(id).orElseThrow();
-        if (memberService.checkMemberAdminRole(member) || qna.getWriter().getId().equals(member.getId())) {
-            qnaRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("작성자가 아닙니다.");
+        if (!qna.getWriter().equals(member) || memberService.checkMemberAdminRole(member)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
         }
+        qnaRepository.deleteById(id);
     }
 
     public void answerQnA(Long id, String answer) {
-        Member member = memberService.getMemberById("superuser");
+        Member member = memberService.getCurrentMember();
         if (!memberService.checkMemberAdminRole(member)){
            throw new RuntimeException("관리자만 답변을 달 수 있습니다.");
         }

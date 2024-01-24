@@ -101,4 +101,9 @@ public class MemberService {
         return (SecurityUserDetailsDto) principal;
     }
 
+    public Member getCurrentMember() {
+        String id = getAuthenticatedUser().getMemberDto().getId();
+        return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
 }

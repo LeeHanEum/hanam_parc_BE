@@ -88,7 +88,7 @@ public class TokenUtils {
      */
     private static Date createExpiredDate() {
         Instant now = Instant.now();
-        Instant expiryDate = now.plus(Duration.ofHours(24));
+        Instant expiryDate = now.plus(Duration.ofHours(8760));
         return Date.from(expiryDate);
     }
 
