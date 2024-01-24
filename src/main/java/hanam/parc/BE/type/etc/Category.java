@@ -8,7 +8,9 @@ import lombok.Getter;
 public enum Category {
 
     FREE("FREE", "자유게시판"),
-    ETC("ETC", "기타게시판");
+    ANNOUNCEMENT("ANNOUNCEMENT", "공지사항"),
+    RECRUITMENT("RECRUITMENT", "채용공고"),
+    MANAGEMENT("MANAGEMENT", "경영공시");
 
     private final String key;
 
