@@ -6,8 +6,11 @@ import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +37,18 @@ public class LoginController {
     public ResponseModel<?> login(
             @RequestBody LoginDto loginDto
     ) {
+        return ResponseModel.success(true);
+    }
+
+    @GetMapping("/logout")
+    @Operation(summary = "[R] 로그아웃", description = "로그아웃")
+    public ResponseModel<?> logout(
+            HttpServletResponse response
+    ) {
+        Cookie jwtCookie = new Cookie("jwt", null);
+        jwtCookie.setMaxAge(0);  // 쿠키의 유효기간을 0으로 설정하여 즉시 삭제
+        jwtCookie.setPath("/");
+        response.addCookie(jwtCookie);
         return ResponseModel.success(true);
     }
 

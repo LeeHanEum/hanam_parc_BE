@@ -21,7 +21,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**") // 모든 URL에 대해 JWT 토큰 검사를 적용합니다.
                 .excludePathPatterns(
                         "/login",
-                        "/join"
+                        "/join",
+                        "/logout"
                 ); // 로그인 페이지는 JWT 토큰 검사에서 제외합니다.
     }
 
