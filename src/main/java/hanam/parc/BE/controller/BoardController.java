@@ -48,8 +48,7 @@ public class BoardController {
 
     @GetMapping("/list")
     @Operation(summary = "[U] 게시판 리스트 조회", description = "게시판 리스트 조회")
-    public ResponseModel<?> getBoardList(
-    ) {
+    public ResponseModel<?> getBoardList() {
         List<BoardDto> boardList = boardService.getBoardList();
         return ResponseModel.success(boardList);
     }
@@ -65,8 +64,7 @@ public class BoardController {
 
     @GetMapping("/my")
     @Operation(summary = "[U] 내 게시판 리스트 조회", description = "내 게시판 리스트 조회")
-    public ResponseModel<?> getMyBoardList(
-    ) {
+    public ResponseModel<?> getMyBoardList() {
         List<BoardDto> boardList = boardService.getMyBoardList();
         return ResponseModel.success(boardList);
     }

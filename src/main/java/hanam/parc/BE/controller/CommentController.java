@@ -28,8 +28,8 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @Operation(summary = "[U] Comment 생성", description = "Comment 생성")
     @PostMapping("")
+    @Operation(summary = "[U] Comment 생성", description = "Comment 생성")
     public ResponseModel<?> createComment(
             @RequestParam Long boardId,
             @RequestParam(required = false) Long commentId,
@@ -39,8 +39,8 @@ public class CommentController {
         return ResponseModel.success(true);
     }
 
-    @Operation(summary = "[U] Comment 조회", description = "Comment 조회")
     @GetMapping("")
+    @Operation(summary = "[U] Comment 조회", description = "Comment 조회")
     public ResponseModel<?> getComment(
             @RequestParam Long id
     ) {
@@ -48,8 +48,8 @@ public class CommentController {
         return ResponseModel.success(comment);
     }
 
-    @Operation(summary = "[U] 댓글 및 답글 조회", description = "댓글 및 답글 조회")
     @GetMapping("/parent-child")
+    @Operation(summary = "[U] 댓글 및 답글 조회", description = "댓글 및 답글 조회")
     public ResponseModel<?> getParentChildComment(
             @RequestParam Long id
     ) {
@@ -57,15 +57,15 @@ public class CommentController {
         return ResponseModel.success(commentList);
     }
 
-    @Operation(summary = "[U] 내 Comment 조회", description = "내 Comment 조회")
     @GetMapping("/my")
+    @Operation(summary = "[U] 내 Comment 조회", description = "내 Comment 조회")
     public ResponseModel<?> getMyComment() {
         List<CommentResponseDto> commentList = commentService.getMyComment();
         return ResponseModel.success(commentList);
     }
 
-    @Operation(summary = "[U] board 기반 댓글 조회", description = "board 기반 댓글 조회")
     @GetMapping("/board")
+    @Operation(summary = "[U] board 기반 댓글 조회", description = "board 기반 댓글 조회")
     public ResponseModel<?> getCommentByBoard(
             @RequestParam Long boardId
     ) {
@@ -73,9 +73,8 @@ public class CommentController {
         return ResponseModel.success(commentList);
     }
 
-
-    @Operation(summary = "[U] Comment 수정", description = "Comment 수정")
     @PatchMapping("")
+    @Operation(summary = "[U] Comment 수정", description = "Comment 수정")
     public ResponseModel<?> updateComment(
             @RequestParam Long id,
             @RequestBody CommentRequestDto commentRequestDto
@@ -84,8 +83,8 @@ public class CommentController {
         return ResponseModel.success(true);
     }
 
-    @Operation(summary = "[U] Comment 삭제", description = "Comment 삭제")
     @DeleteMapping("")
+    @Operation(summary = "[U] Comment 삭제", description = "Comment 삭제")
     public ResponseModel<?> deleteComment(
             @RequestParam Long id
     ) {

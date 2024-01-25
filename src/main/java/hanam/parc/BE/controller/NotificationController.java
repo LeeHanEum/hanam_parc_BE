@@ -56,7 +56,7 @@ public class NotificationController {
     }
 
     @PatchMapping("")
-    @Operation(summary = "[A] 알림 읽음 처리", description = "알림 읽음 처리")
+    @Operation(summary = "[U] 알림 읽음 처리", description = "알림 읽음 처리")
     public ResponseModel<?> readNotification(
             @RequestParam Long notificationId
     ) {
@@ -65,7 +65,7 @@ public class NotificationController {
     }
 
     @DeleteMapping("")
-    @Operation(summary = "[A] 알림 삭제", description = "알림 삭제")
+    @Operation(summary = "[U] 알림 삭제", description = "알림 삭제")
     public ResponseModel<?> deleteNotification(
             @RequestParam Long notificationId
     ) {

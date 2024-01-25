@@ -28,8 +28,8 @@ public class QnAController {
 
     private final QnAService qnaService;
 
-    @Operation(summary = "[U] QnA 생성", description = "QnA 생성")
     @PostMapping("")
+    @Operation(summary = "[U] QnA 생성", description = "QnA 생성")
     public ResponseModel<?> createQnA(
             @RequestBody QnARequestDto qnaRequestDto
     ) {
@@ -37,8 +37,8 @@ public class QnAController {
         return ResponseModel.success(true);
     }
 
-    @Operation(summary = "[U] QnA 조회", description = "QnA 조회")
     @GetMapping("")
+    @Operation(summary = "[U] QnA 조회", description = "QnA 조회")
     public ResponseModel<?> getQnA(
             @RequestParam Long id
     ) {
@@ -46,23 +46,23 @@ public class QnAController {
         return ResponseModel.success(qna);
     }
 
-    @Operation(summary = "[U] QnA 리스트 조회", description = "QnA 리스트 조회")
     @GetMapping("/list")
+    @Operation(summary = "[U] QnA 리스트 조회", description = "QnA 리스트 조회")
     public ResponseModel<?> getQnAList(
     ) {
         List<QnAResponseDto> qnaList = qnaService.getQnAList();
         return ResponseModel.success(qnaList);
     }
 
-    @Operation(summary = "[U] 내 QnA 조회", description = "내 QnA 조회")
     @GetMapping("/my")
+    @Operation(summary = "[U] 내 QnA 조회", description = "내 QnA 조회")
     public ResponseModel<?> getMyQnA() {
         List<QnAResponseDto> qnaList = qnaService.getMyQnA();
         return ResponseModel.success(qnaList);
     }
 
-    @Operation(summary = "[U] QnA 수정", description = "QnA 수정")
     @PatchMapping("/update")
+    @Operation(summary = "[U] QnA 수정", description = "QnA 수정")
     public ResponseModel<?> updateQnA(
             @RequestParam Long id,
             @RequestBody QnARequestDto qnaRequestDto
@@ -71,8 +71,8 @@ public class QnAController {
         return ResponseModel.success(true);
     }
 
-    @Operation(summary = "[U] QnA 삭제", description = "QnA 삭제")
     @DeleteMapping("")
+    @Operation(summary = "[U] QnA 삭제", description = "QnA 삭제")
     public ResponseModel<?> deleteQnA(
             @RequestParam Long id
     ) {
@@ -80,8 +80,8 @@ public class QnAController {
         return ResponseModel.success(true);
     }
 
-    @Operation(summary = "[U] QnA 답변", description = "QnA 답변")
     @PostMapping("/answer")
+    @Operation(summary = "[A] QnA 답변", description = "QnA 답변")
     public ResponseModel<?> answerQnA(
             @RequestParam Long id,
             @RequestParam String answer

@@ -24,7 +24,7 @@ public class LoginController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    @Operation(summary = "[C] 회원가입", description = "회원가입")
+    @Operation(summary = "[U] 회원가입", description = "회원가입")
     public ResponseModel<?> join(
             @RequestBody MemberRequestDto memberRequestDto
     ) {
@@ -33,7 +33,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    @Operation(summary = "[R] 로그인", description = "로그인")
+    @Operation(summary = "[U] 로그인", description = "로그인")
     public ResponseModel<?> login(
             @RequestBody LoginDto loginDto
     ) {
@@ -41,7 +41,7 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    @Operation(summary = "[R] 로그아웃", description = "로그아웃")
+    @Operation(summary = "[U] 로그아웃", description = "로그아웃")
     public ResponseModel<?> logout(
             HttpServletResponse response
     ) {
