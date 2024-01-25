@@ -1,6 +1,7 @@
 package hanam.parc.BE.type.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import hanam.parc.BE.type.etc.DisabilityType;
 import hanam.parc.BE.type.etc.Gender;
 import hanam.parc.BE.type.etc.MemberRole;
 import hanam.parc.BE.type.etc.MemberStatus;
@@ -63,6 +64,9 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus;
+
+    @Enumerated(EnumType.STRING)
+    private DisabilityType disabilityType;
 
     @Column
     private LocalDateTime birth;

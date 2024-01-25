@@ -60,6 +60,7 @@ public class MemberService {
         member.setAddress(memberRequestDto.getAddress());
         member.setEmail(memberRequestDto.getEmail());
         member.setBirth(memberRequestDto.getBirth());
+        member.setDisabilityType(memberRequestDto.getDisabilityType());
         memberRepository.save(member);
     }
 

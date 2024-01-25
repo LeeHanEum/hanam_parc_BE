@@ -1,5 +1,6 @@
 package hanam.parc.BE.type.dto;
 
+import hanam.parc.BE.type.etc.DisabilityType;
 import hanam.parc.BE.type.etc.Gender;
 import hanam.parc.BE.type.etc.MemberRole;
 import hanam.parc.BE.type.etc.MemberStatus;
@@ -31,6 +32,8 @@ public class MemberResponseDto {
     private MemberRole memberRole;
 
     private MemberStatus memberStatus;
+
+    private DisabilityType disabilityType;
 
     private String birth;
 

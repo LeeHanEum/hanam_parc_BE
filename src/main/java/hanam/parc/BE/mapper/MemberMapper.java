@@ -22,6 +22,7 @@ public interface MemberMapper {
             @Mapping(target = "phone", source = "memberRequestDto.phone"),
             @Mapping(target = "guardianPhone", source = "memberRequestDto.guardianPhone"),
             @Mapping(target = "guardianName", source = "memberRequestDto.guardianName"),
+            @Mapping(target = "disabilityType", source = "memberRequestDto.disabilityType"),
             @Mapping(target = "address", source = "memberRequestDto.address"),
             @Mapping(target = "email", source = "memberRequestDto.email"),
             @Mapping(target = "birth", source = "memberRequestDto.birth"),
@@ -40,6 +41,7 @@ public interface MemberMapper {
             @Mapping(target = "email", source = "member.email"),
             @Mapping(target = "role", source = "member.role"),
             @Mapping(target = "status", source = "member.status"),
+            @Mapping(target = "disabilityType", source = "member.disabilityType"),
             @Mapping(target = "birth", source = "member.birth"),
             @Mapping(target = "lastLoginTime", source = "member.lastLoginTime")
     })

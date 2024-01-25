@@ -1,5 +1,6 @@
 package hanam.parc.BE.type.dto;
 
+import hanam.parc.BE.type.etc.DisabilityType;
 import hanam.parc.BE.type.etc.Gender;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,8 @@ public class MemberRequestDto {
     private String address;
 
     private String email;
+
+    private DisabilityType disabilityType;
 
     private LocalDateTime birth;
 
