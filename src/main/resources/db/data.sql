@@ -34,3 +34,19 @@ VALUES ('오픈이 언제인가요?', '제곧내', true, 'leehaneum', '1월 중�
 
 INSERT INTO qna (title, content,is_answered, writer_id, created_at, updated_at)
 VALUES ('휴가는 언제인가요?', '휴가 가고 싶어요', false, 'okJang','2021-01-01', '2021-01-01');
+
+-- comment
+INSERT INTO comment (content, member_id, board_id, parent_id, created_at, updated_at)
+VALUES ('첫번째 댓글입니다.', 'leehaneum', 1, null, '2021-01-01', '2021-01-01');
+
+INSERT INTO comment (content, member_id, board_id, parent_id, created_at, updated_at)
+VALUES ('두번째 댓글입니다.', 'okJang', 1, null, '2021-01-01', '2021-01-01');
+
+INSERT INTO comment (content, member_id, board_id, parent_id, created_at, updated_at)
+VALUES ('세번째 댓글입니다.', 'leehaneum', 1, 1, '2021-01-01', '2021-01-01');
+
+INSERT INTO comment (content, member_id, board_id, parent_id, created_at, updated_at)
+VALUES ('네번째 댓글입니다.', 'okJang', 1, 1, '2021-01-01', '2021-01-01');
+
+INSERT INTO comment (content, member_id, board_id, parent_id, created_at, updated_at)
+VALUES ('다섯번째 댓글입니다.', 'leehaneum', 1, 3, '2021-01-01', '2021-01-01');
