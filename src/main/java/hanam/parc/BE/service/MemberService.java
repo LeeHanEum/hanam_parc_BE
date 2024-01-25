@@ -53,6 +53,7 @@ public class MemberService {
         Member member = getMemberById(id);
         member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
         member.setName(memberRequestDto.getName());
+        member.setGender(memberRequestDto.getGender());
         member.setPhone(memberRequestDto.getPhone());
         member.setEmail(memberRequestDto.getEmail());
         member.setBirth(memberRequestDto.getBirth());

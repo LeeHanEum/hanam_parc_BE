@@ -1,5 +1,6 @@
 package hanam.parc.BE.type.dto;
 
+import hanam.parc.BE.type.etc.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,8 @@ public class MemberRequestDto {
     private String password;
 
     private String name;
+
+    private Gender gender;
 
     private String phone;
 

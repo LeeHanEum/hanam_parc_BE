@@ -1,5 +1,6 @@
 package hanam.parc.BE.type.dto;
 
+import hanam.parc.BE.type.etc.Gender;
 import hanam.parc.BE.type.etc.MemberRole;
 import hanam.parc.BE.type.etc.MemberStatus;
 import lombok.Getter;
@@ -14,6 +15,8 @@ public class MemberResponseDto {
     private String password;
 
     private String name;
+
+    private Gender gender;
 
     private String phone;
 

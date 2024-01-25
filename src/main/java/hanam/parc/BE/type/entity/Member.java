@@ -1,6 +1,7 @@
 package hanam.parc.BE.type.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import hanam.parc.BE.type.etc.Gender;
 import hanam.parc.BE.type.etc.MemberRole;
 import hanam.parc.BE.type.etc.MemberStatus;
 import jakarta.persistence.Column;
@@ -39,6 +40,9 @@ public class Member {
     @Column(nullable = false, length = 15)
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     @Column(length = 20)
     private String phone;
 
@@ -66,6 +70,7 @@ public class Member {
         this.id = member.getId();
         this.password = member.getPassword();
         this.name = member.getName();
+        this.gender = member.getGender();
         this.phone = member.getPhone();
         this.email = member.getEmail();
         this.memberRole = member.getMemberRole();
