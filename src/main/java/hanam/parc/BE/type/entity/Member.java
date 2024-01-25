@@ -85,10 +85,14 @@ public class Member {
         this.name = member.getName();
         this.gender = member.getGender();
         this.phone = member.getPhone();
+        this.guardianPhone = member.getGuardianPhone();
+        this.guardianName = member.getGuardianName();
+        this.address = member.getAddress();
         this.email = member.getEmail();
         this.memberRole = member.getMemberRole();
         this.memberStatus = member.getMemberStatus();
         this.birth = member.getBirth();
+        this.disabilityType = member.getDisabilityType();
         this.createdAt = member.getCreatedAt();
         this.lastLoginTime = member.getLastLoginTime();
     }
