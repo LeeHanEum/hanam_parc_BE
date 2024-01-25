@@ -54,7 +54,7 @@ public class BoardController {
         return ResponseModel.success(boardList);
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/{BoardCategory}")
     @Operation(summary = "[U] 게시판 카테고리별 리스트 조회", description = "게시판 카테고리별 리스트 조회")
     public ResponseModel<?> getBoardListByCategory(
             @RequestParam BoardCategory boardCategory

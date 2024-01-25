@@ -40,7 +40,7 @@ public class BoardService {
     }
 
     public List<BoardDto> getBoardListByCategory(BoardCategory boardCategory) {
-        List<Board> boardList = boardRepository.findAllByCategory(boardCategory);
+        List<Board> boardList = boardRepository.findAllByBoardCategory(boardCategory);
         return boardList.stream()
                 .map(BoardMapper.INSTANCE::BoardToBoardDto)
                 .collect(Collectors.toList());

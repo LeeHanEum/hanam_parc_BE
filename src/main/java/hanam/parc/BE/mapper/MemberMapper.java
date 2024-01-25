@@ -39,8 +39,8 @@ public interface MemberMapper {
             @Mapping(target = "guardianName", source = "member.guardianName"),
             @Mapping(target = "address", source = "member.address"),
             @Mapping(target = "email", source = "member.email"),
-            @Mapping(target = "role", source = "member.role"),
-            @Mapping(target = "status", source = "member.status"),
+            @Mapping(target = "memberRole", source = "member.memberRole"),
+            @Mapping(target = "memberStatus", source = "member.memberStatus"),
             @Mapping(target = "disabilityType", source = "member.disabilityType"),
             @Mapping(target = "birth", source = "member.birth"),
             @Mapping(target = "lastLoginTime", source = "member.lastLoginTime")

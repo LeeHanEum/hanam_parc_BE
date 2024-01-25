@@ -15,14 +15,14 @@ public interface BoardMapper {
     @Mappings({
             @Mapping(target = "title", source = "boardDto.title"),
             @Mapping(target = "content", source = "boardDto.content"),
-            @Mapping(target = "category", source = "boardDto.category")
+            @Mapping(target = "boardCategory", source = "boardDto.boardCategory")
     })
     Board BoardDtoToBoard(BoardDto boardDto);
 
     @Mappings({
             @Mapping(target = "title", source = "board.title"),
             @Mapping(target = "content", source = "board.content"),
-            @Mapping(target = "category", source = "board.category")
+            @Mapping(target = "boardCategory", source = "board.boardCategory")
     })
     BoardDto BoardToBoardDto(Board board);
 

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    List<Board> findAllByCategory(BoardCategory boardCategory);
+    List<Board> findAllByBoardCategory(BoardCategory boardCategory);
 
     List<Board> findAllByMember(Member member);
 }
