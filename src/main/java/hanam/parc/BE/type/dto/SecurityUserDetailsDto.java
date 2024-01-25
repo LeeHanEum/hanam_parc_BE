@@ -22,7 +22,7 @@ public class SecurityUserDetailsDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(memberDto.getRole().toString()));
+        return Collections.singletonList(new SimpleGrantedAuthority(memberDto.getMemberRole().toString()));
     }
 
     @Override

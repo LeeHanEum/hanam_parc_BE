@@ -1,8 +1,8 @@
 package hanam.parc.BE.type.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import hanam.parc.BE.type.etc.Role;
-import hanam.parc.BE.type.etc.Status;
+import hanam.parc.BE.type.etc.MemberRole;
+import hanam.parc.BE.type.etc.MemberStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -46,10 +46,10 @@ public class Member {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private MemberRole memberRole;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private MemberStatus memberStatus;
 
     @Column
     private LocalDateTime birth;
@@ -68,8 +68,8 @@ public class Member {
         this.name = member.getName();
         this.phone = member.getPhone();
         this.email = member.getEmail();
-        this.role = member.getRole();
-        this.status = member.getStatus();
+        this.memberRole = member.getMemberRole();
+        this.memberStatus = member.getMemberStatus();
         this.birth = member.getBirth();
         this.createdAt = member.getCreatedAt();
         this.lastLoginTime = member.getLastLoginTime();

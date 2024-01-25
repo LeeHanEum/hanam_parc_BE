@@ -6,18 +6,16 @@ import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.dto.SecurityUserDetailsDto;
 import hanam.parc.BE.type.entity.Member;
-import hanam.parc.BE.type.etc.Role;
-import hanam.parc.BE.type.etc.Status;
+import hanam.parc.BE.type.etc.MemberStatus;
+import hanam.parc.BE.type.etc.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,8 +32,8 @@ public class MemberService {
         }
         Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
         member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
-        member.setRole(Role.GUEST);
-        member.setStatus(Status.ACTIVE);
+        member.setMemberRole(MemberRole.GUEST);
+        member.setMemberStatus(MemberStatus.ACTIVE);
         memberRepository.save(member);
     }
 
@@ -61,10 +59,10 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void updateMemberRoleAndStatus(String id, Role role, Status status) {
+    public void updateMemberRoleAndStatus(String id, MemberRole memberRole, MemberStatus memberStatus) {
         Member member = getMemberById(id);
-        member.setRole(role);
-        member.setStatus(status);
+        member.setMemberRole(memberRole);
+        member.setMemberStatus(memberStatus);
         memberRepository.save(member);
     }
 
@@ -83,7 +81,7 @@ public class MemberService {
     }
 
     public boolean checkMemberAdminRole(Member member){
-        return member.getRole().equals(Role.ADMIN) || member.getRole().equals(Role.SUPER);
+        return member.getMemberRole().equals(MemberRole.ADMIN) || member.getMemberRole().equals(MemberRole.SUPER);
     }
 
     public SecurityUserDetailsDto getAuthenticatedUser() {

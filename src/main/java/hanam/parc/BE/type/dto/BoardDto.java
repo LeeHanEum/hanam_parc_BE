@@ -1,7 +1,6 @@
 package hanam.parc.BE.type.dto;
 
-import hanam.parc.BE.type.entity.Member;
-import hanam.parc.BE.type.etc.Category;
+import hanam.parc.BE.type.etc.BoardCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +12,6 @@ public class BoardDto {
 
     private String content;
 
-    private Category category;
+    private BoardCategory boardCategory;
 
 }

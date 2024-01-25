@@ -5,12 +5,11 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Role {
+public enum MemberStatus {
 
-    SUPER("SUPER_ADMIN", "슈퍼 관리자"),
-    ADMIN("ADMIN", "관리자"),
-    USER("USER", "사용자"),
-    GUEST("GUEST", "손님");
+    ACTIVE("ACTIVE", "활성 계정"),
+    BLOCKED("BLOCKED", "차단 계정"),
+    DORMANT("DORMANT", "휴면 계정");
 
     private final String key;
 

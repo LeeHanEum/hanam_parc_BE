@@ -46,7 +46,7 @@ public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuc
         JSONObject jsonObject;
 
         // 3-1. 사용자의 상태가 '휴먼 상태' 인 경우에 응답값으로 전달할 데이터
-        if (Objects.equals(memberDto.getStatus(), "DORMANT")) {
+        if (Objects.equals(memberDto.getMemberStatus(), "DORMANT")) {
             responseMap.put("userInfo", memberDtoObject);
             responseMap.put("resultCode", 9001);
             responseMap.put("token", null);

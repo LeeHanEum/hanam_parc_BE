@@ -5,7 +5,7 @@ import hanam.parc.BE.repository.BoardRepository;
 import hanam.parc.BE.type.dto.BoardDto;
 import hanam.parc.BE.type.entity.Board;
 import hanam.parc.BE.type.entity.Member;
-import hanam.parc.BE.type.etc.Category;
+import hanam.parc.BE.type.etc.BoardCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +39,8 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    public List<BoardDto> getBoardListByCategory(Category category) {
-        List<Board> boardList = boardRepository.findAllByCategory(category);
+    public List<BoardDto> getBoardListByCategory(BoardCategory boardCategory) {
+        List<Board> boardList = boardRepository.findAllByCategory(boardCategory);
         return boardList.stream()
                 .map(BoardMapper.INSTANCE::BoardToBoardDto)
                 .collect(Collectors.toList());
@@ -62,7 +62,7 @@ public class BoardService {
         }
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
-        board.setCategory(boardDto.getCategory());
+        board.setBoardCategory(boardDto.getBoardCategory());
         boardRepository.save(board);
     }
 

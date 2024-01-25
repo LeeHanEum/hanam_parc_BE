@@ -1,6 +1,6 @@
 package hanam.parc.BE.type.entity;
 
-import hanam.parc.BE.type.etc.Category;
+import hanam.parc.BE.type.etc.BoardCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,8 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -44,7 +42,7 @@ public class Board {
     private Member member;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private BoardCategory boardCategory;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)

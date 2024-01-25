@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new SecurityUserDetailsDto(
                 memberDto,
                 Collections.singleton(new SimpleGrantedAuthority(
-                        memberDto.getRole().toString()
+                        memberDto.getMemberRole().toString()
                 ))
         );
     }

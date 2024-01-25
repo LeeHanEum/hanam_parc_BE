@@ -4,8 +4,8 @@ import hanam.parc.BE.service.MemberService;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
-import hanam.parc.BE.type.etc.Role;
-import hanam.parc.BE.type.etc.Status;
+import hanam.parc.BE.type.etc.MemberRole;
+import hanam.parc.BE.type.etc.MemberStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -60,10 +60,10 @@ public class MemberController {
     @Operation(summary = "[A] 회원 권한 및 상태 수정", description = "회원 권한 및 상태 수정")
     public ResponseModel<?> updateMemberRoleAndStatus(
             @RequestParam String id,
-            @RequestParam Role role,
-            @RequestParam Status status
+            @RequestParam MemberRole memberRole,
+            @RequestParam MemberStatus memberStatus
     ) {
-        memberService.updateMemberRoleAndStatus(id, role, status);
+        memberService.updateMemberRoleAndStatus(id, memberRole, memberStatus);
         return ResponseModel.success(true);
     }
 

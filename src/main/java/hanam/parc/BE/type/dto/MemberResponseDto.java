@@ -1,11 +1,9 @@
 package hanam.parc.BE.type.dto;
 
-import hanam.parc.BE.type.etc.Role;
-import hanam.parc.BE.type.etc.Status;
+import hanam.parc.BE.type.etc.MemberRole;
+import hanam.parc.BE.type.etc.MemberStatus;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,9 +19,9 @@ public class MemberResponseDto {
 
     private String email;
 
-    private Role role;
+    private MemberRole memberRole;
 
-    private Status status;
+    private MemberStatus memberStatus;
 
     private String birth;
 
