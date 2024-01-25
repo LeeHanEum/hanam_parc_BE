@@ -46,6 +46,15 @@ public class Member {
     @Column(length = 20)
     private String phone;
 
+    @Column(length = 20)
+    private String guardianPhone;
+
+    @Column(length = 15)
+    private String guardianName;
+
+    @Column(length = 200)
+    private String address;
+
     @Column(length = 45)
     private String email;
 

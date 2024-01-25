@@ -55,6 +55,9 @@ public class MemberService {
         member.setName(memberRequestDto.getName());
         member.setGender(memberRequestDto.getGender());
         member.setPhone(memberRequestDto.getPhone());
+        member.setGuardianPhone(memberRequestDto.getGuardianPhone());
+        member.setGuardianName(memberRequestDto.getGuardianName());
+        member.setAddress(memberRequestDto.getAddress());
         member.setEmail(memberRequestDto.getEmail());
         member.setBirth(memberRequestDto.getBirth());
         memberRepository.save(member);

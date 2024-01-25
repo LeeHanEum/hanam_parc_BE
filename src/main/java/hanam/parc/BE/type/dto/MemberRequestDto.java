@@ -20,6 +20,12 @@ public class MemberRequestDto {
 
     private String phone;
 
+    private String guardianPhone;
+
+    private String guardianName;
+
+    private String address;
+
     private String email;
 
     private LocalDateTime birth;
