@@ -58,6 +58,16 @@ public class CommentService {
                 .toList();
     }
 
+    public List<CommentResponseDto> getCommentByBoard(
+            Long boardId
+    ) {
+        Board board = boardService.getBoardById(boardId);
+        List<Comment> commentList = commentRepository.findAllByBoard(board);
+        return commentList.stream()
+                .map(CommentMapper.INSTANCE::CommentToCommentResponseDto)
+                .toList();
+    }
+
     public void updateComment(Long id, CommentRequestDto commentRequestDto) {
         Member member = memberService.getCurrentMember();
         Comment comment = getCommentById(id);

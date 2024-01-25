@@ -64,6 +64,16 @@ public class CommentController {
         return ResponseModel.success(commentList);
     }
 
+    @Operation(summary = "[U] board 기반 댓글 조회", description = "board 기반 댓글 조회")
+    @GetMapping("/board")
+    public ResponseModel<?> getCommentByBoard(
+            @RequestParam Long boardId
+    ) {
+        List<CommentResponseDto> commentList = commentService.getCommentByBoard(boardId);
+        return ResponseModel.success(commentList);
+    }
+
+
     @Operation(summary = "[U] Comment 수정", description = "Comment 수정")
     @PatchMapping("")
     public ResponseModel<?> updateComment(
