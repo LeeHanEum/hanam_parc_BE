@@ -34,6 +34,9 @@ public class Program {
     @Column(nullable = false, length = 45)
     private String name; // 프로그램명
 
+    @Column(length = 200)
+    private String thumbnail; // 썸네일
+
     @Column
     private String category; // 종목
 
