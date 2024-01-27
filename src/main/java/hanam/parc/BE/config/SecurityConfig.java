@@ -37,8 +37,10 @@ import java.util.function.Supplier;
 public class SecurityConfig {
 
     private static final String[] SWAGGER_PATTERNS = {
+            "/css/**",
+            "/js/**",
+            "/images/**",
             "/v3/api-docs/**",
-            "/swagger-ui/**",
             "/swagger-ui.html",
             "/swagger-ui/",
             "/swagger-ui/index.html",
@@ -48,6 +50,15 @@ public class SecurityConfig {
             "/swagger-resources/configuration/security",
             "/swagger-resources",
             "/v2/api-docs",
+            "/api-docs/json",
+            "/swagger-ui/swagger-ui-standalone-preset.js",
+            "/swagger-ui/swagger-initializer.js",
+            "/swagger-ui/swagger-ui-bundle.js",
+            "/swagger-ui/swagger-ui.css",
+            "/swagger-ui/index.css",
+            "/swagger-ui/favicon-32x32.png",
+            "/swagger-ui/favicon-16x16.png",
+            "/api-docs/json/swagger-config",
             "/api-docs/json"
     };
 
@@ -70,15 +81,12 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login", "/join").permitAll()
-                        .requestMatchers("/member/list").permitAll()
-                        .requestMatchers("board/list").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/swagger-ui/index.html").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
-                        .requestMatchers("/**").permitAll()
                         .requestMatchers(SWAGGER_PATTERNS).permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthorizationFilter, BasicAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
