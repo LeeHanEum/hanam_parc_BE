@@ -9,7 +9,6 @@ import hanam.parc.BE.type.etc.ProgramStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,6 +96,14 @@ public class ProgramService {
             throw new IllegalArgumentException("프로그램 삭제 권한이 없습니다.");
         }
         programRepository.deleteById(id);
+    }
+
+    public Program getProgramById(Long id) {
+        return programRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 프로그램입니다."));
+    }
+
+    public Boolean checkProgramAvailable(Program program) {
+        return program.getProgramStatus().equals(ProgramStatus.ACCEPTING);
     }
 
 }
