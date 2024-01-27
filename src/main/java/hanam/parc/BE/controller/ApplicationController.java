@@ -61,6 +61,15 @@ public class ApplicationController {
         return ResponseModel.success(applicationDtoList);
     }
 
+    @GetMapping("/program")
+    @Operation(summary = "[A] Program에 대한 Application 리스트 조회", description = "Program에 대한 Application 리스트 조회")
+    public ResponseModel<?> getApplicationListByProgram(
+            @RequestParam Long programId
+    ) {
+        List<ApplicationDto> applicationDtoList = applicationService.getApplicationListByProgram(programId);
+        return ResponseModel.success(applicationDtoList);
+    }
+
     @PatchMapping("")
     @Operation(summary = "[U] Application 수정", description = "Application 수정")
     public ResponseModel<?> updateApplication(

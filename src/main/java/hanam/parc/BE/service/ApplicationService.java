@@ -62,6 +62,14 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
+    public List<ApplicationDto> getApplicationListByProgram(Long programId) {
+        Program program = programService.getProgramById(programId);
+        List<Application> applicationList = applicationRepository.findAllByProgram(program);
+        return applicationList.stream()
+                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationDto)
+                .collect(Collectors.toList());
+    }
+
     public void updateApplication(Long id, ApplicationDto applicationDto) {
         Member member = memberService.getCurrentMember();
         Application application = applicationRepository.findById(id).orElseThrow();
