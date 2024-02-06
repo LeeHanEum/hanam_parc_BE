@@ -19,6 +19,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -69,7 +70,7 @@ public class Member {
     private DisabilityType disabilityType;
 
     @Column
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)

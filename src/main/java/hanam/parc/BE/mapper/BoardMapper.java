@@ -1,6 +1,7 @@
 package hanam.parc.BE.mapper;
 
 import hanam.parc.BE.type.dto.BoardDto;
+import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.entity.Board;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,5 +26,16 @@ public interface BoardMapper {
             @Mapping(target = "boardCategory", source = "board.boardCategory")
     })
     BoardDto BoardToBoardDto(Board board);
+
+    @Mappings({
+            @Mapping(target = "id", source = "board.id"),
+            @Mapping(target = "title", source = "board.title"),
+            @Mapping(target = "content", source = "board.content"),
+            @Mapping(target = "writer", source = "board.member"),
+            @Mapping(target = "createdAt", source = "board.createdAt"),
+            @Mapping(target = "updatedAt", source = "board.updatedAt"),
+            @Mapping(target = "boardCategory", source = "board.boardCategory")
+    })
+    BoardResponseDto BoardToBoardResponseDto(Board board);
 
 }

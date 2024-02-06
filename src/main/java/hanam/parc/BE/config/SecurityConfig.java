@@ -78,13 +78,16 @@ public class SecurityConfig {
         log.debug("[+] WebSecurityConfig Start !!! ");
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login", "/join").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/swagger-ui/index.html").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
+                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/member/duplication").permitAll()
                         .requestMatchers(SWAGGER_PATTERNS).permitAll()
                         .anyRequest().authenticated()
                 )

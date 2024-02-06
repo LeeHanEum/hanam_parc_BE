@@ -5,6 +5,7 @@ import hanam.parc.BE.type.etc.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -31,6 +32,6 @@ public class MemberRequestDto {
 
     private DisabilityType disabilityType;
 
-    private LocalDateTime birth;
+    private LocalDate birth;
 
 }

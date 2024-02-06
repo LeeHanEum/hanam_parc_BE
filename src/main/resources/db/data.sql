@@ -1,22 +1,22 @@
 --superuser 1111
 INSERT INTO member (member_id, password, name, phone, email, member_role, member_status, birth, created_at, last_login_time)
-    VALUES ('superuser', '$2a$12$xsnsy6lcQl1EM2cc9sxEbemIoXPf6jiMHIyE3lZWAr8YCz9QQDJXq', 'superuser', '010-1234-5678', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
+    VALUES ('superuser', '$2a$12$xsnsy6lcQl1EM2cc9sxEbemIoXPf6jiMHIyE3lZWAr8YCz9QQDJXq', '관리자', '010-1234-5678', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- leehaneum 0924
 INSERT INTO member (member_id, password, name, phone, email, member_role, member_status, birth, created_at, last_login_time)
-VALUES ('leehaneum', '$2a$12$SYIVeoc5WTQTDOZRzxMm6u9GfYVUIEHNOwqq.vpt2vgaezM63nVke', 'leehaneum', '010-6299-5678', 'leehaneum160924@kyonggi.ac.kr', 'ADMIN', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
+VALUES ('leehaneum', '$2a$12$SYIVeoc5WTQTDOZRzxMm6u9GfYVUIEHNOwqq.vpt2vgaezM63nVke', '이한음', '010-6299-5678', 'leehaneum160924@kyonggi.ac.kr', 'ADMIN', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- okJang 8777
 INSERT INTO member (member_id, password, name, phone, email, member_role, member_status, birth, created_at, last_login_time)
 VALUES ('okJang', '$2a$12$bUjikKYJ1w1RdYFIn2DlmOcNF0zxivfAJ6hDsP/TxaAgTqb9J./wG', 'okJang', '010-6299-0733', 'mosoon365@hanmail.net', 'USER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 
 -- board
 INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
-VALUES ('가입인사', '첫번째 글입니다.', 'leehaneum', 'FREE', '2021-01-01', '2021-01-01');
+VALUES ('가입인사', '첫번째 글입니다.', 'leehaneum', 'ANNOUNCEMENT', '2021-01-01', '2021-01-01');
 
 INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
-VALUES ('수원시 체육대회 개최', '수원시 체육대회 개최', 'okJang', 'FREE', '2021-01-01', '2021-01-01');
+VALUES ('수원시 체육대회 개최', '수원시 체육대회 개최', 'okJang', 'ANNOUNCEMENT', '2021-01-01', '2021-01-01');
 
 INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
-VALUES ('평창 청소년 올림픽 한국 1위', '평창 청소년 올림픽 한국 1위', 'leehaneum', 'FREE', '2021-01-01', '2021-01-01');
+VALUES ('평창 청소년 올림픽 한국 1위', '평창 청소년 올림픽 한국 1위', 'leehaneum', 'ANNOUNCEMENT', '2021-01-01', '2021-01-01');
 
 -- notification
 INSERT INTO notification (content, is_read, member_id, created_at)

@@ -34,8 +34,12 @@ public class ApplicationController {
             @RequestParam Long programId,
             @RequestBody ApplicationDto applicationDto
     ) {
-        applicationService.createApplication(programId, applicationDto);
-        return ResponseModel.success(true);
+        try {
+            applicationService.createApplication(programId, applicationDto);
+            return ResponseModel.success(true);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", e.getMessage());
+        }
     }
 
     @GetMapping("")

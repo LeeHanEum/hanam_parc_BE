@@ -66,13 +66,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/swagger-ui/favicon-16x16.png",
                 "/api-docs/json/swagger-config",
                 "/api-docs/json",
-                "/application",
-                "/board",
-                "/comment",
-                "/member",
-                "/notification",
-                "/program",
-                "/qna"
+                "/hello",
+                "/logout",
+                "/member/duplication"
         );
 
         // 2. 토큰이 필요하지 않은 API URL의 경우 -> 로직 처리없이 다음 필터로 이동한다.

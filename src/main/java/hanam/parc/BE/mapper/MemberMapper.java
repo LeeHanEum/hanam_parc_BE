@@ -1,5 +1,6 @@
 package hanam.parc.BE.mapper;
 
+import hanam.parc.BE.type.dto.JoinDto;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.entity.Member;
@@ -46,5 +47,14 @@ public interface MemberMapper {
             @Mapping(target = "lastLoginTime", source = "member.lastLoginTime")
     })
     MemberResponseDto MemberToMemberResponseDto(Member member);
+
+    @Mappings({
+            @Mapping(target = "id", source = "joinDto.id"),
+            @Mapping(target = "password", source = "joinDto.password"),
+            @Mapping(target = "name", source = "joinDto.name"),
+            @Mapping(target = "phone", source = "joinDto.phone"),
+            @Mapping(target = "email", source = "joinDto.email"),
+    })
+    Member JoinDtoToMember(JoinDto joinDto);
 
 }

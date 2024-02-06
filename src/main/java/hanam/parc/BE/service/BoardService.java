@@ -3,10 +3,13 @@ package hanam.parc.BE.service;
 import hanam.parc.BE.mapper.BoardMapper;
 import hanam.parc.BE.repository.BoardRepository;
 import hanam.parc.BE.type.dto.BoardDto;
+import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.entity.Board;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.etc.BoardCategory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +47,11 @@ public class BoardService {
         return boardList.stream()
                 .map(BoardMapper.INSTANCE::BoardToBoardDto)
                 .collect(Collectors.toList());
+    }
+
+    public Page<BoardResponseDto> getBoardPageByCategory(BoardCategory boardCategory, Pageable pageable) {
+        Page<Board> boardPage = boardRepository.findAllByBoardCategoryOrderByCreatedAt(boardCategory, pageable);
+        return boardPage.map(BoardMapper.INSTANCE::BoardToBoardResponseDto);
     }
 
     public List<BoardDto> getMyBoardList() {

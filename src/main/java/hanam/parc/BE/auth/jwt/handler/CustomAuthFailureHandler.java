@@ -53,6 +53,7 @@ public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
         // [STEP.3] 응답값을 구성하고 전달한다.
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         try (PrintWriter printWriter = response.getWriter()) {
             log.debug(failMessage);

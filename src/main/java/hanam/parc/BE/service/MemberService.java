@@ -2,13 +2,18 @@ package hanam.parc.BE.service;
 
 import hanam.parc.BE.mapper.MemberMapper;
 import hanam.parc.BE.repository.MemberRepository;
+import hanam.parc.BE.type.dto.JoinDto;
 import hanam.parc.BE.type.dto.MemberRequestDto;
 import hanam.parc.BE.type.dto.MemberResponseDto;
 import hanam.parc.BE.type.dto.SecurityUserDetailsDto;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.etc.MemberStatus;
 import hanam.parc.BE.type.etc.MemberRole;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,12 +31,12 @@ public class MemberService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void createMember(MemberRequestDto memberRequestDto) {
-        if(memberRepository.findById(memberRequestDto.getId()).isPresent()) {
+    public void createMember(JoinDto joinDto) {
+        if(memberRepository.findById(joinDto.getId()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 ID 입니다.");
         }
-        Member member = MemberMapper.INSTANCE.MemberRequestDtoToMember(memberRequestDto);
-        member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
+        Member member = MemberMapper.INSTANCE.JoinDtoToMember(joinDto);
+        member.setPassword(passwordEncoder.encode(joinDto.getPassword()));
         member.setMemberRole(MemberRole.GUEST);
         member.setMemberStatus(MemberStatus.ACTIVE);
         memberRepository.save(member);
@@ -42,11 +47,9 @@ public class MemberService {
         return MemberMapper.INSTANCE.MemberToMemberResponseDto(member);
     }
 
-    public List<MemberResponseDto> getMemberList() {
-        List<Member> memberList = memberRepository.findAll();
-        return memberList.stream()
-                .map(MemberMapper.INSTANCE::MemberToMemberResponseDto)
-                .collect(Collectors.toList());
+    public Page<MemberResponseDto> getMemberList(Pageable pageable) {
+        Page<Member> memberList = memberRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return memberList.map(MemberMapper.INSTANCE::MemberToMemberResponseDto);
     }
 
     public void updateMember(String id, MemberRequestDto memberRequestDto) {
@@ -107,6 +110,23 @@ public class MemberService {
     public Member getCurrentMember() {
         String id = getAuthenticatedUser().getMemberDto().getId();
         return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+    }
+
+    public String getCurrentMemberToken(HttpServletRequest request) {
+        jakarta.servlet.http.Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            throw new IllegalArgumentException("No cookies provided");
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("jwt")) {
+                return cookie.getValue();
+            }
+        }
+        throw new IllegalArgumentException("No JWT cookie provided");
+    }
+
+    public boolean checkMemberIdDuplication(String id) {
+        return memberRepository.existsById(id);
     }
 
 }

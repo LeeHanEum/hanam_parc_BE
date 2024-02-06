@@ -2,15 +2,20 @@ package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.BoardService;
 import hanam.parc.BE.type.dto.BoardDto;
+import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.etc.BoardCategory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,12 +58,24 @@ public class BoardController {
         return ResponseModel.success(boardList);
     }
 
-    @GetMapping("/{BoardCategory}")
+    @GetMapping("/{boardCategory}")
     @Operation(summary = "[U] 게시판 카테고리별 리스트 조회", description = "게시판 카테고리별 리스트 조회")
     public ResponseModel<?> getBoardListByCategory(
-            @RequestParam BoardCategory boardCategory
+            @PathVariable BoardCategory boardCategory
     ) {
         List<BoardDto> boardList = boardService.getBoardListByCategory(boardCategory);
+        return ResponseModel.success(boardList);
+    }
+
+    @GetMapping("/{boardCategory}/page")
+    @Operation(summary = "[U] 게시판 카테고리별 페이징 리스트 조회", description = "게시판 카테고리별 페이징 리스트 조회")
+    public ResponseModel<?> getBoardPageByCategory(
+            @PathVariable BoardCategory boardCategory,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BoardResponseDto> boardList = boardService.getBoardPageByCategory(boardCategory, pageable);
         return ResponseModel.success(boardList);
     }
 

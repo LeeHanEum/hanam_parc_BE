@@ -1,9 +1,14 @@
 package hanam.parc.BE.type.dto;
 
+import com.nimbusds.oauth2.sdk.http.HTTPResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import net.minidev.json.JSONObject;
 import org.springframework.http.HttpHeaders;
+
+import java.io.PrintWriter;
 
 
 @Getter
