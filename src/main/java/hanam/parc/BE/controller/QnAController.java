@@ -8,6 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -51,6 +54,17 @@ public class QnAController {
     public ResponseModel<?> getQnAList(
     ) {
         List<QnAResponseDto> qnaList = qnaService.getQnAList();
+        return ResponseModel.success(qnaList);
+    }
+
+    @GetMapping("/page")
+    @Operation(summary = "[U] QnA 페이지 조회", description = "QnA 페이지 조회")
+    public ResponseModel<?> getQnAPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<QnAResponseDto> qnaList = qnaService.getQnAPage(pageable);
         return ResponseModel.success(qnaList);
     }
 

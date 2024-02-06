@@ -1,5 +1,6 @@
 package hanam.parc.BE.type.dto;
 
+import hanam.parc.BE.type.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +16,11 @@ public class QnAResponseDto {
 
     private Boolean isAnswered;
 
-    private String writer;
+    private Member writer;
 
     private String answer;
 
-    private String answerer;
+    private Member answerer;
 
     private String createdAt;
 

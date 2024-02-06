@@ -7,6 +7,8 @@ import hanam.parc.BE.type.dto.QnAResponseDto;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.entity.QnA;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +40,11 @@ public class QnAService {
         return qnaList.stream()
                 .map(QnAMapper.INSTANCE::QnAToQnAResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    public Page<QnAResponseDto> getQnAPage(Pageable pageable){
+        Page<QnA> qnaPage = qnaRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return qnaPage.map(QnAMapper.INSTANCE::QnAToQnAResponseDto);
     }
 
     public List<QnAResponseDto> getMyQnA() {
