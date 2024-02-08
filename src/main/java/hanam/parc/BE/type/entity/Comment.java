@@ -22,13 +22,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "comment")
+@Entity(name = "Comment")
 public class Comment {
 
     @Id

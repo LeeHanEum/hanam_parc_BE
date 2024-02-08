@@ -7,10 +7,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BoardCategory {
 
-    FREE("FREE", "자유게시판"),
     ANNOUNCEMENT("ANNOUNCEMENT", "공지사항"),
     RECRUITMENT("RECRUITMENT", "채용공고"),
-    MANAGEMENT("MANAGEMENT", "경영공시");
+    MANAGEMENT("MANAGEMENT", "경영공시"),
+    EVENT("EVENT", "행사");
 
     private final String key;
 

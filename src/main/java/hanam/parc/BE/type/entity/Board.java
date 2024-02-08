@@ -19,11 +19,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "board")
+@Entity(name = "Board")
 public class Board {
 
     @Id

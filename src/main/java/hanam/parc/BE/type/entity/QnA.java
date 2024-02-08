@@ -16,11 +16,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "qna")
+@Entity(name = "QnA")
 public class QnA {
 
     @Id

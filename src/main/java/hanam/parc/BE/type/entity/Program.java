@@ -23,11 +23,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "program")
+@Entity(name = "Program")
 public class Program {
 
     @Id
