@@ -17,7 +17,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -46,24 +49,18 @@ public class Program {
     @Enumerated(EnumType.STRING)
     private ProgramStatus programStatus; // 프로그램 상태
 
-    @Enumerated(EnumType.STRING)
-    private DisabilityType disabilityType; // 장애유형
-
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Member manager; // 담당자
 
     @Column(nullable = false)
-    private Long applyPeriod; // 접수 시간(day)
-
-    @Enumerated(EnumType.STRING)
-    private ApplyMethod applyMethod; // 신청방법
+    private LocalDateTime applyEnd; // 접수 시간(day)
 
     @Column(nullable = false)
-    private LocalDateTime startDate; // 시작일
+    private LocalDate startDate; // 시작일
 
     @Column(nullable = false)
-    private LocalDateTime endDate; // 종료일
+    private LocalDate endDate; // 종료일
 
     @Column(nullable = false)
     private Long educationTime; // 교육 시간(min)
@@ -72,7 +69,7 @@ public class Program {
     private String location; // 장소
 
     @Column(nullable = false)
-    private Long cost; // 참가비
+    private String cost; // 참가비
 
     @Column(nullable = false)
     private String material; // 준비물
@@ -80,5 +77,13 @@ public class Program {
     @Column(nullable = false)
     @Size(min = 1, max = 1000)
     private String description; // 설명
+
+    @CreationTimestamp
+    @Column(name="created_at", updatable = false, nullable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name="updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
 }

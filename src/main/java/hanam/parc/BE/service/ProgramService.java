@@ -2,11 +2,14 @@ package hanam.parc.BE.service;
 
 import hanam.parc.BE.mapper.ProgramMapper;
 import hanam.parc.BE.repository.ProgramRepository;
-import hanam.parc.BE.type.dto.ProgramDto;
+import hanam.parc.BE.type.dto.ProgramRequestDto;
+import hanam.parc.BE.type.dto.ProgramResponseDto;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.entity.Program;
 import hanam.parc.BE.type.etc.ProgramStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,63 +23,66 @@ public class ProgramService {
 
     private final ProgramRepository programRepository;
 
-    public void createProgram(ProgramDto programDto) {
+    public void createProgram(ProgramRequestDto programRequestDto) {
         Member member = memberService.getCurrentMember();
         if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("관리자만 등록할 수 있습니다.");
         }
-        Program program = ProgramMapper.INSTANCE.ProgramDtoToProgram(programDto);
+        Program program = ProgramMapper.INSTANCE.ProgramRequestDtoToProgram(programRequestDto);
         program.setManager(member);
         programRepository.save(program);
     }
 
-    public ProgramDto getProgram(Long id) {
+    public ProgramResponseDto getProgram(Long id) {
         Program program = programRepository.findById(id).orElseThrow();
-        return ProgramMapper.INSTANCE.ProgramToProgramDto(program);
+        return ProgramMapper.INSTANCE.ProgramToProgramResponseDto(program);
     }
 
-    public List<ProgramDto> getProgramList() {
+    public List<ProgramResponseDto> getProgramList() {
         List<Program> programList = programRepository.findAll();
         return programList.stream()
-                .map(ProgramMapper.INSTANCE::ProgramToProgramDto)
+                .map(ProgramMapper.INSTANCE::ProgramToProgramResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public List<ProgramDto> getMyProgramList() {
+    public List<ProgramResponseDto> getMyProgramList() {
         Member member = memberService.getCurrentMember();
         List<Program> programList = programRepository.findAllByManager(member);
         return programList.stream()
-                .map(ProgramMapper.INSTANCE::ProgramToProgramDto)
+                .map(ProgramMapper.INSTANCE::ProgramToProgramResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public List<ProgramDto> getProgramListByStatus(ProgramStatus programStatus) {
+    public Page<ProgramResponseDto> getProgramListByPage(Pageable pageable) {
+        Page<Program> programList = programRepository.findAllByOrderByApplyEndDesc(pageable);
+        return programList.map(ProgramMapper.INSTANCE::ProgramToProgramResponseDto);
+    }
+
+    public List<ProgramResponseDto> getProgramListByStatus(ProgramStatus programStatus) {
         List<Program> programList = programRepository.findAllByProgramStatus(programStatus);
         return programList.stream()
-                .map(ProgramMapper.INSTANCE::ProgramToProgramDto)
+                .map(ProgramMapper.INSTANCE::ProgramToProgramResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public void updateProgram(Long id, ProgramDto programDto) {
+    public void updateProgram(Long id, ProgramRequestDto programRequestDto) {
         Member member = memberService.getCurrentMember();
         Program program = programRepository.findById(id).orElseThrow();
         if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("프로그램 수정 권한이 없습니다.");
         }
-        program.setName(programDto.getName());
-        program.setThumbnail(programDto.getThumbnail());
-        program.setCategory(programDto.getCategory());
-        program.setAvailable(programDto.getAvailable());
-        program.setProgramStatus(programDto.getProgramStatus());
-        program.setDisabilityType(programDto.getDisabilityType());
-        program.setApplyPeriod(programDto.getApplyPeriod());
-        program.setApplyMethod(programDto.getApplyMethod());
-        program.setStartDate(programDto.getStartDate());
-        program.setEndDate(programDto.getEndDate());
-        program.setEducationTime(programDto.getEducationTime());
-        program.setLocation(programDto.getLocation());
-        program.setCost(programDto.getCost());
-        program.setMaterial(programDto.getMaterial());
+        program.setName(programRequestDto.getName());
+        program.setThumbnail(programRequestDto.getThumbnail());
+        program.setCategory(programRequestDto.getCategory());
+        program.setAvailable(programRequestDto.getAvailable());
+        program.setProgramStatus(programRequestDto.getProgramStatus());
+        program.setApplyEnd(programRequestDto.getApplyEnd());
+        program.setStartDate(programRequestDto.getStartDate());
+        program.setEndDate(programRequestDto.getEndDate());
+        program.setEducationTime(programRequestDto.getEducationTime());
+        program.setLocation(programRequestDto.getLocation());
+        program.setCost(programRequestDto.getCost());
+        program.setMaterial(programRequestDto.getMaterial());
         programRepository.save(program);
     }
 

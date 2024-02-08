@@ -1,13 +1,17 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.ApplicationService;
-import hanam.parc.BE.type.dto.ApplicationDto;
+import hanam.parc.BE.type.dto.ApplicationRequestDto;
+import hanam.parc.BE.type.dto.ApplicationResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.etc.ApplicationStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -32,10 +36,10 @@ public class ApplicationController {
     @Operation(summary = "[U] Application 등록", description = "Application 등록")
     public ResponseModel<?> createApplication(
             @RequestParam Long programId,
-            @RequestBody ApplicationDto applicationDto
+            @RequestBody ApplicationRequestDto applicationRequestDto
     ) {
         try {
-            applicationService.createApplication(programId, applicationDto);
+            applicationService.createApplication(programId, applicationRequestDto);
             return ResponseModel.success(true);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());
@@ -47,21 +51,32 @@ public class ApplicationController {
     public ResponseModel<?> getApplication(
             @RequestParam Long id
     ) {
-        ApplicationDto applicationDto = applicationService.getApplication(id);
-        return ResponseModel.success(applicationDto);
+        ApplicationResponseDto applicationResponseDto = applicationService.getApplication(id);
+        return ResponseModel.success(applicationResponseDto);
     }
 
     @GetMapping("/my")
     @Operation(summary = "[U] 내가 신청한 Application 조회", description = "내가 신청한 Application 조회")
     public ResponseModel<?> getMyApplication() {
-        List<ApplicationDto> applicationDtoList = applicationService.getMyApplication();
-        return ResponseModel.success(applicationDtoList);
+        List<ApplicationResponseDto> applicationResponseDtoList = applicationService.getMyApplication();
+        return ResponseModel.success(applicationResponseDtoList);
     }
 
     @GetMapping("/list")
     @Operation(summary = "[A] Application 리스트 조회", description = "Application 리스트 조회")
     public ResponseModel<?> getApplicationList() {
-        List<ApplicationDto> applicationDtoList = applicationService.getApplicationList();
+        List<ApplicationResponseDto> applicationRequestDtoList = applicationService.getApplicationList();
+        return ResponseModel.success(applicationRequestDtoList);
+    }
+
+    @GetMapping("/page")
+    @Operation(summary = "[A] Application 페이징 조회", description = "Application 페이징 조회")
+    public ResponseModel<?> getApplicationListByPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ApplicationResponseDto> applicationDtoList = applicationService.getApplicationListByPage(pageable);
         return ResponseModel.success(applicationDtoList);
     }
 
@@ -70,17 +85,17 @@ public class ApplicationController {
     public ResponseModel<?> getApplicationListByProgram(
             @RequestParam Long programId
     ) {
-        List<ApplicationDto> applicationDtoList = applicationService.getApplicationListByProgram(programId);
-        return ResponseModel.success(applicationDtoList);
+        List<ApplicationResponseDto> applicationResponseDtoList = applicationService.getApplicationListByProgram(programId);
+        return ResponseModel.success(applicationResponseDtoList);
     }
 
     @PatchMapping("")
     @Operation(summary = "[U] Application 수정", description = "Application 수정")
     public ResponseModel<?> updateApplication(
             @RequestParam Long id,
-            @RequestBody ApplicationDto applicationDto
+            @RequestBody ApplicationRequestDto applicationRequestDto
     ) {
-        applicationService.updateApplication(id, applicationDto);
+        applicationService.updateApplication(id, applicationRequestDto);
         return ResponseModel.success(true);
     }
 

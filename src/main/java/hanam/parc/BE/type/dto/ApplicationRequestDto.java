@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApplicationDto {
+public class ApplicationRequestDto {
 
     private String address;
 

@@ -50,7 +50,7 @@ public class BoardService {
     }
 
     public Page<BoardResponseDto> getBoardPageByCategory(BoardCategory boardCategory, Pageable pageable) {
-        Page<Board> boardPage = boardRepository.findAllByBoardCategoryOrderByCreatedAt(boardCategory, pageable);
+        Page<Board> boardPage = boardRepository.findAllByBoardCategoryOrderByCreatedAtDesc(boardCategory, pageable);
         return boardPage.map(BoardMapper.INSTANCE::BoardToBoardResponseDto);
     }
 

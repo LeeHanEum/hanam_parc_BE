@@ -2,16 +2,19 @@ package hanam.parc.BE.service;
 
 import hanam.parc.BE.mapper.ApplicationMapper;
 import hanam.parc.BE.repository.ApplicationRepository;
-import hanam.parc.BE.type.dto.ApplicationDto;
+import hanam.parc.BE.type.dto.ApplicationRequestDto;
+import hanam.parc.BE.type.dto.ApplicationResponseDto;
 import hanam.parc.BE.type.entity.Application;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.entity.Program;
 import hanam.parc.BE.type.etc.ApplicationStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,53 +29,58 @@ public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void createApplication(Long programId, ApplicationDto applicationDto) {
+    public void createApplication(Long programId, ApplicationRequestDto applicationRequestDto) {
         Program program = programService.getProgramById(programId);
         if (!programService.checkProgramAvailable(program)) {
             throw new IllegalArgumentException("접수 중이 아닙니다.");
         }
-        if (LocalDateTime.now().isAfter(program.getEndDate())) {
+        if (LocalDate.now().isAfter(program.getEndDate())) {
             throw new IllegalArgumentException("접수 기간이 지났습니다.");
-        }else if (LocalDateTime.now().isBefore(program.getStartDate())) {
+        }else if (LocalDate.now().isBefore(program.getStartDate())) {
             throw new IllegalArgumentException("아직 접수 기간이 아닙니다.");
         }
         Member member = memberService.getCurrentMember();
-        Application application = ApplicationMapper.INSTANCE.ApplicationDtoToApplication(applicationDto);
+        Application application = ApplicationMapper.INSTANCE.ApplicationRequestDtoToApplication(applicationRequestDto);
         application.setProgram(program);
         application.setMember(member);
         application.setStatus(ApplicationStatus.WAITING);
         applicationRepository.save(application);
     }
 
-    public ApplicationDto getApplication(Long id) {
+    public ApplicationResponseDto getApplication(Long id) {
         Application application = applicationRepository.findById(id).orElseThrow();
-        return ApplicationMapper.INSTANCE.ApplicationToApplicationDto(application);
+        return ApplicationMapper.INSTANCE.ApplicationToApplicationResponseDto(application);
     }
 
-    public List<ApplicationDto> getMyApplication() {
+    public List<ApplicationResponseDto> getMyApplication() {
         Member member = memberService.getCurrentMember();
         List<Application> applicationList = applicationRepository.findAllByMember(member);
         return applicationList.stream()
-                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationDto)
+                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public List<ApplicationDto> getApplicationList() {
+    public List<ApplicationResponseDto> getApplicationList() {
         List<Application> applicationList = applicationRepository.findAll();
         return applicationList.stream()
-                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationDto)
+                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public List<ApplicationDto> getApplicationListByProgram(Long programId) {
+    public Page<ApplicationResponseDto> getApplicationListByPage(Pageable pageable) {
+        Page<Application> applicationList = applicationRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return applicationList.map(ApplicationMapper.INSTANCE::ApplicationToApplicationResponseDto);
+    }
+
+    public List<ApplicationResponseDto> getApplicationListByProgram(Long programId) {
         Program program = programService.getProgramById(programId);
         List<Application> applicationList = applicationRepository.findAllByProgram(program);
         return applicationList.stream()
-                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationDto)
+                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public void updateApplication(Long id, ApplicationDto applicationDto) {
+    public void updateApplication(Long id, ApplicationRequestDto applicationRequestDto) {
         Member member = memberService.getCurrentMember();
         Application application = applicationRepository.findById(id).orElseThrow();
         if (!application.getMember().equals(member)) {
@@ -83,10 +91,10 @@ public class ApplicationService {
         }else if (application.getStatus().equals(ApplicationStatus.CANCELED)) {
             throw new IllegalArgumentException("신청이 거절되어 수정할 수 없습니다.");
         }
-        application.setAddress(applicationDto.getAddress());
-        application.setGuardianName(applicationDto.getGuardianName());
-        application.setGuardianPhone(applicationDto.getGuardianPhone());
-        application.setRemarks(applicationDto.getRemarks());
+        application.setAddress(applicationRequestDto.getAddress());
+        application.setGuardianName(applicationRequestDto.getGuardianName());
+        application.setGuardianPhone(applicationRequestDto.getGuardianPhone());
+        application.setRemarks(applicationRequestDto.getRemarks());
         applicationRepository.save(application);
     }
 

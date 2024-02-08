@@ -1,13 +1,17 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.ProgramService;
-import hanam.parc.BE.type.dto.ProgramDto;
+import hanam.parc.BE.type.dto.ProgramRequestDto;
+import hanam.parc.BE.type.dto.ProgramResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.etc.ProgramStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,9 +35,9 @@ public class ProgramController {
     @PostMapping("")
     @Operation(summary = "[A] Program 등록", description = "Program 등록")
     public ResponseModel<?> createProgram(
-            @RequestBody ProgramDto programDto
+            @RequestBody ProgramRequestDto programRequestDto
     ) {
-        programService.createProgram(programDto);
+        programService.createProgram(programRequestDto);
         return ResponseModel.success(true);
     }
 
@@ -42,15 +46,26 @@ public class ProgramController {
     public ResponseModel<?> getProgram(
             @RequestParam Long id
     ) {
-        ProgramDto programDto = programService.getProgram(id);
-        return ResponseModel.success(programDto);
+        ProgramResponseDto programRequestDto = programService.getProgram(id);
+        return ResponseModel.success(programRequestDto);
     }
 
     @GetMapping("/list")
     @Operation(summary = "[U] Program 리스트 조회", description = "Program 리스트 조회")
     public ResponseModel<?> getProgramList(
     ) {
-        List<ProgramDto> programList = programService.getProgramList();
+        List<ProgramResponseDto> programList = programService.getProgramList();
+        return ResponseModel.success(programList);
+    }
+
+    @GetMapping("/page")
+    @Operation(summary = "[U] Program 페이징 조회", description = "Program 페이징 조회")
+    public ResponseModel<?> getProgramListByPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProgramResponseDto> programList = programService.getProgramListByPage(pageable);
         return ResponseModel.success(programList);
     }
 
@@ -58,7 +73,7 @@ public class ProgramController {
     @Operation(summary = "[U] 내가 신청한 Program 조회", description = "내가 신청한 Program 조회")
     public ResponseModel<?> getMyProgramList(
     ) {
-        List<ProgramDto> programList = programService.getMyProgramList();
+        List<ProgramResponseDto> programList = programService.getMyProgramList();
         return ResponseModel.success(programList);
     }
 
@@ -67,7 +82,7 @@ public class ProgramController {
     public ResponseModel<?> getProgramListByStatus(
             @RequestParam ProgramStatus status
     ) {
-        List<ProgramDto> programList = programService.getProgramListByStatus(status);
+        List<ProgramResponseDto> programList = programService.getProgramListByStatus(status);
         return ResponseModel.success(programList);
     }
 
@@ -75,9 +90,9 @@ public class ProgramController {
     @Operation(summary = "[A] Program 수정", description = "Program 수정")
     public ResponseModel<?> updateProgram(
             @RequestParam Long id,
-            @RequestBody ProgramDto programDto
+            @RequestBody ProgramRequestDto programRequestDto
     ) {
-        programService.updateProgram(id, programDto);
+        programService.updateProgram(id, programRequestDto);
         return ResponseModel.success(true);
     }
 
