@@ -32,6 +32,9 @@ VALUES ('2022년 경영공시', '2022년 경영공시', 'superuser', 'MANAGEMENT
 INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
 VALUES ('2023년 경영공시', '2023년 경영공시', 'leehaneum', 'MANAGEMENT', '2024-01-01', '2024-01-01');
 
+INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+VALUES ('2024 장애인 체육대회', '2024 장애인 체육대회', 'leehaneum', 'EVENT', '2024-02-01', '2024-02-01');
+
 -- notification
 INSERT INTO notification (content, is_read, member_id, created_at)
 VALUES ('회원가입이 완료되었습니다.', false, 'leehaneum', '2021-01-01');
@@ -78,3 +81,10 @@ VALUES ('okJang', 1, '경기도 수원시 장안구 대평로 27', '고구마', 
 
 INSERT INTO application (member_id, program_id, address, guardian_name, guardian_phone, status, remarks, created_at, updated_at)
 VALUES ('leehaneum', 1, '경기도 수원시 장안구 대평로 27 화서역파크푸르지오', '이한음', '010-6299-1234', 'ACCEPTED', '특이사항 없음', '2024-02-03', '2024-02-05');
+
+-- event
+INSERT INTO event (title, start, end, color, description, board_id, member_id, created_at, updated_at)
+VALUES ('2024 장애인 체육대회', '2024-02-25', '2024-02-25', '#FFD700', '2024 장애인 체육대회', 9, 'leehaneum', '2024-02-01', '2024-02-01');
+
+INSERT INTO event (title, start, end, color, description, board_id, member_id, created_at, updated_at)
+VALUES ('홈페이지 개발', '2024-02-01', '2024-02-14', '#FFD700', '홈페이지 개발', null, 'superuser', '2024-02-04', '2024-02-05');
