@@ -73,13 +73,12 @@ public class ProgramService {
         }
         program.setName(programRequestDto.getName());
         program.setThumbnail(programRequestDto.getThumbnail());
-        program.setCategory(programRequestDto.getCategory());
         program.setAvailable(programRequestDto.getAvailable());
         program.setProgramStatus(programRequestDto.getProgramStatus());
         program.setApplyEnd(programRequestDto.getApplyEnd());
         program.setStartDate(programRequestDto.getStartDate());
         program.setEndDate(programRequestDto.getEndDate());
-        program.setEducationTime(programRequestDto.getEducationTime());
+        program.setTime(programRequestDto.getTime());
         program.setLocation(programRequestDto.getLocation());
         program.setCost(programRequestDto.getCost());
         program.setMaterial(programRequestDto.getMaterial());

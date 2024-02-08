@@ -16,8 +16,6 @@ public class ProgramRequestDto {
 
     private String thumbnail; // 썸네일
 
-    private String category; // 종목
-
     private Long available; // 수용인원
 
     private ProgramStatus programStatus; // 프로그램 상태
@@ -30,7 +28,7 @@ public class ProgramRequestDto {
 
     private LocalDate endDate; // 종료일
 
-    private Long educationTime; // 교육 시간(min)
+    private Long time; // 교육 시간(min)
 
     private String location; // 장소
 
