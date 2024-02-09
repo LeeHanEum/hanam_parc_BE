@@ -1,12 +1,12 @@
 --superuser 1111
-INSERT INTO member (member_id, password, name, phone, email, member_role, member_status, birth, created_at, last_login_time)
-    VALUES ('superuser', '$2a$12$xsnsy6lcQl1EM2cc9sxEbemIoXPf6jiMHIyE3lZWAr8YCz9QQDJXq', '관리자', '010-1234-5678', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
+INSERT INTO member (member_id, password, name, phone, gender,  email, member_role, member_status, birth, created_at, last_login_time)
+    VALUES ('superuser', '$2a$12$xsnsy6lcQl1EM2cc9sxEbemIoXPf6jiMHIyE3lZWAr8YCz9QQDJXq', '관리자', '010-1234-5678', 'MEN', 'superuser@naver.com', 'SUPER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- leehaneum 0924
 INSERT INTO member (member_id, password, name, phone, email, member_role, member_status, birth, created_at, last_login_time)
 VALUES ('leehaneum', '$2a$12$SYIVeoc5WTQTDOZRzxMm6u9GfYVUIEHNOwqq.vpt2vgaezM63nVke', '이한음', '010-6299-5678', 'leehaneum160924@kyonggi.ac.kr', 'ADMIN', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- okJang 8777
-INSERT INTO member (member_id, password, name, phone, email, member_role, member_status, birth, created_at, last_login_time)
-VALUES ('okJang', '$2a$12$bUjikKYJ1w1RdYFIn2DlmOcNF0zxivfAJ6hDsP/TxaAgTqb9J./wG', 'okJang', '010-6299-0733', 'mosoon365@hanmail.net', 'USER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
+INSERT INTO member (member_id, password, name, phone, address, guardian_name, guardian_phone, disability_type, email, member_role, member_status, birth, created_at, last_login_time)
+VALUES ('okJang', '$2a$12$bUjikKYJ1w1RdYFIn2DlmOcNF0zxivfAJ6hDsP/TxaAgTqb9J./wG', 'okJang', '010-6299-0733', '경기도 수원시', '이대수', '010-6299-7216', 'NONE', 'mosoon365@hanmail.net', 'USER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- board
 INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
 VALUES ('가입인사', '첫번째 글입니다.', 'leehaneum', 'ANNOUNCEMENT', '2021-01-01', '2021-01-01');
@@ -76,15 +76,15 @@ VALUES ('하남시 장애인 조정 대회', 'image/rowing.jpg', '30', 'ACCEPTIN
 또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
 
 -- application
-INSERT INTO application (member_id, program_id, address, guardian_name, guardian_phone, status, remarks, created_at, updated_at)
-VALUES ('okJang', 1, '경기도 수원시 장안구 대평로 27', '고구마', '010-6299-8498', 'WAITING', '특이사항 없음', '2024-02-02', '2024-02-04');
+INSERT INTO application (member_id, program_id, address, phone, gender, disability_type, guardian_name, guardian_phone, status, remarks, created_at, updated_at)
+VALUES ('okJang', 1, '경기도 수원시 장안구 대평로 27','010-1234-1233', 'MEN', 'BLIND', '고구마', '010-6299-8498', 'WAITING', '특이사항 없음', '2024-02-02', '2024-02-04');
 
-INSERT INTO application (member_id, program_id, address, guardian_name, guardian_phone, status, remarks, created_at, updated_at)
-VALUES ('leehaneum', 1, '경기도 수원시 장안구 대평로 27 화서역파크푸르지오', '이한음', '010-6299-1234', 'ACCEPTED', '특이사항 없음', '2024-02-03', '2024-02-05');
+INSERT INTO application (member_id, program_id, address, phone, gender, disability_type, guardian_name, guardian_phone, status, remarks, created_at, updated_at)
+VALUES ('leehaneum', 1, '경기도 수원시 장안구','010-1234-1616', 'MEN', 'DEAF', '장영옥', '010-6299-1111', 'WAITING', '특이사항 없음', '2024-02-03', '2024-02-05');
 
 -- event
 INSERT INTO event (title, start, end, color, description, board_id, member_id, created_at, updated_at)
-VALUES ('2024 장애인 체육대회', '2024-02-25', '2024-02-25', '#FFD700', '2024 장애인 체육대회', 9, 'leehaneum', '2024-02-01', '2024-02-01');
+VALUES ('2024 장애인 체육대회', '2024-02-25', '2024-02-25', '#119208', '2024 장애인 체육대회', 9, 'leehaneum', '2024-02-01', '2024-02-01');
 
 INSERT INTO event (title, start, end, color, description, board_id, member_id, created_at, updated_at)
-VALUES ('홈페이지 개발', '2024-02-01', '2024-02-14', '#FFD700', '홈페이지 개발', null, 'superuser', '2024-02-04', '2024-02-05');
+VALUES ('홈페이지 개발', '2024-02-01', '2024-02-14', '#119208', '홈페이지 개발', null, 'superuser', '2024-02-04', '2024-02-05');

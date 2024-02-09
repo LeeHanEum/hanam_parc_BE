@@ -29,7 +29,11 @@ public class ProgramService {
             throw new IllegalArgumentException("관리자만 등록할 수 있습니다.");
         }
         Program program = ProgramMapper.INSTANCE.ProgramRequestDtoToProgram(programRequestDto);
-        program.setManager(member);
+        if (programRequestDto.getManagerId() != null) {
+            Member manager = memberService.getMemberById(programRequestDto.getManagerId());
+            program.setManager(manager);
+        }
+        program.setProgramStatus(ProgramStatus.WAITING);
         programRepository.save(program);
     }
 
@@ -82,6 +86,7 @@ public class ProgramService {
         program.setLocation(programRequestDto.getLocation());
         program.setCost(programRequestDto.getCost());
         program.setMaterial(programRequestDto.getMaterial());
+        program.setManager(memberService.getMemberById(programRequestDto.getManagerId()));
         programRepository.save(program);
     }
 

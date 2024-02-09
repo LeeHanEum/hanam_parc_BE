@@ -16,11 +16,15 @@ public interface ApplicationMapper {
 
     @Mappings({
             @Mapping(target = "address", source = "applicationRequestDto.address"),
+            @Mapping(target = "phone", source = "applicationRequestDto.phone"),
+            @Mapping(target = "gender", source ="applicationRequestDto.gender"),
+            @Mapping(target = "disabilityType", source = "applicationRequestDto.disabilityType"),
             @Mapping(target = "guardianName", source = "applicationRequestDto.guardianName"),
             @Mapping(target = "guardianPhone", source = "applicationRequestDto.guardianPhone"),
             @Mapping(target = "remarks", source = "applicationRequestDto.remarks")
     })
     Application ApplicationRequestDtoToApplication(ApplicationRequestDto applicationRequestDto);
+
 
 
     ApplicationResponseDto ApplicationToApplicationResponseDto(Application Application);

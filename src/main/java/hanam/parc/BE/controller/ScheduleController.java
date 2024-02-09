@@ -1,11 +1,9 @@
 package hanam.parc.BE.controller;
 
-import hanam.parc.BE.service.EventService;
-import hanam.parc.BE.service.MemberService;
-import hanam.parc.BE.type.dto.EventRequestDto;
-import hanam.parc.BE.type.dto.EventResponseDto;
+import hanam.parc.BE.service.ScheduleService;
+import hanam.parc.BE.type.dto.ScheduleRequestDto;
+import hanam.parc.BE.type.dto.ScheduleResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
-import hanam.parc.BE.type.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -27,20 +25,20 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/event")
-@Tag(name = "Event", description = "event 관리")
-public class EventController {
+@RequestMapping("/schedule")
+@Tag(name = "Schedule", description = "schedule 관리")
+public class ScheduleController {
 
-    private final EventService eventService;
+    private final ScheduleService scheduleService;
 
     @PostMapping("")
-    @Operation(summary = "[A] Event 등록", description = "Event 등록")
-    public ResponseModel<?> createEvent(
+    @Operation(summary = "[A] schedule 등록", description = "schedule 등록")
+    public ResponseModel<?> createSchedule(
             @RequestParam(required = false) Long boardId,
-            @RequestBody EventRequestDto eventRequestDto
+            @RequestBody ScheduleRequestDto scheduleRequestDto
     ) {
         try {
-            eventService.createEvent(boardId, eventRequestDto);
+            scheduleService.createSchedule(boardId, scheduleRequestDto);
             return ResponseModel.success(true);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());
@@ -48,54 +46,54 @@ public class EventController {
     }
 
     @GetMapping("")
-    @Operation(summary = "[U] Event 조회", description = "Event 조회")
-    public ResponseModel<?> getEvent(
+    @Operation(summary = "[U] Schedule 조회", description = "Schedule 조회")
+    public ResponseModel<?> getSchedule(
             @RequestParam Long id
     ) {
         try {
-            EventResponseDto eventResponseDto = eventService.getEvent(id);
-            return ResponseModel.success(eventResponseDto);
+            ScheduleResponseDto scheduleResponseDto = scheduleService.getSchedule(id);
+            return ResponseModel.success(scheduleResponseDto);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());
         }
     }
 
     @GetMapping("/list")
-    @Operation(summary = "[U] Event 리스트 조회", description = "Event 리스트 조회")
-    public ResponseModel<?> getEventList(
+    @Operation(summary = "[U] Schedule 리스트 조회", description = "Schedule 리스트 조회")
+    public ResponseModel<?> getScheduleList(
     ) {
         try {
-            List<EventResponseDto> eventList = eventService.getEventList();
-            return ResponseModel.success(eventList);
+            List<ScheduleResponseDto> scheduleList = scheduleService.getScheduleList();
+            return ResponseModel.success(scheduleList);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());
         }
     }
 
     @GetMapping("/page")
-    @Operation(summary = "[U] Event 페이징 조회", description = "Event 페이징 조회")
-    public ResponseModel<?> getEventListByPage(
+    @Operation(summary = "[U] Schedule 페이징 조회", description = "Schedule 페이징 조회")
+    public ResponseModel<?> getScheduleListByPage(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size
     ) {
         try {
             Pageable pageable = PageRequest.of(page, size);
-            Page<EventResponseDto> eventList = eventService.getEventListByPage(pageable);
-            return ResponseModel.success(eventList);
+            Page<ScheduleResponseDto> scheduleList = scheduleService.getScheduleListByPage(pageable);
+            return ResponseModel.success(scheduleList);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());
         }
     }
 
     @PatchMapping("")
-    @Operation(summary = "[U] Event 수정", description = "Event 수정")
-    public ResponseModel<?> updateEvent(
+    @Operation(summary = "[U] Schedule 수정", description = "Schedule 수정")
+    public ResponseModel<?> updateSchedule(
             @RequestParam Long id,
             @RequestParam(required = false) Long boardId,
-            @RequestBody EventRequestDto eventRequestDto
+            @RequestBody ScheduleRequestDto scheduleRequestDto
     ) {
         try {
-            eventService.updateEvent(id, boardId, eventRequestDto);
+            scheduleService.updateSchedule(id, boardId, scheduleRequestDto);
             return ResponseModel.success(true);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());
@@ -103,12 +101,12 @@ public class EventController {
     }
 
     @DeleteMapping("")
-    @Operation(summary = "[D] Event 삭제", description = "Event 삭제")
-    public ResponseModel<?> deleteEvent(
+    @Operation(summary = "[D] Schedule 삭제", description = "Schedule 삭제")
+    public ResponseModel<?> deleteSchedule(
             @RequestParam Long id
     ) {
         try {
-            eventService.deleteEvent(id);
+            scheduleService.deleteSchedule(id);
             return ResponseModel.success(true);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());

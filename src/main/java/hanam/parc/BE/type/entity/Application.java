@@ -1,6 +1,7 @@
 package hanam.parc.BE.type.entity;
 
 import hanam.parc.BE.type.etc.ApplicationStatus;
+import hanam.parc.BE.type.etc.DisabilityType;
 import hanam.parc.BE.type.etc.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,9 +46,18 @@ public class Application {
     private String address; // 주소
 
     @Column(nullable = false)
+    private String phone; // 연락처
+
+    @Column
+    private Gender gender;
+
+    @Column
+    private DisabilityType disabilityType; // 장애 유형
+
+    @Column
     private String guardianName; // 보호자 이름
 
-    @Column(nullable = false)
+    @Column
     private String guardianPhone; // 보호자 연락처
 
     @Enumerated(EnumType.STRING)

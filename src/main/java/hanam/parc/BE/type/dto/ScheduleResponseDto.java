@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class EventResponseDto {
+public class ScheduleResponseDto {
 
     private Long id;
 
     private String title;
 
-    private LocalDate start;
+    private LocalDate startDate;
 
-    private LocalDate end;
+    private LocalDate endDate;
 
     private String color;
 
@@ -26,7 +26,7 @@ public class EventResponseDto {
 
     private Board board;
 
-    private Member member;
+    private Member manager;
 
     private LocalDateTime createdAt;
 

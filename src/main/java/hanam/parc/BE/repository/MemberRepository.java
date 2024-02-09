@@ -1,6 +1,7 @@
 package hanam.parc.BE.repository;
 
 import hanam.parc.BE.type.entity.Member;
+import hanam.parc.BE.type.etc.MemberRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, String> {
 
     Page<Member> findAllByOrderByCreatedAtDesc(Pageable pageable);
+
+    List<Member> findAllByMemberRole(MemberRole memberRole);
 
 }

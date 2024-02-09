@@ -54,6 +54,14 @@ public class MemberController {
         return ResponseModel.success(member);
     }
 
+    @GetMapping("/admin")
+    @Operation(summary = "[A] 회원 어드민 조회", description = "회원 어드민 조회")
+    public ResponseModel<?> getMemberListByRole(
+    ) {
+        List<MemberResponseDto> memberList = memberService.getAdminMemberList();
+        return ResponseModel.success(memberList);
+    }
+
     @PatchMapping("")
     @Operation(summary = "[U] 회원 정보 수정", description = "회원 정보 수정")
     public ResponseModel<?> updateMember(

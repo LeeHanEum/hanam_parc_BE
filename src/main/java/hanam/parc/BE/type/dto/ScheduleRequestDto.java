@@ -7,13 +7,13 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class EventRequestDto {
+public class ScheduleRequestDto {
 
     private String title;
 
-    private LocalDate start;
+    private LocalDate startDate;
 
-    private LocalDate end;
+    private LocalDate endDate;
 
     private String color;
 

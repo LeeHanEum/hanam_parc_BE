@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +51,15 @@ public class MemberService {
     public Page<MemberResponseDto> getMemberList(Pageable pageable) {
         Page<Member> memberList = memberRepository.findAllByOrderByCreatedAtDesc(pageable);
         return memberList.map(MemberMapper.INSTANCE::MemberToMemberResponseDto);
+    }
+
+    public List<MemberResponseDto> getAdminMemberList() {
+        List<Member> memberList = new ArrayList<>();
+        memberList.addAll(memberRepository.findAllByMemberRole(MemberRole.SUPER));
+        memberList.addAll(memberRepository.findAllByMemberRole(MemberRole.ADMIN));
+        return memberList.stream()
+                .map(MemberMapper.INSTANCE::MemberToMemberResponseDto)
+                .collect(Collectors.toList());
     }
 
     public void updateMember(String id, MemberRequestDto memberRequestDto) {

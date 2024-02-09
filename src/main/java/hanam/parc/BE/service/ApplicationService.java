@@ -29,15 +29,10 @@ public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
 
-    public void createApplication(Long programId, ApplicationRequestDto applicationRequestDto) {
-        Program program = programService.getProgramById(programId);
+    public void createApplication(ApplicationRequestDto applicationRequestDto) {
+        Program program = programService.getProgramById(applicationRequestDto.getProgramId());
         if (!programService.checkProgramAvailable(program)) {
             throw new IllegalArgumentException("접수 중이 아닙니다.");
-        }
-        if (LocalDate.now().isAfter(program.getEndDate())) {
-            throw new IllegalArgumentException("접수 기간이 지났습니다.");
-        }else if (LocalDate.now().isBefore(program.getStartDate())) {
-            throw new IllegalArgumentException("아직 접수 기간이 아닙니다.");
         }
         Member member = memberService.getCurrentMember();
         Application application = ApplicationMapper.INSTANCE.ApplicationRequestDtoToApplication(applicationRequestDto);

@@ -1,8 +1,17 @@
+DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS application;
+DROP TABLE IF EXISTS program;
+DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS qna;
+DROP TABLE IF EXISTS authenticator;
+DROP TABLE IF EXISTS notification;
+DROP TABLE IF EXISTS member;
 CREATE TABLE member (
                         member_id VARCHAR(255) NOT NULL UNIQUE,
                         password VARCHAR(60) NOT NULL,
                         name VARCHAR(15) NOT NULL,
-                        gender VARCHAR(255),
+                        gender VARCHAR(10) NOT NULL,
                         phone VARCHAR(20) NOT NULL,
                         guardian_phone VARCHAR(20),
                         guardian_name VARCHAR(15),
@@ -10,7 +19,7 @@ CREATE TABLE member (
                         email VARCHAR(45),
                         member_role VARCHAR(255),
                         member_status VARCHAR(255),
-                        disabilityType VARCHAR(255),
+                        disability_type VARCHAR(255),
                         birth DATE,
                         created_at TIMESTAMP NOT NULL,
                         last_login_time TIMESTAMP NOT NULL,
@@ -86,20 +95,24 @@ CREATE TABLE program (
                          CONSTRAINT CHK_description_length CHECK (LENGTH(description) >= 1 AND LENGTH(description) <= 1000)
 );
 CREATE TABLE application (
-                             id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                             member_id VARCHAR(255) NOT NULL,
-                             program_id BIGINT NOT NULL,
+                             id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                             member_id VARCHAR(255),
+                             program_id BIGINT,
                              address VARCHAR(255) NOT NULL,
-                             guardian_name VARCHAR(255) NOT NULL,
-                             guardian_phone VARCHAR(20) NOT NULL,
-                             status VARCHAR(255),
+                             phone VARCHAR(255) NOT NULL,
+                             gender VARCHAR(255),
+                             disability_type VARCHAR(255),
+                             guardian_name VARCHAR(255),
+                             guardian_phone VARCHAR(255),
+                             status VARCHAR(20),
                              remarks VARCHAR(1000),
                              created_at TIMESTAMP NOT NULL,
                              updated_at TIMESTAMP NOT NULL,
                              FOREIGN KEY (member_id) REFERENCES member(member_id),
-                             FOREIGN KEY (program_id) REFERENCES program(id),
-                             CONSTRAINT CHK_remarks_length CHECK (LENGTH(remarks) <= 1000)
+                             FOREIGN KEY (program_id) REFERENCES program(id)
 );
+
+
 CREATE TABLE event (
                        id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        title VARCHAR(45) NOT NULL,

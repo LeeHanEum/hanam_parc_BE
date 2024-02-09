@@ -17,7 +17,6 @@ public interface ProgramMapper {
             @Mapping(target = "thumbnail", source = "programRequestDto.thumbnail"),
             @Mapping(target = "available", source = "programRequestDto.available"),
             @Mapping(target = "programStatus", source = "programRequestDto.programStatus"),
-            @Mapping(target = "manager", source = "programRequestDto.manager"),
             @Mapping(target = "applyEnd", source = "programRequestDto.applyEnd"),
             @Mapping(target = "startDate", source = "programRequestDto.startDate"),
             @Mapping(target = "endDate", source = "programRequestDto.endDate"),

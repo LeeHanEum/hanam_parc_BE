@@ -20,7 +20,7 @@ public class ProgramRequestDto {
 
     private ProgramStatus programStatus; // 프로그램 상태
 
-    private Member manager; // 담당자
+    private String managerId; // 담당자
 
     private LocalDateTime applyEnd; // 접수 시간(day)
 

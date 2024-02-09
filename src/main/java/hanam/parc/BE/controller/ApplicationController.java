@@ -35,11 +35,10 @@ public class ApplicationController {
     @PostMapping("")
     @Operation(summary = "[U] Application 등록", description = "Application 등록")
     public ResponseModel<?> createApplication(
-            @RequestParam Long programId,
             @RequestBody ApplicationRequestDto applicationRequestDto
     ) {
         try {
-            applicationService.createApplication(programId, applicationRequestDto);
+            applicationService.createApplication(applicationRequestDto);
             return ResponseModel.success(true);
         }catch (Exception e) {
             return ResponseModel.fail("400", e.getMessage());

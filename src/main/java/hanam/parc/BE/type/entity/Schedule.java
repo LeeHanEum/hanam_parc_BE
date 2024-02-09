@@ -22,9 +22,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "event")
-@Entity(name = "Event")
-public class Event {
+@Table(name = "schedule")
+@Entity(name = "Schedule")
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +34,12 @@ public class Event {
     private String title;
 
     @Column(nullable = false)
-    private LocalDate start;
+    private LocalDate startDate;
 
     @Column(nullable = false)
-    private LocalDate end;
+    private LocalDate endDate;
 
-    @ColumnDefault("gray")
+    @Column
     private String color;
 
     @Column(length = 1000)
@@ -50,8 +50,8 @@ public class Event {
     private Board board;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "manager_id")
+    private Member manager;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
