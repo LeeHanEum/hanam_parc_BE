@@ -1,6 +1,7 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.BoardService;
+import hanam.parc.BE.type.dto.BoardImageDto;
 import hanam.parc.BE.type.dto.BoardRequestDto;
 import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,12 +36,13 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping("")
+    @PostMapping(path ="", consumes = "multipart/form-data")
     @Operation(summary = "[U] 게시판 생성", description = "게시판 생성")
     public ResponseModel<?> createBoard(
-            @RequestBody BoardRequestDto boardRequestDto
+            BoardRequestDto boardRequestDto,
+            @RequestPart(value = "file", required = false) List<MultipartFile> multipartFile
     ) {
-        boardService.createBoard(boardRequestDto);
+        boardService.createBoard(boardRequestDto, multipartFile);
         return ResponseModel.success(true);
     }
 
@@ -49,6 +53,15 @@ public class BoardController {
     ) {
         BoardResponseDto board = boardService.getBoard(id);
         return ResponseModel.success(board);
+    }
+
+    @GetMapping("/image")
+    @Operation(summary = "[U] 게시판 이미지 조회", description = "게시판 이미지 조회")
+    public ResponseModel<?> getBoardImage(
+            @RequestParam Long id
+    ) {
+        BoardImageDto boardImage = boardService.getBoardImage(id);
+        return ResponseModel.success(boardImage);
     }
 
     @GetMapping("/list")

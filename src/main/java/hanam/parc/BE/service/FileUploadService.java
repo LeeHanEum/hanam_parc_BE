@@ -14,11 +14,7 @@ public class FileUploadService {
 
     private final FileHandler fileHandler;
 
-    @Value("${resource.file.url}")
-    private String fileURL;
-
     public String saveFile(MultipartFile multipartFile){
-        String realFilename = fileHandler.saveFile(multipartFile);
-        return fileURL + realFilename;
+        return fileHandler.saveFile(multipartFile);
     }
 }
