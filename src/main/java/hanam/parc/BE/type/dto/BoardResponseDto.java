@@ -16,10 +16,10 @@ public class BoardResponseDto {
 
     private Member writer;
 
+    private String boardCategory;
+
     private String createdAt;
 
     private String updatedAt;
-
-    private String boardCategory;
 
 }

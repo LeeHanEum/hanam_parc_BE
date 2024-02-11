@@ -1,6 +1,6 @@
 package hanam.parc.BE.mapper;
 
-import hanam.parc.BE.type.dto.BoardDto;
+import hanam.parc.BE.type.dto.BoardRequestDto;
 import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.entity.Board;
 import org.mapstruct.Mapper;
@@ -14,20 +14,6 @@ public interface BoardMapper {
     BoardMapper INSTANCE = Mappers.getMapper(BoardMapper.class);
 
     @Mappings({
-            @Mapping(target = "title", source = "boardDto.title"),
-            @Mapping(target = "content", source = "boardDto.content"),
-            @Mapping(target = "boardCategory", source = "boardDto.boardCategory")
-    })
-    Board BoardDtoToBoard(BoardDto boardDto);
-
-    @Mappings({
-            @Mapping(target = "title", source = "board.title"),
-            @Mapping(target = "content", source = "board.content"),
-            @Mapping(target = "boardCategory", source = "board.boardCategory")
-    })
-    BoardDto BoardToBoardDto(Board board);
-
-    @Mappings({
             @Mapping(target = "id", source = "board.id"),
             @Mapping(target = "title", source = "board.title"),
             @Mapping(target = "content", source = "board.content"),
@@ -37,5 +23,12 @@ public interface BoardMapper {
             @Mapping(target = "boardCategory", source = "board.boardCategory")
     })
     BoardResponseDto BoardToBoardResponseDto(Board board);
+
+    @Mappings({
+            @Mapping(target = "title", source = "boardRequestDto.title"),
+            @Mapping(target = "content", source = "boardRequestDto.content"),
+            @Mapping(target = "boardCategory", source = "boardRequestDto.boardCategory"),
+    })
+    Board BoardRequestDtoToBoard(BoardRequestDto boardRequestDto);
 
 }

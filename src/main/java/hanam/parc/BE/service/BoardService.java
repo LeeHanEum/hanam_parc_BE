@@ -2,7 +2,7 @@ package hanam.parc.BE.service;
 
 import hanam.parc.BE.mapper.BoardMapper;
 import hanam.parc.BE.repository.BoardRepository;
-import hanam.parc.BE.type.dto.BoardDto;
+import hanam.parc.BE.type.dto.BoardRequestDto;
 import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.entity.Board;
 import hanam.parc.BE.type.entity.Member;
@@ -23,29 +23,29 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public void createBoard(BoardDto boardDto) {
+    public void createBoard(BoardRequestDto boardRequestDto) {
         Member member = memberService.getCurrentMember();
-        Board board = BoardMapper.INSTANCE.BoardDtoToBoard(boardDto);
+        Board board = BoardMapper.INSTANCE.BoardRequestDtoToBoard(boardRequestDto);
         board.setMember(member);
         boardRepository.save(board);
     }
 
-    public BoardDto getBoard(Long id) {
+    public BoardResponseDto getBoard(Long id) {
         Board board = boardRepository.findById(id).orElseThrow();
-        return BoardMapper.INSTANCE.BoardToBoardDto(board);
+        return BoardMapper.INSTANCE.BoardToBoardResponseDto(board);
     }
 
-    public List<BoardDto> getBoardList() {
+    public List<BoardResponseDto> getBoardList() {
         List<Board> boardList = boardRepository.findAll();
         return boardList.stream()
-                .map(BoardMapper.INSTANCE::BoardToBoardDto)
+                .map(BoardMapper.INSTANCE::BoardToBoardResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public List<BoardDto> getBoardListByCategory(BoardCategory boardCategory) {
+    public List<BoardResponseDto> getBoardListByCategory(BoardCategory boardCategory) {
         List<Board> boardList = boardRepository.findAllByBoardCategory(boardCategory);
         return boardList.stream()
-                .map(BoardMapper.INSTANCE::BoardToBoardDto)
+                .map(BoardMapper.INSTANCE::BoardToBoardResponseDto)
                 .collect(Collectors.toList());
     }
 
@@ -54,23 +54,23 @@ public class BoardService {
         return boardPage.map(BoardMapper.INSTANCE::BoardToBoardResponseDto);
     }
 
-    public List<BoardDto> getMyBoardList() {
+    public List<BoardResponseDto> getMyBoardList() {
         Member member = memberService.getCurrentMember();
         List<Board> boardList = boardRepository.findAllByMember(member);
         return boardList.stream()
-                .map(BoardMapper.INSTANCE::BoardToBoardDto)
+                .map(BoardMapper.INSTANCE::BoardToBoardResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public void updateBoard(Long id, BoardDto boardDto) {
+    public void updateBoard(Long id, BoardRequestDto boardRequestDto) {
         Member member = memberService.getCurrentMember();
         Board board = boardRepository.findById(id).orElseThrow();
         if (!board.getMember().equals(member) || memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("권한이 없습니다.");
         }
-        board.setTitle(boardDto.getTitle());
-        board.setContent(boardDto.getContent());
-        board.setBoardCategory(boardDto.getBoardCategory());
+        board.setTitle(boardRequestDto.getTitle());
+        board.setContent(boardRequestDto.getContent());
+        board.setBoardCategory(BoardCategory.valueOf(boardRequestDto.getBoardCategory()));
         boardRepository.save(board);
     }
 

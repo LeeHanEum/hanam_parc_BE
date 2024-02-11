@@ -1,7 +1,7 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.BoardService;
-import hanam.parc.BE.type.dto.BoardDto;
+import hanam.parc.BE.type.dto.BoardRequestDto;
 import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.etc.BoardCategory;
@@ -36,9 +36,9 @@ public class BoardController {
     @PostMapping("")
     @Operation(summary = "[U] 게시판 생성", description = "게시판 생성")
     public ResponseModel<?> createBoard(
-            @RequestBody BoardDto boardDto
+            @RequestBody BoardRequestDto boardRequestDto
     ) {
-        boardService.createBoard(boardDto);
+        boardService.createBoard(boardRequestDto);
         return ResponseModel.success(true);
     }
 
@@ -47,14 +47,14 @@ public class BoardController {
     public ResponseModel<?> getBoard(
             @RequestParam Long id
     ) {
-        BoardDto board = boardService.getBoard(id);
+        BoardResponseDto board = boardService.getBoard(id);
         return ResponseModel.success(board);
     }
 
     @GetMapping("/list")
     @Operation(summary = "[U] 게시판 리스트 조회", description = "게시판 리스트 조회")
     public ResponseModel<?> getBoardList() {
-        List<BoardDto> boardList = boardService.getBoardList();
+        List<BoardResponseDto> boardList = boardService.getBoardList();
         return ResponseModel.success(boardList);
     }
 
@@ -63,7 +63,7 @@ public class BoardController {
     public ResponseModel<?> getBoardListByCategory(
             @PathVariable BoardCategory boardCategory
     ) {
-        List<BoardDto> boardList = boardService.getBoardListByCategory(boardCategory);
+        List<BoardResponseDto> boardList = boardService.getBoardListByCategory(boardCategory);
         return ResponseModel.success(boardList);
     }
 
@@ -82,7 +82,7 @@ public class BoardController {
     @GetMapping("/my")
     @Operation(summary = "[U] 내 게시판 리스트 조회", description = "내 게시판 리스트 조회")
     public ResponseModel<?> getMyBoardList() {
-        List<BoardDto> boardList = boardService.getMyBoardList();
+        List<BoardResponseDto> boardList = boardService.getMyBoardList();
         return ResponseModel.success(boardList);
     }
 
@@ -90,9 +90,9 @@ public class BoardController {
     @Operation(summary = "[U] 게시판 정보 수정", description = "게시판 정보 수정")
     public ResponseModel<?> updateBoard(
             @RequestParam Long id,
-            @RequestBody BoardDto boardDto
+            @RequestBody BoardRequestDto boardRequestDto
     ) {
-        boardService.updateBoard(id, boardDto);
+        boardService.updateBoard(id, boardRequestDto);
         return ResponseModel.success(true);
     }
 
