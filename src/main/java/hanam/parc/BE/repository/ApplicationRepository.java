@@ -16,6 +16,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     List<Application> findAllByMember(Member member);
 
+    Page<Application> findAllByMember(Member member, Pageable pageable);
+
     List<Application> findAllByProgram(Program program);
 
     Page<Application> findAllByOrderByCreatedAtDesc(Pageable pageable);

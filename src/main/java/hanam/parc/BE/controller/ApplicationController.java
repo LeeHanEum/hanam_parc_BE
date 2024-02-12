@@ -56,8 +56,12 @@ public class ApplicationController {
 
     @GetMapping("/my")
     @Operation(summary = "[U] 내가 신청한 Application 조회", description = "내가 신청한 Application 조회")
-    public ResponseModel<?> getMyApplication() {
-        List<ApplicationResponseDto> applicationResponseDtoList = applicationService.getMyApplication();
+    public ResponseModel<?> getMyApplication(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ApplicationResponseDto> applicationResponseDtoList = applicationService.getMyApplication(pageable);
         return ResponseModel.success(applicationResponseDtoList);
     }
 

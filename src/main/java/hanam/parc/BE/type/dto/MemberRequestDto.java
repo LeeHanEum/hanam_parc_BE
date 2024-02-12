@@ -12,10 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 public class MemberRequestDto {
 
-    private String id;
-
-    private String password;
-
     private String name;
 
     private Gender gender;

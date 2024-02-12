@@ -47,12 +47,10 @@ public class ApplicationService {
         return ApplicationMapper.INSTANCE.ApplicationToApplicationResponseDto(application);
     }
 
-    public List<ApplicationResponseDto> getMyApplication() {
+    public Page<ApplicationResponseDto> getMyApplication(Pageable pageable) {
         Member member = memberService.getCurrentMember();
-        List<Application> applicationList = applicationRepository.findAllByMember(member);
-        return applicationList.stream()
-                .map(ApplicationMapper.INSTANCE::ApplicationToApplicationResponseDto)
-                .collect(Collectors.toList());
+        Page<Application> applicationList = applicationRepository.findAllByMember(member, pageable);
+        return applicationList.map(ApplicationMapper.INSTANCE::ApplicationToApplicationResponseDto);
     }
 
     public List<ApplicationResponseDto> getApplicationList() {

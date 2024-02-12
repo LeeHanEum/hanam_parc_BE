@@ -64,7 +64,6 @@ public class MemberService {
 
     public void updateMember(String id, MemberRequestDto memberRequestDto) {
         Member member = getMemberById(id);
-        member.setPassword(passwordEncoder.encode(memberRequestDto.getPassword()));
         member.setName(memberRequestDto.getName());
         member.setGender(memberRequestDto.getGender());
         member.setPhone(memberRequestDto.getPhone());

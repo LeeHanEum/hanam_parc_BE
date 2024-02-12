@@ -16,8 +16,6 @@ public interface MemberMapper {
     MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
     @Mappings({
-            @Mapping(target = "id", source = "memberRequestDto.id"),
-            @Mapping(target = "password", source = "memberRequestDto.password"),
             @Mapping(target = "name", source = "memberRequestDto.name"),
             @Mapping(target = "gender", source = "memberRequestDto.gender"),
             @Mapping(target = "phone", source = "memberRequestDto.phone"),

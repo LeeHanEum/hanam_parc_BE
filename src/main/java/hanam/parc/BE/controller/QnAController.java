@@ -70,8 +70,12 @@ public class QnAController {
 
     @GetMapping("/my")
     @Operation(summary = "[U] 내 QnA 조회", description = "내 QnA 조회")
-    public ResponseModel<?> getMyQnA() {
-        List<QnAResponseDto> qnaList = qnaService.getMyQnA();
+    public ResponseModel<?> getMyQnA(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<QnAResponseDto> qnaList = qnaService.getMyQnA(pageable);
         return ResponseModel.success(qnaList);
     }
 
