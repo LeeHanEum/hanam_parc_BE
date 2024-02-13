@@ -66,13 +66,15 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/swagger-ui/favicon-16x16.png",
                 "/api-docs/json/swagger-config",
                 "/api-docs/json",
-                "/hello",
-                "/logout",
-                "/member/duplication"
+                "/board",
+                "/program",
+                "/image"
+
         );
 
         // 2. 토큰이 필요하지 않은 API URL의 경우 -> 로직 처리없이 다음 필터로 이동한다.
-        if (list.contains(request.getRequestURI())) {
+        String requestUri = request.getRequestURI();
+        if (list.stream().anyMatch(requestUri::startsWith) || list.contains(requestUri)) {
             filterChain.doFilter(request, response);
             return;
         }

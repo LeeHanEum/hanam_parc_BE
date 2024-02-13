@@ -22,7 +22,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/login",
                         "/join",
-                        "/logout"
+                        "/logout",
+                        "/board/**",
+                        "/board",
+                        "/board/"
                 ); // 로그인 페이지는 JWT 토큰 검사에서 제외합니다.
     }
 

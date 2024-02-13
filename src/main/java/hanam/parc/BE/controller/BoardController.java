@@ -36,7 +36,7 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping(path ="", consumes = "multipart/form-data")
+    @PostMapping(path ="/create", consumes = "multipart/form-data")
     @Operation(summary = "[U] 게시판 생성", description = "게시판 생성")
     public ResponseModel<?> createBoard(
             BoardRequestDto boardRequestDto,
@@ -109,7 +109,7 @@ public class BoardController {
         return ResponseModel.success(true);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     @Operation(summary = "[U] 게시판 삭제", description = "게시판 삭제")
     public ResponseModel<?> deleteBoard(
             @RequestParam Long id

@@ -85,13 +85,15 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/index.html").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
-                        .requestMatchers("/hello").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers("/member/duplication").permitAll()
                         .requestMatchers(SWAGGER_PATTERNS).permitAll()
+                        .requestMatchers("/board/**").permitAll() // 보드 관련 엔드포인트에 대한 접근 규칙 추가
+                        .requestMatchers("/program/**").permitAll() // 프로그램 관련 엔드포인트에 대한 접근 규칙 추가
+                        .requestMatchers("/image/**").permitAll() // 이미지 관련 엔드포인트에 대한 접근 규칙 추가
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthorizationFilter, BasicAuthenticationFilter.class)
+                .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(jwtAuthorizationFilter, BasicAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
