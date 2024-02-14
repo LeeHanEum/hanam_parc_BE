@@ -76,8 +76,8 @@ public class MemberController {
     @Operation(summary = "[A] 회원 권한 및 상태 수정", description = "회원 권한 및 상태 수정")
     public ResponseModel<?> updateMemberRoleAndStatus(
             @RequestParam String id,
-            @RequestParam MemberRole memberRole,
-            @RequestParam MemberStatus memberStatus
+            @RequestParam String memberRole,
+            @RequestParam String memberStatus
     ) {
         memberService.updateMemberRoleAndStatus(id, memberRole, memberStatus);
         return ResponseModel.success(true);

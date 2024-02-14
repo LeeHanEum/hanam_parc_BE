@@ -76,10 +76,10 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void updateMemberRoleAndStatus(String id, MemberRole memberRole, MemberStatus memberStatus) {
+    public void updateMemberRoleAndStatus(String id, String memberRole, String memberStatus) {
         Member member = getMemberById(id);
-        member.setMemberRole(memberRole);
-        member.setMemberStatus(memberStatus);
+        member.setMemberRole(MemberRole.valueOf(memberRole));
+        member.setMemberStatus(MemberStatus.valueOf(memberStatus));
         memberRepository.save(member);
     }
 
