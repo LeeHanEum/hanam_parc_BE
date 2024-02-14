@@ -88,8 +88,10 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(SWAGGER_PATTERNS).permitAll()
                         .requestMatchers("/board/**").permitAll() // 보드 관련 엔드포인트에 대한 접근 규칙 추가
-                        .requestMatchers("/program/**").permitAll() // 프로그램 관련 엔드포인트에 대한 접근 규칙 추가
+                        .requestMatchers("/program/page").permitAll() // 프로그램 관련 엔드포인트에 대한 접근 규칙 추가
                         .requestMatchers("/image/**").permitAll() // 이미지 관련 엔드포인트에 대한 접근 규칙 추가
+                        .requestMatchers("/program/**").permitAll() // program 관련 엔드포인트에 대한 접근 규칙 추가
+                        .requestMatchers("/member/duplication").permitAll() // 회원가입 아이디 중복 체크
                         .anyRequest().authenticated()
                 )
                 .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

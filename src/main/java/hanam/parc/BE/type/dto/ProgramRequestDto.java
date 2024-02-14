@@ -4,6 +4,7 @@ import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.etc.ProgramStatus;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,8 +14,6 @@ import java.time.LocalDateTime;
 public class ProgramRequestDto {
 
     private String name; // 프로그램명
-
-    private String thumbnail; // 썸네일
 
     private Long available; // 수용인원
 
@@ -38,7 +37,4 @@ public class ProgramRequestDto {
 
     private String description; // 설명
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 }

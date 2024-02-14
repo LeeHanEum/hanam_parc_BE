@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,12 +34,13 @@ public class ProgramController {
 
     private final ProgramService programService;
 
-    @PostMapping("")
+    @PostMapping(path ="/create", consumes = "multipart/form-data")
     @Operation(summary = "[A] Program 등록", description = "Program 등록")
     public ResponseModel<?> createProgram(
-            @RequestBody ProgramRequestDto programRequestDto
+            ProgramRequestDto programRequestDto,
+            @RequestPart(value = "thumbnail", required = false) MultipartFile multipartFile
     ) {
-        programService.createProgram(programRequestDto);
+        programService.createProgram(programRequestDto, multipartFile);
         return ResponseModel.success(true);
     }
 
@@ -54,8 +57,12 @@ public class ProgramController {
     @Operation(summary = "[U] Program 리스트 조회", description = "Program 리스트 조회")
     public ResponseModel<?> getProgramList(
     ) {
-        List<ProgramResponseDto> programList = programService.getProgramList();
-        return ResponseModel.success(programList);
+        try {
+            List<ProgramResponseDto> programList = programService.getProgramList();
+            return ResponseModel.success(programList);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", "프로그램 리스트를 불러 오는데 실패하였습니다.");
+        }
     }
 
     @GetMapping("/page")
@@ -64,17 +71,25 @@ public class ProgramController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size
     ) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ProgramResponseDto> programList = programService.getProgramListByPage(pageable);
-        return ResponseModel.success(programList);
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProgramResponseDto> programList = programService.getProgramListByPage(pageable);
+            return ResponseModel.success(programList);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", "프로그램 페이지를 불러 오는데 실패하였습니다.");
+        }
     }
 
     @GetMapping("/my")
     @Operation(summary = "[U] 내가 신청한 Program 조회", description = "내가 신청한 Program 조회")
     public ResponseModel<?> getMyProgramList(
     ) {
-        List<ProgramResponseDto> programList = programService.getMyProgramList();
-        return ResponseModel.success(programList);
+        try {
+            List<ProgramResponseDto> programList = programService.getMyProgramList();
+            return ResponseModel.success(programList);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", "내 프로그램 리스트를 불러 오는데 실패하였습니다.");
+        }
     }
 
     @GetMapping("/status")
@@ -82,8 +97,12 @@ public class ProgramController {
     public ResponseModel<?> getProgramListByStatus(
             @RequestParam ProgramStatus status
     ) {
-        List<ProgramResponseDto> programList = programService.getProgramListByStatus(status);
-        return ResponseModel.success(programList);
+        try {
+            List<ProgramResponseDto> programList = programService.getProgramListByStatus(status);
+            return ResponseModel.success(programList);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", "status에 따른 프로그램 리스트를 불러 오는데 실패하였습니다.");
+        }
     }
 
     @PatchMapping("")
@@ -92,8 +111,12 @@ public class ProgramController {
             @RequestParam Long id,
             @RequestBody ProgramRequestDto programRequestDto
     ) {
-        programService.updateProgram(id, programRequestDto);
-        return ResponseModel.success(true);
+        try {
+            programService.updateProgram(id, programRequestDto);
+            return ResponseModel.success(true);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", "프로그램을 수정할 수 없습니다.");
+        }
     }
 
     @PatchMapping("/status")
@@ -106,7 +129,7 @@ public class ProgramController {
         return ResponseModel.success(true);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/delete")
     @Operation(summary = "[A] Program 삭제", description = "Program 삭제")
     public ResponseModel<?> deleteProgram(
             @RequestParam Long id

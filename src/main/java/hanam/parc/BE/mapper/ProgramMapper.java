@@ -14,7 +14,6 @@ public interface ProgramMapper {
     ProgramMapper INSTANCE = Mappers.getMapper(ProgramMapper.class);
     @Mappings({
             @Mapping(target = "name", source = "programRequestDto.name"),
-            @Mapping(target = "thumbnail", source = "programRequestDto.thumbnail"),
             @Mapping(target = "available", source = "programRequestDto.available"),
             @Mapping(target = "programStatus", source = "programRequestDto.programStatus"),
             @Mapping(target = "applyEnd", source = "programRequestDto.applyEnd"),
@@ -25,8 +24,6 @@ public interface ProgramMapper {
             @Mapping(target = "cost", source = "programRequestDto.cost"),
             @Mapping(target = "material", source = "programRequestDto.material"),
             @Mapping(target = "description", source = "programRequestDto.description"),
-            @Mapping(target = "createdAt", source = "programRequestDto.createdAt"),
-            @Mapping(target = "updatedAt", source = "programRequestDto.updatedAt")
     })
     Program ProgramRequestDtoToProgram(ProgramRequestDto programRequestDto);
 

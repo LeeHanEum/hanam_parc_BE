@@ -9,7 +9,26 @@
 -- VALUES ('okJang', '$2a$12$bUjikKYJ1w1RdYFIn2DlmOcNF0zxivfAJ6hDsP/TxaAgTqb9J./wG', 'okJang', '010-6299-0733', '경기도 수원시', '이대수', '010-6299-7216', 'NONE', 'mosoon365@hanmail.net', 'USER', 'ACTIVE', '1990-01-01', '2024-01-01', '2024-01-01');
 -- -- board
 -- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
--- VALUES ('가입인사', '첫번째 글입니다.', 'leehaneum', 'ANNOUNCEMENT', '2021-01-01', '2021-01-01');
+-- VALUES ('첫번째 공지사항 입니다.', '첫번째 공지사항 입니다.', 'hanam5123', 'ANNOUNCEMENT', '2024-02-09', '2024-02-09');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('두번째 공지사항 입니다.', '두번째 공지사항 입니다.', 'hanam5123', 'ANNOUNCEMENT', '2024-02-10', '2024-02-10');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('세번째 공지사항 입니다.', '세번째 공지사항 입니다.', 'hanam5123', 'ANNOUNCEMENT', '2024-02-11', '2024-02-11');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('네번째 공지사항 입니다.', '네번째 공지사항 입니다.', 'hanam5123', 'ANNOUNCEMENT', '2024-02-12', '2024-02-12');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('다섯번째 공지사항 입니다.', '다섯번째 공지사항 입니다.', 'hanam5123', 'ANNOUNCEMENT', '2024-02-13', '2024-02-13');
+
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('첫번째 채용공고 입니다.', '첫번째 채용공고 입니다.', 'hanam5123', 'RECRUITMENT', '2024-02-09', '2024-02-09');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('두번째 채용공고 입니다.', '두번째 채용공고 입니다.', 'hanam5123', 'RECRUITMENT', '2024-02-10', '2024-02-10');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('세번째 채용공고 입니다.', '세번째 채용공고 입니다.', 'hanam5123', 'RECRUITMENT', '2024-02-11', '2024-02-11');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('네번째 채용공고 입니다.', '네번째 채용공고 입니다.', 'hanam5123', 'RECRUITMENT', '2024-02-12', '2024-02-12');
+-- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
+-- VALUES ('다섯번째 채용공고 입니다.', '다섯번째 채용공고 입니다.', 'hanam5123', 'RECRUITMENT', '2024-02-13', '2024-02-13');
 --
 -- INSERT INTO board (title, content, member_id, board_category, created_at, updated_at)
 -- VALUES ('수원시 체육대회 개최', '수원시 체육대회 개최', 'okJang', 'ANNOUNCEMENT', '2021-01-01', '2021-01-01');
@@ -68,58 +87,19 @@
 -- INSERT INTO comment (content, member_id, board_id, parent_id, created_at, updated_at)
 -- VALUES ('다섯번째 댓글입니다.', 'leehaneum', 1, 3, '2021-01-01', '2021-01-01');
 
--- program
+-- -- program
 INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 시각 장애인 게이트볼 교실', 'image/게이트볼.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 챌린저블 농구교실(발달장애인)', 'image/휠체어.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 장애인 배드민턴 교실', 'image/배드민턴.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
+VALUES ('룰루랄라 장애인 체조 교실', 'image/휠체어.jpg', '10', 'ACCEPTING', 'hanam5123', '2024-02-29', '2024-03-04', '2024-10-30', '60', '하남 풍산멀티스포츠센터 4층 다목적체육관', '무료', '실내운동화',
+        '운영대상 : 하남시 관내 거주 장애인 및 시설 이용 장애인 <br />
+        운영 기간 : 2024.03.04(월) ~ 10월 30일(수)까지 총 50회차 <br /> 운영 시간 : 매주 월,수요일 오후 2시30분 ~ 3시 30분까지 <br /> 모집 기간: 2024년2월29일까지 선착순 마감 (유선 신청 가능)', '2024-02-14', '2024-02-14');
 
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 장애인 볼링 교실', 'image/휠체어.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
+-- INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
+-- VALUES ('하남시 챌린저블 농구교실(발달장애인)', 'image/휠체어.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
+-- 이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
+-- 무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
+-- 또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
 
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 룰루랄라 운동 교실(야구)', 'image/휠체어.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
 
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 룰루랄라 운동 교실(체조)', 'image/휠체어.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
-
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 장애인 조정 교실', 'image/rowing.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
-
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 장애인 탁구 교실', 'image/탁구.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
-
-INSERT INTO program (name, thumbnail, available, program_status, manager_id, apply_end, start_date, end_date, time, location, cost, material, description, created_at, updated_at)
-VALUES ('하남시 장애인 태권도 교실', 'image/휠체어.jpg', '30', 'ACCEPTING', 'superuser', '2024-03-01', '2024-03-05', '2024-03-05', '120', '하남시 스타디움', '무료', '없음', '이 행사는 하남시 장애인 체육회에서 선도적으로 주관하는 장애인 조정대회로, 참가비가 무료로 제공됩니다.
-이를 통해 장애인들은 접근성 있는 환경에서 스포츠에 참여하고 뛰어난 실력을 겨루며 자신의 잠재력을 발휘할 수 있습니다.
-무료 참가비는 모든 장애인들에게 평등한 참여 기회를 제공하며, 지역 사회의 다양한 장애인들이 함께 모여 즐거운 대회를 즐길 수 있습니다.
-또한, 이 행사는 지역사회와의 상호작용을 통해 장애인 스포츠에 대한 인식과 이해를 높이며, 사회의 통합과 다양성 증진에 기여하는 중요한 행사로 자리잡고 있습니다.', '2024-02-01', '2024-02-01');
 
 -- application
 -- INSERT INTO application (member_id, program_id, address, phone, gender, disability_type, guardian_name, guardian_phone, status, remarks, created_at, updated_at)

@@ -42,7 +42,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         // 1. 토큰이 필요하지 않은 API URL에 대해서 배열로 구성한다.
         List<String> list = Arrays.asList(
-                "/login",  // 로그인 페이지의 URL을 추가합니다.
+                "/login",
                 "/css/**",
                 "/js/**",
                 "/images/**",
@@ -67,16 +67,26 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/api-docs/json/swagger-config",
                 "/api-docs/json",
                 "/board",
+                "/program/page",
+                "/image",
                 "/program",
-                "/image"
+                "/member/duplication",
+                "/join"
+        );
 
+        List<String> tokenList = Arrays.asList(
+                "/board/create",
+                "/program/delete",
+                "/program/create"
         );
 
         // 2. 토큰이 필요하지 않은 API URL의 경우 -> 로직 처리없이 다음 필터로 이동한다.
         String requestUri = request.getRequestURI();
-        if (list.stream().anyMatch(requestUri::startsWith) || list.contains(requestUri)) {
-            filterChain.doFilter(request, response);
-            return;
+        if (!tokenList.contains(requestUri)) { // tokenList에 포함된 URL은 토큰이 필요한 URL
+            if (list.stream().anyMatch(requestUri::startsWith) || list.contains(requestUri)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
         }
 
         // 3. OPTIONS 요청일 경우 -> 로직 처리 없이 다음 필터로 이동

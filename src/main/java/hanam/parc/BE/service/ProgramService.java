@@ -7,11 +7,15 @@ import hanam.parc.BE.type.dto.ProgramResponseDto;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.entity.Program;
 import hanam.parc.BE.type.etc.ProgramStatus;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +25,12 @@ public class ProgramService {
 
     private final MemberService memberService;
 
+    private final FileUploadService fileUploadService;
+
     private final ProgramRepository programRepository;
 
-    public void createProgram(ProgramRequestDto programRequestDto) {
+    @Transactional
+    public void createProgram(ProgramRequestDto programRequestDto, MultipartFile multipartFile) {
         Member member = memberService.getCurrentMember();
         if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("관리자만 등록할 수 있습니다.");
@@ -33,6 +40,11 @@ public class ProgramService {
             Member manager = memberService.getMemberById(programRequestDto.getManagerId());
             program.setManager(manager);
         }
+        String url = null;
+        if (multipartFile != null) {
+            url = fileUploadService.saveFile(multipartFile);
+        }
+        program.setThumbnail(url);
         program.setProgramStatus(ProgramStatus.WAITING);
         programRepository.save(program);
     }
@@ -76,7 +88,6 @@ public class ProgramService {
             throw new IllegalArgumentException("프로그램 수정 권한이 없습니다.");
         }
         program.setName(programRequestDto.getName());
-        program.setThumbnail(programRequestDto.getThumbnail());
         program.setAvailable(programRequestDto.getAvailable());
         program.setProgramStatus(programRequestDto.getProgramStatus());
         program.setApplyEnd(programRequestDto.getApplyEnd());

@@ -94,7 +94,6 @@ public class BoardService {
         }
         board.setTitle(boardRequestDto.getTitle());
         board.setContent(boardRequestDto.getContent());
-        board.setBoardCategory(BoardCategory.valueOf(boardRequestDto.getBoardCategory()));
         boardRepository.save(board);
     }
 
