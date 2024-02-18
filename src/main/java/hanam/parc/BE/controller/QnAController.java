@@ -31,7 +31,7 @@ public class QnAController {
 
     private final QnAService qnaService;
 
-    @PostMapping("")
+    @PostMapping("/create")
     @Operation(summary = "[U] QnA 생성", description = "QnA 생성")
     public ResponseModel<?> createQnA(
             @RequestBody QnARequestDto qnaRequestDto
@@ -89,7 +89,7 @@ public class QnAController {
         return ResponseModel.success(true);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/delete")
     @Operation(summary = "[U] QnA 삭제", description = "QnA 삭제")
     public ResponseModel<?> deleteQnA(
             @RequestParam Long id

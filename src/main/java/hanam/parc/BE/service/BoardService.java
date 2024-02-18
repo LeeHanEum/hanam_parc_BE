@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,26 +27,16 @@ public class BoardService {
 
     private final MemberService memberService;
 
-    private final FileUploadService fileUploadService;
 
     private final BoardRepository boardRepository;
 
     private final BoardImageRepository boardImageRepository;
 
-    @Transactional
-    public void createBoard(BoardRequestDto boardRequestDto, List<MultipartFile> multipartFile) {
+    public void createBoard(BoardRequestDto boardRequestDto) {
         Member member = memberService.getCurrentMember();
         Board board = BoardMapper.INSTANCE.BoardRequestDtoToBoard(boardRequestDto);
         board.setMember(member);
         boardRepository.save(board);
-
-        String url;
-        if (multipartFile != null) {
-            for (MultipartFile file : multipartFile) {
-                url = fileUploadService.saveFile(file);
-                boardImageRepository.save(new BoardImage(url, board));
-            }
-        }
     }
 
     public BoardResponseDto getBoard(Long id) {
@@ -89,7 +80,7 @@ public class BoardService {
     public void updateBoard(Long id, BoardRequestDto boardRequestDto) {
         Member member = memberService.getCurrentMember();
         Board board = boardRepository.findById(id).orElseThrow();
-        if (!board.getMember().equals(member) || memberService.checkMemberAdminRole(member)) {
+        if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("권한이 없습니다.");
         }
         board.setTitle(boardRequestDto.getTitle());

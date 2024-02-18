@@ -67,7 +67,7 @@ public class QnAService {
     public void deleteQnA(Long id) {
         Member member = memberService.getCurrentMember();
         QnA qna = qnaRepository.findById(id).orElseThrow();
-        if (!qna.getWriter().equals(member) || memberService.checkMemberAdminRole(member)) {
+        if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("권한이 없습니다.");
         }
         qnaRepository.deleteById(id);

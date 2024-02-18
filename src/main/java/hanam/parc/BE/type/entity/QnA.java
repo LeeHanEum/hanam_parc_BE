@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -38,6 +40,7 @@ public class QnA {
 
     @ManyToOne
     @JoinColumn(name = "writer_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member writer;
 
     @Column(length = 1000)

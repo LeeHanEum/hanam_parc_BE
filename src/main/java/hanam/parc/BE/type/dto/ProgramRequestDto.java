@@ -17,15 +17,15 @@ public class ProgramRequestDto {
 
     private Long available; // 수용인원
 
-    private ProgramStatus programStatus; // 프로그램 상태
+    private String programStatus; // 프로그램 상태
 
     private String managerId; // 담당자
 
-    private LocalDateTime applyEnd; // 접수 시간(day)
+    private String applyEnd; // 접수 시간(day)
 
-    private LocalDate startDate; // 시작일
+    private String startDate; // 시작일
 
-    private LocalDate endDate; // 종료일
+    private String endDate; // 종료일
 
     private Long time; // 교육 시간(min)
 

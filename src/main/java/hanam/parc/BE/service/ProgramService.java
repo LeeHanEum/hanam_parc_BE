@@ -89,15 +89,16 @@ public class ProgramService {
         }
         program.setName(programRequestDto.getName());
         program.setAvailable(programRequestDto.getAvailable());
-        program.setProgramStatus(programRequestDto.getProgramStatus());
-        program.setApplyEnd(programRequestDto.getApplyEnd());
-        program.setStartDate(programRequestDto.getStartDate());
-        program.setEndDate(programRequestDto.getEndDate());
+        program.setProgramStatus(ProgramStatus.valueOf(programRequestDto.getProgramStatus()));
+        program.setApplyEnd(LocalDateTime.parse(programRequestDto.getApplyEnd()));
+        program.setStartDate(LocalDate.parse(programRequestDto.getStartDate()));
+        program.setEndDate(LocalDate.parse(programRequestDto.getEndDate()));
         program.setTime(programRequestDto.getTime());
         program.setLocation(programRequestDto.getLocation());
         program.setCost(programRequestDto.getCost());
         program.setMaterial(programRequestDto.getMaterial());
         program.setManager(memberService.getMemberById(programRequestDto.getManagerId()));
+        program.setDescription(programRequestDto.getDescription());
         programRepository.save(program);
     }
 

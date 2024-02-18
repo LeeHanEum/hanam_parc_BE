@@ -105,18 +105,14 @@ public class ProgramController {
         }
     }
 
-    @PatchMapping("")
+    @PatchMapping("/update")
     @Operation(summary = "[A] Program 수정", description = "Program 수정")
     public ResponseModel<?> updateProgram(
             @RequestParam Long id,
             @RequestBody ProgramRequestDto programRequestDto
     ) {
-        try {
-            programService.updateProgram(id, programRequestDto);
-            return ResponseModel.success(true);
-        }catch (Exception e) {
-            return ResponseModel.fail("400", "프로그램을 수정할 수 없습니다.");
-        }
+        programService.updateProgram(id, programRequestDto);
+        return ResponseModel.success(true);
     }
 
     @PatchMapping("/status")

@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -37,6 +39,7 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name="member_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @CreationTimestamp

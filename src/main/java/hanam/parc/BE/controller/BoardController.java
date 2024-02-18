@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -36,13 +37,12 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping(path ="/create", consumes = "multipart/form-data")
+    @PostMapping("/create")
     @Operation(summary = "[U] 게시판 생성", description = "게시판 생성")
     public ResponseModel<?> createBoard(
-            BoardRequestDto boardRequestDto,
-            @RequestPart(value = "file", required = false) List<MultipartFile> multipartFile
+            @RequestBody BoardRequestDto boardRequestDto
     ) {
-        boardService.createBoard(boardRequestDto, multipartFile);
+        boardService.createBoard(boardRequestDto);
         return ResponseModel.success(true);
     }
 
@@ -99,7 +99,7 @@ public class BoardController {
         return ResponseModel.success(boardList);
     }
 
-    @PatchMapping("")
+    @PatchMapping("/update")
     @Operation(summary = "[U] 게시판 정보 수정", description = "게시판 정보 수정")
     public ResponseModel<?> updateBoard(
             @RequestParam Long id,
