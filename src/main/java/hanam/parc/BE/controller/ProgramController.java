@@ -34,13 +34,12 @@ public class ProgramController {
 
     private final ProgramService programService;
 
-    @PostMapping(path ="/create", consumes = "multipart/form-data")
+    @PostMapping("/create")
     @Operation(summary = "[A] Program 등록", description = "Program 등록")
     public ResponseModel<?> createProgram(
-            ProgramRequestDto programRequestDto,
-            @RequestPart(value = "thumbnail", required = false) MultipartFile multipartFile
+            ProgramRequestDto programRequestDto
     ) {
-        programService.createProgram(programRequestDto, multipartFile);
+        programService.createProgram(programRequestDto);
         return ResponseModel.success(true);
     }
 

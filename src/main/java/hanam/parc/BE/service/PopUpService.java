@@ -31,11 +31,6 @@ public class PopUpService {
         }
 
         PopUp popUp = PopUpMapper.INSTANCE.PopUpRequestDtoToPopUp(popUpRequestDto);
-        String url = null;
-        if (multipartFile != null) {
-            url = fileUploadService.saveFile(multipartFile);
-        }
-        popUp.setUrl(url);
         popUpRepository.save(popUp);
     }
 

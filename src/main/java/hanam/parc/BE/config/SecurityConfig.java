@@ -93,6 +93,7 @@ public class SecurityConfig {
                         .requestMatchers("/program/**").permitAll() // program 관련 엔드포인트에 대한 접근 규칙 추가
                         .requestMatchers("/member/duplication").permitAll() // 회원가입 아이디 중복 체크
                         .requestMatchers("/qna/**").permitAll() // QnA 관련 엔드포인트에 대한 접근 규칙 추가
+                        .requestMatchers("/files/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

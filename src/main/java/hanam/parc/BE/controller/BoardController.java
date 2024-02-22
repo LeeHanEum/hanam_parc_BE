@@ -42,8 +42,8 @@ public class BoardController {
     public ResponseModel<?> createBoard(
             @RequestBody BoardRequestDto boardRequestDto
     ) {
-        boardService.createBoard(boardRequestDto);
-        return ResponseModel.success(true);
+        Long id = boardService.createBoard(boardRequestDto);
+        return ResponseModel.success(id);
     }
 
     @GetMapping("")

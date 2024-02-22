@@ -3,15 +3,27 @@ package hanam.parc.BE.config;
 import hanam.parc.BE.auth.jwt.interceptor.JwtTokenInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Slf4j
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
+
+    @Value("${resource.file.path}")
+    private String filePath;
+
+    @Value("${resource.file.url}")
+    private String fileURL;
 
     private final JwtTokenInterceptor jwtTokenInterceptor;
 
@@ -30,18 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     /**
-     *  이 배열은 정적 리소스가 위치할 수 있는 경로를 나열하고 있다. 이 경로들은 addResourceHandlers 메서드에서 사용된다.
-     */
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-            "classpath:/static/",
-            "classpath:/public/",
-            "classpath:/",
-            "classpath:/resources/",
-            "classpath:/META-INF/resources/",
-            "classpath:/META-INF/resources/webjars/"
-    };
-
-    /**
      * 뷰 컨트롤러를 추가할때 사용된다. 여기서는 루트 URL("/")에 접근했을 때 "/login"으로 리다이렉트하도록 설정하고 있다.
      */
     @Override
@@ -51,13 +51,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
-    /**
-     * 정적 리소스를 처리하는 핸들러를 추가하는데 사용된다.
-     * 여기서는 모든 요청("/**")에 대해 CLASSPATH_RESOURCE_LOCATIONS에 지정된 경로에서 리소스를 찾도록 설정하고 있다.
-     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+        log.info("Resource File Mapped : {} -> {}", fileURL, filePath);
+        registry
+                .addResourceHandler("/**")
+                .addResourceLocations(fileURL);
     }
 
 }

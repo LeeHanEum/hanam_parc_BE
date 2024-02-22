@@ -32,11 +32,11 @@ public class BoardService {
 
     private final BoardImageRepository boardImageRepository;
 
-    public void createBoard(BoardRequestDto boardRequestDto) {
+    public Long createBoard(BoardRequestDto boardRequestDto) {
         Member member = memberService.getCurrentMember();
         Board board = BoardMapper.INSTANCE.BoardRequestDtoToBoard(boardRequestDto);
         board.setMember(member);
-        boardRepository.save(board);
+        return boardRepository.save(board).getId();
     }
 
     public BoardResponseDto getBoard(Long id) {

@@ -30,7 +30,7 @@ public class ProgramService {
     private final ProgramRepository programRepository;
 
     @Transactional
-    public void createProgram(ProgramRequestDto programRequestDto, MultipartFile multipartFile) {
+    public void createProgram(ProgramRequestDto programRequestDto) {
         Member member = memberService.getCurrentMember();
         if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("관리자만 등록할 수 있습니다.");
@@ -40,11 +40,6 @@ public class ProgramService {
             Member manager = memberService.getMemberById(programRequestDto.getManagerId());
             program.setManager(manager);
         }
-        String url = null;
-        if (multipartFile != null) {
-            url = fileUploadService.saveFile(multipartFile);
-        }
-        program.setThumbnail(url);
         program.setProgramStatus(ProgramStatus.WAITING);
         programRepository.save(program);
     }
