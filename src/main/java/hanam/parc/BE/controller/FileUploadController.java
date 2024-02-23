@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class FileUploadController {
     @Operation(summary = "[U] 게시글 사진 업로드", description = "게시글 사진 업로드")
     public ResponseModel<?> boardUpload(
             @PathVariable("boardId") Long boardId,
-            @RequestParam(value = "file") MultipartFile multipartFile
+            @RequestParam(value="image") MultipartFile multipartFile
     ) throws FileUploadFailException {
         String url = fileUploadService.saveFile(multipartFile, "boards/" + boardId);
         Board board = boardService.getBoardById(boardId);
