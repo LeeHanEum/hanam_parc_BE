@@ -30,7 +30,7 @@ public class ProgramService {
     private final ProgramRepository programRepository;
 
     @Transactional
-    public void createProgram(ProgramRequestDto programRequestDto) {
+    public Long createProgram(ProgramRequestDto programRequestDto) {
         Member member = memberService.getCurrentMember();
         if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("관리자만 등록할 수 있습니다.");
@@ -41,7 +41,7 @@ public class ProgramService {
             program.setManager(manager);
         }
         program.setProgramStatus(ProgramStatus.WAITING);
-        programRepository.save(program);
+        return programRepository.save(program).getId();
     }
 
     public ProgramResponseDto getProgram(Long id) {
@@ -65,7 +65,7 @@ public class ProgramService {
     }
 
     public Page<ProgramResponseDto> getProgramListByPage(Pageable pageable) {
-        Page<Program> programList = programRepository.findAllByOrderByApplyEndDesc(pageable);
+        Page<Program> programList = programRepository.findAllByOrderByCreatedAtDesc(pageable);
         return programList.map(ProgramMapper.INSTANCE::ProgramToProgramResponseDto);
     }
 

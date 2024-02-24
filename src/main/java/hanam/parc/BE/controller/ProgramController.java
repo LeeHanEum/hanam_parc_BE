@@ -39,8 +39,8 @@ public class ProgramController {
     public ResponseModel<?> createProgram(
             ProgramRequestDto programRequestDto
     ) {
-        programService.createProgram(programRequestDto);
-        return ResponseModel.success(true);
+        Long id = programService.createProgram(programRequestDto);
+        return ResponseModel.success(id);
     }
 
     @GetMapping("")

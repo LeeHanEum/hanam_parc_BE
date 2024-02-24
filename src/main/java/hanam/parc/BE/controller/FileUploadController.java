@@ -2,11 +2,14 @@ package hanam.parc.BE.controller;
 
 import hanam.parc.BE.exception.FileUploadFailException;
 import hanam.parc.BE.repository.BoardImageRepository;
+import hanam.parc.BE.repository.ProgramRepository;
 import hanam.parc.BE.service.BoardService;
 import hanam.parc.BE.service.FileUploadService;
+import hanam.parc.BE.service.ProgramService;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.entity.Board;
 import hanam.parc.BE.type.entity.BoardImage;
+import hanam.parc.BE.type.entity.Program;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +33,17 @@ public class FileUploadController {
 
     private final BoardService boardService;
 
+    private final ProgramService programService;
+
     private final BoardImageRepository boardImageRepository;
 
+    private final ProgramRepository programRepository;
+
     @PostMapping(path="/{boardId}", consumes = {"multipart/form-data"})
-    @Operation(summary = "[U] 게시글 사진 업로드", description = "게시글 사진 업로드")
+    @Operation(summary = "[A] 게시글 사진 업로드", description = "게시글 사진 업로드")
     public ResponseModel<?> boardUpload(
             @PathVariable("boardId") Long boardId,
-            @RequestParam(value="image") MultipartFile multipartFile
+            @RequestParam(value="image", required = false) MultipartFile multipartFile
     ) throws FileUploadFailException {
         String url = fileUploadService.saveFile(multipartFile, "boards/" + boardId);
         Board board = boardService.getBoardById(boardId);
@@ -47,6 +54,17 @@ public class FileUploadController {
         return ResponseModel.success(url);
     }
 
-
+    @PostMapping(path="/program/{programId}" , consumes = {"multipart/form-data"})
+    @Operation(summary = "[A] 프로그램 사진 업로드", description = "프로그램 사진 업로드")
+    public ResponseModel<?> programUpload(
+            @PathVariable Long programId,
+            @RequestParam(value="image", required = false) MultipartFile multipartFile
+    ) throws FileUploadFailException {
+        String url = fileUploadService.saveFile(multipartFile, "programs/" + programId);
+        Program program = programService.getProgramById(programId);
+        program.setThumbnail(url);
+        programRepository.save(program);
+        return ResponseModel.success(url);
+    }
 
 }
