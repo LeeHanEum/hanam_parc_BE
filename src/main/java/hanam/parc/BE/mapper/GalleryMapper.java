@@ -13,6 +13,9 @@ public interface GalleryMapper {
 
     GalleryMapper INSTANCE = Mappers.getMapper(GalleryMapper.class);
 
+    @Mappings({
+            @Mapping(target = "title", source = "galleryRequestDto.title")
+    })
     Gallery GalleryRequestDtoToGallery(GalleryRequestDto galleryRequestDto);
 
     @Mappings({

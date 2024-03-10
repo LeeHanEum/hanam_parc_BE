@@ -99,4 +99,15 @@ public class FileUploadController {
         return ResponseModel.success(url);
     }
 
+    @PostMapping(path="/gallery/{galleryId}" , consumes = {"multipart/form-data"})
+    @Operation(summary = "[A] 갤러리 사진 업로드", description = "갤러리 사진 업로드")
+    public ResponseModel<?> galleryUpload(
+            @PathVariable Long galleryId,
+            @RequestParam(value="image", required = false) MultipartFile multipartFile
+    ) throws FileUploadFailException {
+        String url = fileUploadService.saveFile(multipartFile, "galleries/" + galleryId);
+        fileService.galleryUpload(galleryId, url);
+        return ResponseModel.success(url);
+    }
+
 }
