@@ -5,37 +5,41 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "PopUp")
-@Table(name = "pop_up")
-public class PopUp {
+@Table(name = "gallery")
+@Entity(name = "Gallery")
+public class Gallery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false, unique = true)
     private Long id;
 
     @Column(nullable = false, length = 45)
-    private String name;
+    private String title;
 
-    @Column
-    private String url;
-
-    @Column(nullable = false)
-    private Boolean isShow; // 노출 여부
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @CreationTimestamp
     @Column(name="created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name="updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }

@@ -74,7 +74,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/member/duplication",
                 "/join",
                 "/qna",
-                "/files"
+                "/files",
+                "/popup/isShow"
         );
 
         List<String> tokenList = Arrays.asList(
