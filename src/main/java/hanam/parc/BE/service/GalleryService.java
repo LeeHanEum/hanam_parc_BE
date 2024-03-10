@@ -1,15 +1,22 @@
 package hanam.parc.BE.service;
 
 import hanam.parc.BE.mapper.GalleryMapper;
+import hanam.parc.BE.repository.GalleryImageRepository;
 import hanam.parc.BE.repository.GalleryRepository;
+import hanam.parc.BE.type.dto.GalleryImageDto;
 import hanam.parc.BE.type.dto.GalleryRequestDto;
 import hanam.parc.BE.type.dto.GalleryResponseDto;
 import hanam.parc.BE.type.entity.Gallery;
+import hanam.parc.BE.type.entity.GalleryImage;
 import hanam.parc.BE.type.entity.Member;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +25,8 @@ public class GalleryService {
     private final MemberService memberService;
 
     private final GalleryRepository galleryRepository;
+
+    private final GalleryImageRepository galleryImageRepository;
 
     public Long createGallery(GalleryRequestDto galleryRequestDto) {
         Member member = memberService.getCurrentMember();
@@ -37,6 +46,12 @@ public class GalleryService {
     public Page<GalleryResponseDto> getGalleryPage(Pageable pageable) {
         Page<Gallery> galleryList = galleryRepository.findAllByOrderByCreatedAtDesc(pageable);
         return galleryList.map(GalleryMapper.INSTANCE::GalleryToGalleryResponseDto);
+    }
+
+    public GalleryImageDto getGalleryImage(Long id) {
+        Gallery gallery = findGalleryById(id);
+        List<String> galleryImageList = getGalleryImageList(gallery);
+        return new GalleryImageDto(galleryImageList);
     }
 
     public void updateGallery(Long id, GalleryRequestDto galleryRequestDto) {
@@ -59,5 +74,12 @@ public class GalleryService {
 
     public Gallery findGalleryById(Long id) {
         return galleryRepository.findById(id).orElseThrow();
+    }
+
+    private List<String> getGalleryImageList(Gallery gallery) {
+        List<GalleryImage> galleryImageList = galleryImageRepository.findAllByGallery(gallery);
+        return galleryImageList.stream()
+                .map(GalleryImage::getUrl)
+                .collect(Collectors.toList());
     }
 }

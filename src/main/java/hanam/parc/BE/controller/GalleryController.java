@@ -1,6 +1,7 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.GalleryService;
+import hanam.parc.BE.type.dto.GalleryImageDto;
 import hanam.parc.BE.type.dto.GalleryRequestDto;
 import hanam.parc.BE.type.dto.GalleryResponseDto;
 import hanam.parc.BE.type.dto.ResponseModel;
@@ -56,6 +57,15 @@ public class GalleryController {
         Pageable pageable = PageRequest.of(page, size);
         Page<GalleryResponseDto> galleryList = galleryService.getGalleryPage(pageable);
         return ResponseModel.success(galleryList);
+    }
+
+    @GetMapping("/image")
+    @Operation(summary = "[U] 앨범 이미지 조회", description = "앨범 이미지 조회")
+    public ResponseModel<?> getGalleryImage(
+            @RequestParam Long id
+    ) {
+        GalleryImageDto galleryImage = galleryService.getGalleryImage(id);
+        return ResponseModel.success(galleryImage);
     }
 
     @PatchMapping("/update")

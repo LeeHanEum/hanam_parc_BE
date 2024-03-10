@@ -12,6 +12,8 @@ public class GalleryResponseDto {
 
     public String title;
 
+    public String thumbnail;
+
     public Member member;
 
     public String createdAt;

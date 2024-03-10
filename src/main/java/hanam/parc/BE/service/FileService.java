@@ -6,6 +6,7 @@ import hanam.parc.BE.repository.PopUpRepository;
 import hanam.parc.BE.type.entity.Gallery;
 import hanam.parc.BE.type.entity.GalleryImage;
 import hanam.parc.BE.type.entity.PopUp;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class FileService {
 
     private final GalleryService galleryService;
+
+    private final GalleryRepository galleryRepository;
 
     private final GalleryImageRepository galleryImageRepository;
 
@@ -25,12 +28,17 @@ public class FileService {
         popUpRepository.save(popUp);
     }
 
+    @Transactional
     public void galleryUpload(Long galleryId,  String url) {
         Gallery gallery = galleryService.findGalleryById(galleryId);
         GalleryImage galleryImage = new GalleryImage();
         galleryImage.setGallery(gallery);
         galleryImage.setUrl(url);
         galleryImageRepository.save(galleryImage);
+        if (gallery.getThumbnail() == null) {
+            gallery.setThumbnail(url);
+            galleryRepository.save(gallery);
+        }
     }
 
 }

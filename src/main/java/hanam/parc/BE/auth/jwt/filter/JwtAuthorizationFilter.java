@@ -75,7 +75,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/join",
                 "/qna",
                 "/files",
-                "/popup/isShow"
+                "/popup/isShow",
+                "/gallery"
         );
 
         List<String> tokenList = Arrays.asList(
@@ -88,7 +89,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/qna/answer",
                 "/qna/create",
                 "/qna/delete",
-                "/popup/create"
+                "/popup/create",
+                "/gallery/create",
+                "/gallery/update",
+                "/gallery/delete"
         );
 
         // 2. 토큰이 필요하지 않은 API URL의 경우 -> 로직 처리없이 다음 필터로 이동한다.

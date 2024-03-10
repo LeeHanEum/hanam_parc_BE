@@ -95,6 +95,7 @@ public class SecurityConfig {
                         .requestMatchers("/qna/**").permitAll() // QnA 관련 엔드포인트에 대한 접근 규칙 추가
                         .requestMatchers("/files/**").permitAll()
                         .requestMatchers("/popup/**").permitAll()
+                        .requestMatchers("/gallery/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterAfter(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)

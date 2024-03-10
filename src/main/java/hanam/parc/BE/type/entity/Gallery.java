@@ -31,6 +31,9 @@ public class Gallery {
     @Column(nullable = false, length = 45)
     private String title;
 
+    @Column
+    private String thumbnail;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

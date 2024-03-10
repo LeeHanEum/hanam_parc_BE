@@ -21,6 +21,7 @@ public interface GalleryMapper {
     @Mappings({
             @Mapping(target = "id", source = "gallery.id"),
             @Mapping(target = "title", source = "gallery.title"),
+            @Mapping(target = "thumbnail", source = "gallery.thumbnail"),
             @Mapping(target = "member", source = "gallery.member"),
             @Mapping(target = "createdAt", source = "gallery.createdAt"),
             @Mapping(target = "updatedAt", source = "gallery.updatedAt"),
