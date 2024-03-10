@@ -86,7 +86,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 "/program/update",
                 "/qna/answer",
                 "/qna/create",
-                "/qna/delete"
+                "/qna/delete",
+                "/popup/create"
         );
 
         // 2. 토큰이 필요하지 않은 API URL의 경우 -> 로직 처리없이 다음 필터로 이동한다.

@@ -13,8 +13,6 @@ public class PopUpResponseDto {
 
     private String url;
 
-    private Long size; // 몇 퍼센트로 할지
-
     private Boolean isShow;
 
     private String createdAt;

@@ -29,11 +29,8 @@ public class PopUp {
     @Column(nullable = false, length = 45)
     private String name;
 
-    @Column(nullable = false)
-    private String url;
-
     @Column
-    private Long size; // 몇 퍼센트로 할지
+    private String url; // 나중에 nullable false로 하도록 하자
 
     @Column(nullable = false)
     private Boolean isShow; // 노출 여부

@@ -17,7 +17,6 @@ public interface PopUpMapper {
             @Mapping(target = "id", source = "popUp.id"),
             @Mapping(target = "name", source = "popUp.name"),
             @Mapping(target = "url", source = "popUp.url"),
-            @Mapping(target = "size", source = "popUp.size"),
             @Mapping(target = "isShow", source = "popUp.isShow"),
             @Mapping(target = "createdAt", source = "popUp.createdAt")
     })
@@ -25,7 +24,6 @@ public interface PopUpMapper {
 
     @Mappings({
             @Mapping(target = "name", source = "popUpRequestDto.name"),
-            @Mapping(target = "size", source = "popUpRequestDto.size"),
             @Mapping(target = "isShow", source = "popUpRequestDto.isShow")
     })
     PopUp PopUpRequestDtoToPopUp(PopUpRequestDto popUpRequestDto);

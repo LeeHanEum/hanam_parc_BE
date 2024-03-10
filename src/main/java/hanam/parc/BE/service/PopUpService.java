@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -19,19 +18,16 @@ public class PopUpService {
 
     private final MemberService memberService;
 
-    private final FileUploadService fileUploadService;
-
     private final PopUpRepository popUpRepository;
 
     @Transactional
-    public void createPopUp(PopUpRequestDto popUpRequestDto, MultipartFile multipartFile) {
+    public Long createPopUp(PopUpRequestDto popUpRequestDto) {
         Member member = memberService.getCurrentMember();
         if (!memberService.checkMemberAdminRole(member)) {
             throw new IllegalArgumentException("관리자만 팝업 등록이 가능합니다.");
         }
-
         PopUp popUp = PopUpMapper.INSTANCE.PopUpRequestDtoToPopUp(popUpRequestDto);
-        popUpRepository.save(popUp);
+        return popUpRepository.save(popUp).getId();
     }
 
     public PopUpResponseDto getPopUp(Long id) {
@@ -68,7 +64,7 @@ public class PopUpService {
         popUpRepository.delete(popUp);
     }
 
-    private PopUp getPopUpById(Long id) {
+    public PopUp getPopUpById(Long id) {
         return popUpRepository.findById(id).orElseThrow();
     }
 

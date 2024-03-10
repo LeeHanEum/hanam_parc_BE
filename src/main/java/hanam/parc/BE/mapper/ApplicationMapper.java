@@ -25,8 +25,6 @@ public interface ApplicationMapper {
     })
     Application ApplicationRequestDtoToApplication(ApplicationRequestDto applicationRequestDto);
 
-
-
     ApplicationResponseDto ApplicationToApplicationResponseDto(Application Application);
 
 }

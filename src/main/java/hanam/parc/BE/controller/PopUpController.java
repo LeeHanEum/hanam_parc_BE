@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -30,14 +31,13 @@ public class PopUpController {
 
     private final PopUpService popUpService;
 
-    @PostMapping(path ="", consumes = "multipart/form-data")
+    @PostMapping(path ="/create")
     @Operation(summary = "[U] PopUp 생성", description = "PopUp 생성")
     public ResponseModel<?> createPopUp(
-            PopUpRequestDto popUpRequestDto,
-            @RequestPart(value = "url", required = false) MultipartFile multipartFile
+            @RequestBody PopUpRequestDto popUpRequestDto
     ) {
-        popUpService.createPopUp(popUpRequestDto, multipartFile);
-        return ResponseModel.success(true);
+        Long id = popUpService.createPopUp(popUpRequestDto);
+        return ResponseModel.success(id);
     }
 
 
@@ -81,7 +81,7 @@ public class PopUpController {
         return ResponseModel.success(true);
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/delete")
     @Operation(summary = "[U] PopUp 삭제", description = "PopUp 삭제")
     public ResponseModel<?> deletePopUp(
             @RequestParam Long id

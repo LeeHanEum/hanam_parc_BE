@@ -2,21 +2,26 @@ package hanam.parc.BE.controller;
 
 import hanam.parc.BE.exception.FileUploadFailException;
 import hanam.parc.BE.repository.BoardImageRepository;
+import hanam.parc.BE.repository.PopUpRepository;
 import hanam.parc.BE.repository.ProgramRepository;
 import hanam.parc.BE.service.BoardService;
+import hanam.parc.BE.service.FileService;
 import hanam.parc.BE.service.FileUploadService;
+import hanam.parc.BE.service.PopUpService;
 import hanam.parc.BE.service.ProgramService;
 import hanam.parc.BE.type.dto.ResponseModel;
 import hanam.parc.BE.type.entity.Board;
 import hanam.parc.BE.type.entity.BoardImage;
+import hanam.parc.BE.type.entity.PopUp;
 import hanam.parc.BE.type.entity.Program;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +40,15 @@ public class FileUploadController {
 
     private final ProgramService programService;
 
+    private final PopUpService popUpService;
+
     private final BoardImageRepository boardImageRepository;
 
     private final ProgramRepository programRepository;
+
+    private final PopUpRepository PopUpRepository;
+
+    private final FileService fileService;
 
     @PostMapping(path="/{boardId}", consumes = {"multipart/form-data"})
     @Operation(summary = "[A] 게시글 사진 업로드", description = "게시글 사진 업로드")
@@ -54,6 +65,16 @@ public class FileUploadController {
         return ResponseModel.success(url);
     }
 
+    @Transactional
+    @DeleteMapping(path="/{boardId}")
+    @Operation(summary = "[D] 게시글 사진 삭제", description = "게시글 사진 삭제")
+    public ResponseModel<?> boardDelete(
+            @PathVariable("boardId") Long boardId
+    ) {
+        boardImageRepository.deleteAllByBoardId(boardId);
+        return ResponseModel.success(true);
+    }
+
     @PostMapping(path="/program/{programId}" , consumes = {"multipart/form-data"})
     @Operation(summary = "[A] 프로그램 사진 업로드", description = "프로그램 사진 업로드")
     public ResponseModel<?> programUpload(
@@ -64,6 +85,17 @@ public class FileUploadController {
         Program program = programService.getProgramById(programId);
         program.setThumbnail(url);
         programRepository.save(program);
+        return ResponseModel.success(url);
+    }
+
+    @PostMapping(path="/popup/{popupId}" , consumes = {"multipart/form-data"})
+    @Operation(summary = "[A] 팝업 사진 업로드", description = "팝업 사진 업로드")
+    public ResponseModel<?> popupUpload(
+            @PathVariable Long popupId,
+            @RequestParam(value="image", required = false) MultipartFile multipartFile
+    ) throws FileUploadFailException {
+        String url = fileUploadService.saveFile(multipartFile, "popups/" + popupId);
+        fileService.popupUpload(popupId, url);
         return ResponseModel.success(url);
     }
 

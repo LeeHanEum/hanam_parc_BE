@@ -9,8 +9,6 @@ public class PopUpRequestDto {
 
     private String name;
 
-    private Long size;
-
     private Boolean isShow;
 
 }
