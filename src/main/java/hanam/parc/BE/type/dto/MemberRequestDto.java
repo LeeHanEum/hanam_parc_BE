@@ -2,6 +2,8 @@ package hanam.parc.BE.type.dto;
 
 import hanam.parc.BE.type.etc.DisabilityType;
 import hanam.parc.BE.type.etc.Gender;
+import hanam.parc.BE.type.etc.MemberRole;
+import hanam.parc.BE.type.etc.MemberStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,5 +31,9 @@ public class MemberRequestDto {
     private DisabilityType disabilityType;
 
     private LocalDate birth;
+
+    private MemberRole memberRole;
+
+    private MemberStatus memberStatus;
 
 }

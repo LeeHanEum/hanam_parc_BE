@@ -73,6 +73,8 @@ public class MemberService {
         member.setEmail(memberRequestDto.getEmail());
         member.setBirth(memberRequestDto.getBirth());
         member.setDisabilityType(memberRequestDto.getDisabilityType());
+        member.setMemberRole(memberRequestDto.getMemberRole());
+        member.setMemberStatus(memberRequestDto.getMemberStatus());
         memberRepository.save(member);
     }
 

@@ -25,6 +25,8 @@ public interface MemberMapper {
             @Mapping(target = "address", source = "memberRequestDto.address"),
             @Mapping(target = "email", source = "memberRequestDto.email"),
             @Mapping(target = "birth", source = "memberRequestDto.birth"),
+            @Mapping(target = "memberRole", source = "memberRequestDto.memberRole"),
+            @Mapping(target = "memberStatus", source = "memberRequestDto.memberStatus"),
     })
     Member MemberRequestDtoToMember(MemberRequestDto memberRequestDto);
 

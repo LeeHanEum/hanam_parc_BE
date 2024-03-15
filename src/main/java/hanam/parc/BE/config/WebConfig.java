@@ -37,7 +37,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "/logout",
                         "/board/**",
                         "/board",
-                        "/board/"
+                        "/program/**",
+                        "/program",
+                        "/popup/**",
+                        "/popup"
                 ); // 로그인 페이지는 JWT 토큰 검사에서 제외합니다.
     }
 
