@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DisabilityType {
 
+    NULL("NULL", "미지정"),
     BLIND("BLIND", "시각장애"),
     DEAF("DEAF", "청각장애"),
     MUTE("MUTE", "언어장애"),
