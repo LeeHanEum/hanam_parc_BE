@@ -18,4 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     List<Member> findAllByMemberRole(MemberRole memberRole);
 
+    Page<Member> findAllByOrderByLastLoginTimeDesc(Pageable pageable);
+
 }

@@ -45,6 +45,17 @@ public class MemberController {
         return ResponseModel.success(memberList);
     }
 
+    @GetMapping("/last_login")
+    @Operation(summary = "[A] 최근 로그인한 회원 조회", description = "최근 로그인한 회원 조회")
+    public ResponseModel<?> getLastLoginMemberList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MemberResponseDto> memberList = memberService.getLastLoginMemberList(pageable);
+        return ResponseModel.success(memberList);
+    }
+
     @GetMapping("")
     @Operation(summary = "[U] 회원 조회", description = "회원 조회")
     public ResponseModel<?> getMember(

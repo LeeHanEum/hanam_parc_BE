@@ -38,4 +38,6 @@ public class MemberResponseDto {
     private String birth;
 
     private String lastLoginTime;
+
+    private String createdAt;
 }

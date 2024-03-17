@@ -73,6 +73,11 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
+    public Long getApplicationCountByProgram(Long programId) {
+        Program program = programService.getProgramById(programId);
+        return applicationRepository.countByProgram(program);
+    }
+
     public void updateApplication(Long id, ApplicationRequestDto applicationRequestDto) {
         Member member = memberService.getCurrentMember();
         Application application = applicationRepository.findById(id).orElseThrow();

@@ -14,7 +14,7 @@ public interface QnARepository extends JpaRepository<QnA, Long> {
 
     List<QnA> findAllByWriter(Member member);
 
-    Page<QnA> findAllByWriter(Member member, Pageable pageable);
+    Page<QnA> findAllByWriterOrderByCreatedAtDesc(Member member, Pageable pageable);
 
     Page<QnA> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }

@@ -92,6 +92,17 @@ public class BoardController {
         return ResponseModel.success(boardList);
     }
 
+    @GetMapping("/page")
+    @Operation(summary = "[U] 게시판 페이징 리스트 조회", description = "게시판 페이징 리스트 조회")
+    public ResponseModel<?> getBoardListByPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BoardResponseDto> boardList = boardService.getBoardListByPage(pageable);
+        return ResponseModel.success(boardList);
+    }
+
     @GetMapping("/my")
     @Operation(summary = "[U] 내 게시판 리스트 조회", description = "내 게시판 리스트 조회")
     public ResponseModel<?> getMyBoardList() {

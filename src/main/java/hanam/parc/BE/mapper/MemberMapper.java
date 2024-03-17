@@ -44,7 +44,8 @@ public interface MemberMapper {
             @Mapping(target = "memberStatus", source = "member.memberStatus"),
             @Mapping(target = "disabilityType", source = "member.disabilityType"),
             @Mapping(target = "birth", source = "member.birth"),
-            @Mapping(target = "lastLoginTime", source = "member.lastLoginTime")
+            @Mapping(target = "lastLoginTime", source = "member.lastLoginTime"),
+            @Mapping(target = "createdAt", source = "member.createdAt"),
     })
     MemberResponseDto MemberToMemberResponseDto(Member member);
 

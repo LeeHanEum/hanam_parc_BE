@@ -76,6 +76,11 @@ public class ProgramService {
                 .collect(Collectors.toList());
     }
 
+    public Page<ProgramResponseDto> getProgramListByStatusAndPage(ProgramStatus programStatus, Pageable pageable) {
+        Page<Program> programList = programRepository.findAllByProgramStatusOrderByCreatedAtDesc(programStatus, pageable);
+        return programList.map(ProgramMapper.INSTANCE::ProgramToProgramResponseDto);
+    }
+
     public void updateProgram(Long id, ProgramRequestDto programRequestDto) {
         Member member = memberService.getCurrentMember();
         Program program = programRepository.findById(id).orElseThrow();

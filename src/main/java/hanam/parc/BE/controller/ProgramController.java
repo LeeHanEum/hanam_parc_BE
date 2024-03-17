@@ -104,6 +104,22 @@ public class ProgramController {
         }
     }
 
+    @GetMapping("/status/page")
+    @Operation(summary = "[U] Program 상태별 페이징 리스트 조회", description = "Program 상태별 페이징 리스트 조회")
+    public ResponseModel<?> getProgramListByStatusAndPage(
+            @RequestParam ProgramStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProgramResponseDto> programList = programService.getProgramListByStatusAndPage(status, pageable);
+            return ResponseModel.success(programList);
+        }catch (Exception e) {
+            return ResponseModel.fail("400", "status에 따른 프로그램 페이지를 불러 오는데 실패하였습니다.");
+        }
+    }
+
     @PatchMapping("/update")
     @Operation(summary = "[A] Program 수정", description = "Program 수정")
     public ResponseModel<?> updateProgram(

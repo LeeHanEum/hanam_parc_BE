@@ -19,4 +19,6 @@ public interface ProgramRepository extends JpaRepository<Program, Long> {
 
     Page<Program> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
+    Page<Program> findAllByProgramStatusOrderByCreatedAtDesc(ProgramStatus programStatus, Pageable pageable);
+
 }

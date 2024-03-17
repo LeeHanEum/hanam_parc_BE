@@ -62,6 +62,11 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    public Page<MemberResponseDto> getLastLoginMemberList(Pageable pageable) {
+        Page<Member> memberList = memberRepository.findAllByOrderByLastLoginTimeDesc(pageable);
+        return memberList.map(MemberMapper.INSTANCE::MemberToMemberResponseDto);
+    }
+
     public void updateMember(String id, MemberRequestDto memberRequestDto) {
         Member member = getMemberById(id);
         member.setName(memberRequestDto.getName());

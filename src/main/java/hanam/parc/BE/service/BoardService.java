@@ -69,6 +69,11 @@ public class BoardService {
         return boardPage.map(BoardMapper.INSTANCE::BoardToBoardResponseDto);
     }
 
+    public Page<BoardResponseDto> getBoardListByPage(Pageable pageable) {
+        Page<Board> boardPage = boardRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return boardPage.map(BoardMapper.INSTANCE::BoardToBoardResponseDto);
+    }
+
     public List<BoardResponseDto> getMyBoardList() {
         Member member = memberService.getCurrentMember();
         List<Board> boardList = boardRepository.findAllByMember(member);

@@ -92,6 +92,15 @@ public class ApplicationController {
         return ResponseModel.success(applicationResponseDtoList);
     }
 
+    @GetMapping("/program/count")
+    @Operation(summary = "[A] Program에 대한 Application 수 조회", description = "Program에 대한 Application 수 조회")
+    public ResponseModel<?> getApplicationCountByProgram(
+            @RequestParam Long programId
+    ) {
+        Long applicationCount = applicationService.getApplicationCountByProgram(programId);
+        return ResponseModel.success(applicationCount);
+    }
+
     @PatchMapping("")
     @Operation(summary = "[U] Application 수정", description = "Application 수정")
     public ResponseModel<?> updateApplication(

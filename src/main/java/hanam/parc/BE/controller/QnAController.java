@@ -75,7 +75,7 @@ public class QnAController {
             @RequestParam(defaultValue = "20") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<QnAResponseDto> qnaList = qnaService.getMyQnA(pageable);
+        Page<QnAResponseDto> qnaList = qnaService.getMyQnAPage(pageable);
         return ResponseModel.success(qnaList);
     }
 

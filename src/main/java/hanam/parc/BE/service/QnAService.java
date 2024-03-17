@@ -47,10 +47,10 @@ public class QnAService {
         return qnaPage.map(QnAMapper.INSTANCE::QnAToQnAResponseDto);
     }
 
-    public Page<QnAResponseDto> getMyQnA(Pageable pageable) {
+    public Page<QnAResponseDto> getMyQnAPage(Pageable pageable){
         Member member = memberService.getCurrentMember();
-        Page<QnA> qnaList = qnaRepository.findAllByWriter(member, pageable);
-        return qnaList.map(QnAMapper.INSTANCE::QnAToQnAResponseDto);
+        Page<QnA> qnaPage = qnaRepository.findAllByWriterOrderByCreatedAtDesc(member, pageable);
+        return qnaPage.map(QnAMapper.INSTANCE::QnAToQnAResponseDto);
     }
 
     public void updateQnA(Long id, QnARequestDto qnaRequestDto) {
