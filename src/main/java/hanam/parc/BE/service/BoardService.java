@@ -1,12 +1,15 @@
 package hanam.parc.BE.service;
 
 import hanam.parc.BE.mapper.BoardMapper;
+import hanam.parc.BE.repository.BoardFileRepository;
 import hanam.parc.BE.repository.BoardImageRepository;
 import hanam.parc.BE.repository.BoardRepository;
+import hanam.parc.BE.type.dto.BoardFileDto;
 import hanam.parc.BE.type.dto.BoardImageDto;
 import hanam.parc.BE.type.dto.BoardRequestDto;
 import hanam.parc.BE.type.dto.BoardResponseDto;
 import hanam.parc.BE.type.entity.Board;
+import hanam.parc.BE.type.entity.BoardFile;
 import hanam.parc.BE.type.entity.BoardImage;
 import hanam.parc.BE.type.entity.Member;
 import hanam.parc.BE.type.etc.BoardCategory;
@@ -19,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,10 +31,11 @@ public class BoardService {
 
     private final MemberService memberService;
 
-
     private final BoardRepository boardRepository;
 
     private final BoardImageRepository boardImageRepository;
+
+    private final BoardFileRepository boardFileRepository;
 
     public Long createBoard(BoardRequestDto boardRequestDto) {
         Member member = memberService.getCurrentMember();
@@ -48,6 +53,12 @@ public class BoardService {
         Board board = boardRepository.findById(id).orElseThrow();
         List<String> boardImageList = getBoardImageList(board);
         return new BoardImageDto(boardImageList);
+    }
+
+    public BoardFileDto getBoardFile(Long id) {
+        Board board = boardRepository.findById(id).orElseThrow();
+        Map<String, String> boardFileList = getBoardFileList(board);
+        return new BoardFileDto(boardFileList);
     }
 
     public List<BoardResponseDto> getBoardList() {
@@ -111,6 +122,12 @@ public class BoardService {
         return boardImageList.stream()
                 .map(BoardImage::getUrl)
                 .collect(Collectors.toList());
+    }
+
+    private Map<String, String> getBoardFileList(Board board) {
+        List<BoardFile> boardFileList = boardFileRepository.findAllByBoard(board);
+        return boardFileList.stream()
+                .collect(Collectors.toMap(BoardFile::getName, BoardFile::getUrl));
     }
 
 }

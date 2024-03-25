@@ -1,6 +1,7 @@
 package hanam.parc.BE.controller;
 
 import hanam.parc.BE.service.BoardService;
+import hanam.parc.BE.type.dto.BoardFileDto;
 import hanam.parc.BE.type.dto.BoardImageDto;
 import hanam.parc.BE.type.dto.BoardRequestDto;
 import hanam.parc.BE.type.dto.BoardResponseDto;
@@ -62,6 +63,15 @@ public class BoardController {
     ) {
         BoardImageDto boardImage = boardService.getBoardImage(id);
         return ResponseModel.success(boardImage);
+    }
+
+    @GetMapping("/file")
+    @Operation(summary = "[U] 게시판 파일 조회", description = "게시판 파일 조회")
+    public ResponseModel<?> getBoardFile(
+            @RequestParam Long id
+    ) {
+        BoardFileDto boardFile = boardService.getBoardFile(id);
+        return ResponseModel.success(boardFile);
     }
 
     @GetMapping("/list")

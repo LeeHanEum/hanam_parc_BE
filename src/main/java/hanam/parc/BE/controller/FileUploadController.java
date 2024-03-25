@@ -46,8 +46,6 @@ public class FileUploadController {
 
     private final ProgramRepository programRepository;
 
-    private final PopUpRepository PopUpRepository;
-
     private final FileService fileService;
 
     @PostMapping(path="/{boardId}", consumes = {"multipart/form-data"})
@@ -62,6 +60,17 @@ public class FileUploadController {
         boardImage.setBoard(board);
         boardImage.setUrl(url);
         boardImageRepository.save(boardImage);
+        return ResponseModel.success(url);
+    }
+
+    @PostMapping(path="/{boardId}/file", consumes = {"multipart/form-data"})
+    @Operation(summary = "[A] 게시글 파일 업로드", description = "게시글 파일 업로드")
+    public ResponseModel<?> boardFileUpload(
+            @PathVariable("boardId") Long boardId,
+            @RequestParam(value="file", required = false) MultipartFile multipartFile
+    ) throws FileUploadFailException {
+        String url = fileUploadService.saveFile(multipartFile, "file/boards/" + boardId);
+        fileService.boardFileUpload(boardId, url, multipartFile.getOriginalFilename());
         return ResponseModel.success(url);
     }
 
