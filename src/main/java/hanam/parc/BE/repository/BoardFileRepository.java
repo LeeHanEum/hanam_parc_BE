@@ -12,5 +12,5 @@ public interface BoardFileRepository extends JpaRepository<BoardFile, Long> {
 
     List<BoardFile> findAllByBoard(Board board);
 
-    void deleteAllByBoardId(Long boardId);
+    BoardFile findByUrl(String url);
 }

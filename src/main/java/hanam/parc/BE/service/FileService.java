@@ -25,6 +25,8 @@ public class FileService {
 
     private final BoardFileRepository boardFileRepository;
 
+    private final BoardImageRepository boardImageRepository;
+
     private final GalleryRepository galleryRepository;
 
     private final GalleryImageRepository galleryImageRepository;
@@ -38,6 +40,16 @@ public class FileService {
         boardFile.setUrl(url);
         boardFile.setName(originalFilename);
         boardFileRepository.save(boardFile);
+    }
+
+    public void boardImageDelete(String url) {
+        BoardImage boardImage = boardImageRepository.findByUrl(url);
+        boardImageRepository.delete(boardImage);
+    }
+
+    public void boardFileDelete(String url) {
+        BoardFile boardFile = boardFileRepository.findByUrl(url);
+        boardFileRepository.delete(boardFile);
     }
 
     public void popupUpload(Long popupId,  String url) {

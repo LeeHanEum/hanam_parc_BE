@@ -14,4 +14,6 @@ public interface BoardImageRepository extends JpaRepository<BoardImage, Long> {
 
     void deleteAllByBoardId(Long boardId);
 
+    BoardImage findByUrl(String url);
+
 }

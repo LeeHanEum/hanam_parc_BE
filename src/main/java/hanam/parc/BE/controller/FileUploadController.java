@@ -63,6 +63,26 @@ public class FileUploadController {
         return ResponseModel.success(url);
     }
 
+    @Transactional
+    @DeleteMapping(path="/{boardId}")
+    @Operation(summary = "[A] 게시글 사진 삭제", description = "게시글 사진 삭제")
+    public ResponseModel<?> boardImageDelete(
+            @RequestParam("url") String url
+    ) {
+        fileService.boardImageDelete(url);
+        return ResponseModel.success(true);
+    }
+
+    @Transactional
+    @DeleteMapping(path="/{boardId}/file")
+    @Operation(summary = "[A] 게시글 파일 삭제", description = "게시글 파일 삭제")
+    public ResponseModel<?> boardFileDelete(
+            @RequestParam("url") String url
+    ) {
+        fileService.boardFileDelete(url);
+        return ResponseModel.success(true);
+    }
+
     @PostMapping(path="/{boardId}/file", consumes = {"multipart/form-data"})
     @Operation(summary = "[A] 게시글 파일 업로드", description = "게시글 파일 업로드")
     public ResponseModel<?> boardFileUpload(
@@ -74,15 +94,7 @@ public class FileUploadController {
         return ResponseModel.success(url);
     }
 
-    @Transactional
-    @DeleteMapping(path="/{boardId}")
-    @Operation(summary = "[D] 게시글 사진 삭제", description = "게시글 사진 삭제")
-    public ResponseModel<?> boardDelete(
-            @PathVariable("boardId") Long boardId
-    ) {
-        boardImageRepository.deleteAllByBoardId(boardId);
-        return ResponseModel.success(true);
-    }
+
 
     @PostMapping(path="/program/{programId}" , consumes = {"multipart/form-data"})
     @Operation(summary = "[A] 프로그램 사진 업로드", description = "프로그램 사진 업로드")
